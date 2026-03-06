@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ETHEREA — 3-Floor Activation Proposal</title>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://unpkg.com/recharts@2.12.0/umd/Recharts.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0D1117; font-family: Arial, sans-serif; font-size: 13px; color: #E8F0FA; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #0D1117; }
+    ::-webkit-scrollbar-thumb { background: #2D5A8E; border-radius: 3px; }
+    table { border-collapse: collapse; }
+    button { cursor: pointer; font-family: Arial, sans-serif; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState } = React;
+    const { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
+            ResponsiveContainer, PieChart, Pie, Cell } = Recharts;
+
+    const fmt  = n => "$" + n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    const fmtK = n => "$" + (n / 1000).toFixed(1) + "k";
+    const TAX  = 0.08875;
+
+    /* ── DATA ─────────────────────────────────────────────────────────── */
+    const computerItems = [
+      { category:"GPU",        item:"NVIDIA RTX PRO 6000 Blackwell",               spec:"96GB GDDR7 ECC | 24,064 CUDA Cores | PCIe 5.0 | 600W TDP",        qty:1, unit:8900.00 },
+      { category:"CPU",        item:"Intel Core Ultra 9 285K",                     spec:"24-core | 5.7GHz boost | LGA 1851 | Arrow Lake",                   qty:1, unit:589.00  },
+      { category:"Motherboard",item:"MSI MEG Z890 ACE",                            spec:"Z890 | PCIe 5.0 | WiFi 7 | 10G LAN | Thunderbolt 5",               qty:1, unit:599.00  },
+      { category:"RAM",        item:"128GB DDR5-6400 (4×32GB)",                    spec:"Corsair Dominator Titanium | CUDIMM compatible",                   qty:1, unit:520.00  },
+      { category:"Storage",    item:"4TB NVMe PCIe Gen 5 SSD",                     spec:"Crucial T705 | 14,500 MB/s read | M.2 2280",                       qty:1, unit:380.00  },
+      { category:"PSU",        item:"Corsair HX1600i 1600W",                       spec:"80+ Titanium | Fully modular | ATX 3.0 | 16-pin PCIe",             qty:1, unit:349.99  },
+      { category:"Case",       item:"Phanteks Enthoo Pro 2 Full Tower",             spec:"420mm+ GPU clearance | Dual chamber | Tempered glass",             qty:1, unit:199.99  },
+      { category:"Cooling",    item:"NZXT Kraken 360 AIO",                         spec:"360mm | 3× 120mm fans | LCD display | LGA1851",                    qty:1, unit:179.99  },
+      { category:"OS",         item:"Windows 11 Pro",                              spec:"Full license | OEM | USB key",                                     qty:1, unit:199.99  },
+      { category:"Misc",       item:"Cables, adapters, thermal paste",              spec:"16-pin PCIe adapters | Arctic MX-6 | Cable management kit",        qty:1, unit:60.00   },
+      { category:"Displays",   item:'Hisense 100" U8 MiniLED 4K TV (2025)',        spec:"5,000 nits | 165Hz | Dolby Vision IQ | Google TV | 100U8QG",       qty:3, unit:4500.00 },
+      { category:"Displays",   item:'Heavy Duty 100" TV Wall Mount (VESA 600×400)', spec:"Articulating arm | 300 lb max | Powder-coated steel",              qty:3, unit:249.99  },
+      { category:"Monitor",    item:'Dell UltraSharp 32" 4K USB-C (U3225QE)',      spec:"3840×2160 | USB-C 90W | KVM | 100Hz | HDR400",                    qty:1, unit:629.99  },
+      { category:"Peripherals",item:"Logitech MX Keys S + MX Master 3S",           spec:"Wireless keyboard + mouse | Multi-device | USB-C rechargeable",    qty:1, unit:209.98  },
+      { category:"SDI Chain",  item:"Blackmagic HDMI→SDI Micro Converter w/PSU",   spec:"3G-SDI | Broadcast grade | USB-C power | At PC end",               qty:3, unit:49.99   },
+      { category:"SDI Chain",  item:"Blackmagic SDI→HDMI Micro Converter w/PSU",   spec:"3G-SDI | 17-pt 3D LUT | SDI loop out | At TV end",                 qty:3, unit:49.99   },
+      { category:"SDI Chain",  item:"DP 2.1 to HDMI 2.1 Active Cable 6ft",         spec:"Active chipset | 4K60 | GPU DP output to converter HDMI input",    qty:3, unit:24.99   },
+      { category:"SDI Chain",  item:"Belden 1694A 12G-SDI BNC Cable 100ft",        spec:"75 Ohm RG6 | BNC to BNC | Inter-floor cable run",                  qty:3, unit:79.99   },
+      { category:"SDI Chain",  item:"DisplayPort 1.4 Cable 6ft",                   spec:"4K@120Hz | DP 1.4 | GPU direct to command monitor",                qty:1, unit:19.99   },
+      { category:"Cameras",    item:"Intel RealSense D455 Depth Camera",            spec:"87°×58° FoV | Up to 6m range | Global shutter | IMU | USB-C",     qty:3, unit:419.00  },
+      { category:"Cameras",    item:"Camera Mounting Arm / Wall Clamp Kit",         spec:"Adjustable articulating arm | 1/4-20 thread | Overhead mount",    qty:3, unit:39.99   },
+      { category:"Audio",      item:"Shure MV7 USB/XLR Microphone",                spec:"Cardioid dynamic | USB + XLR | All-metal body | Per floor",        qty:3, unit:249.00  },
+      { category:"Audio",      item:"Elgato Wave Low Profile Boom Arm",             spec:"Desk clamp | Cable management | 360° articulation",                qty:3, unit:34.99   },
+      { category:"Frame",      item:"Custom Welded Arc Frame — Steel/Aluminum",     spec:"3× 100\" displays | Arced top | Internal cable mgmt | Matte black | Floor anchored", qty:1, unit:8500.00 },
+    ];
+
+    const laborItems = [
+      { item:"AV Systems Integrator / Lead Technician",  spec:"Full system build, signal chain, display mounting, SDI runs", qty:2, unit:850,  unitLabel:"day"  },
+      { item:"AV Assistant Technician",                  spec:"Cable pulling, labeling, mounting assist, camera positioning", qty:2, unit:450,  unitLabel:"day"  },
+      { item:"Structural Rigger / Fabrication Install",  spec:"Arc frame placement, floor anchoring, VESA TV mounting",       qty:1, unit:1200, unitLabel:"flat" },
+      { item:"Licensed Electrician",                     spec:"Dedicated 20A circuit, PDU setup, power distribution",         qty:1, unit:950,  unitLabel:"flat" },
+      { item:"Network Setup & Configuration",             spec:"Venue internet, workstation config, B300 cloud endpoint",      qty:1, unit:400,  unitLabel:"flat" },
+      { item:"System Test & Rehearsal Day",               spec:"Full end-to-end test, ETHEREA run-through, calibration",       qty:1, unit:850,  unitLabel:"day"  },
+      { item:"Strike / De-installation (post-event)",    spec:"Teardown, cable recovery, equipment packing",                  qty:1, unit:700,  unitLabel:"flat" },
+      { item:"Shipping & Equipment Transport (round trip)", spec:"Freight for workstation, TVs, arc frame, peripherals",      qty:1, unit:1800, unitLabel:"flat" },
+    ];
+
+    const compSubtotal  = computerItems.reduce((a,r) => a + r.qty * r.unit, 0);
+    const compTax       = compSubtotal * TAX;
+    const compTotal     = compSubtotal + compTax;
+    const laborSubtotal = laborItems.reduce((a,r) => a + r.qty * r.unit, 0);
+    const laborTax      = laborSubtotal * TAX;
+    const laborTotal    = laborSubtotal + laborTax;
+    const B300          = 40000;
+    const allIn         = compTotal + B300 + laborTotal;
+
+    const catColors = {
+      GPU:"#F5C842", CPU:"#5BA3D9", Motherboard:"#4ECDC4", RAM:"#A8D4A8",
+      Storage:"#FF6B6B", PSU:"#C084FC", Case:"#FB923C", Cooling:"#34D399",
+      OS:"#60A5FA", Misc:"#94A3B8", Displays:"#F472B6", Monitor:"#FBBF24",
+      Peripherals:"#A78BFA", "SDI Chain":"#2DD4BF", Cameras:"#E879F9",
+      Audio:"#4ADE80", Frame:"#FB7185",
+    };
+
+    const catRollup = {};
+    computerItems.forEach(r => { catRollup[r.category] = (catRollup[r.category]||0) + r.qty*r.unit; });
+    const pieData = Object.entries(catRollup).map(([name,value]) => ({name,value}));
+
+    const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    const monthlyData = MONTHS.map((m,i) => ({
+      month: m,
+      hardware: i===0 ? compTotal  : 0,
+      labor:    i===0 ? laborTotal : 0,
+      compute:  B300/12,
+    }));
+
+    /* ── STYLE TOKENS ─────────────────────────────────────────────────── */
+    const D = "#0D1117", N = "#1E3A5F", BL = "#2D5A8E", LBL = "#5BA3D9";
+    const card  = (extra={}) => ({ background:"#111820", border:`1px solid ${BL}`, borderRadius:8, padding:"20px 22px", marginBottom:16, ...extra });
+    const scard = (extra={}) => ({ background:N, border:`1px solid ${BL}`, borderRadius:8, padding:"14px 16px", flex:1, minWidth:130, ...extra });
+
+    /* ── COMPONENTS ───────────────────────────────────────────────────── */
+    const Tip = ({active,payload,label}) => !active||!payload?.length ? null : (
+      <div style={{background:D,border:`1px solid ${BL}`,borderRadius:6,padding:"10px 14px",fontSize:12}}>
+        <div style={{color:LBL,fontWeight:700,marginBottom:4}}>{label}</div>
+        {payload.map((p,i)=><div key={i} style={{color:"#E0ECF8"}}>{p.name}: <b>{fmt(p.value)}</b></div>)}
+      </div>
+    );
+
+    const StatCard = ({label,value,sub,accent=LBL}) => (
+      <div style={scard()}>
+        <div style={{fontSize:10,color:"#7BA0C0",textTransform:"uppercase",letterSpacing:1,marginBottom:5}}>{label}</div>
+        <div style={{fontSize:20,fontWeight:700,color:accent}}>{value}</div>
+        {sub && <div style={{fontSize:11,color:"#556677",marginTop:3}}>{sub}</div>}
+      </div>
+    );
+
+    const Tag = ({label,color}) => (
+      <span style={{background:color+"22",color,border:`1px solid ${color}44`,borderRadius:4,fontSize:10,padding:"2px 7px",fontWeight:700}}>
+        {label}
+      </span>
+    );
+
+    /* ── MAIN APP ─────────────────────────────────────────────────────── */
+    function App() {
+      const [tab, setTab] = useState("scene");
+      const [exp, setExp] = useState(null);
+
+      const TABS = [
+        ["scene","🌐 3D Concept"],
+        ["overview","📊 Overview"],
+        ["computer","💻 Hardware"],
+        ["compute","☁️ Cloud Compute"],
+        ["installation","🔧 Installation"],
+      ];
+
+      return (
+        <div style={{background:D,minHeight:"100vh",color:"#E8F0FA"}}>
+
+          {/* HEADER */}
+          <div style={{background:"linear-gradient(135deg,#1E3A5F,#111820)",borderBottom:`2px solid ${BL}`,padding:"16px 28px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+            <div>
+              <div style={{fontSize:17,fontWeight:700,color:"#E8F0FA",letterSpacing:1}}>ETHEREA — 3-FLOOR ACTIVATION</div>
+              <div style={{fontSize:11,color:"#557799",marginTop:3}}>Full Project Proposal · Hardware + Installation + Cloud Compute · March 2026</div>
+            </div>
+            <div style={{textAlign:"right"}}>
+              <div style={{fontSize:22,fontWeight:800,color:"#F472B6"}}>{fmt(allIn)}</div>
+              <div style={{fontSize:10,color:"#557799",marginTop:2}}>ALL-IN TOTAL</div>
+            </div>
+          </div>
+
+          {/* STAT BAR */}
+          <div style={{display:"flex",gap:10,padding:"14px 28px",borderBottom:`1px solid #1A2840`,flexWrap:"wrap"}}>
+            <StatCard label="Hardware"      value={fmtK(compTotal)}  sub="incl. 8.875% NYC tax"    accent="#F5C842" />
+            <StatCard label="Installation"  value={fmtK(laborTotal)} sub="labor + shipping + tax"  accent="#4ECDC4" />
+            <StatCard label="Cloud Compute" value="$40k / yr"        sub="$3,333/mo · B300 Blackwell" accent="#A8D4A8" />
+            <StatCard label="All-In Total"  value={fmtK(allIn)}      sub="full project cost"       accent="#F472B6" />
+          </div>
+
+          {/* TAB NAV */}
+          <div style={{display:"flex",gap:2,padding:"12px 28px 0",borderBottom:`1px solid #1A2840`,overflowX:"auto"}}>
+            {TABS.map(([t,l]) => (
+              <button key={t} onClick={()=>setTab(t)} style={{
+                padding:"8px 18px", borderRadius:"6px 6px 0 0",
+                border:`1px solid ${tab===t?BL:"transparent"}`,
+                borderBottom: tab===t?`1px solid ${D}`:"none",
+                background: tab===t?"#111820":"transparent",
+                color: tab===t?"#E8F0FA":"#557799",
+                fontSize:12, fontWeight:tab===t?700:400,
+                whiteSpace:"nowrap", marginBottom:tab===t?-1:0,
+              }}>{l}</button>
+            ))}
+          </div>
+
+          <div style={{padding:"20px 28px"}}>
+
+            {/* ── 3D CONCEPT ── */}
+            {tab==="scene" && (
+              <div>
+                <div style={{...card({padding:0,overflow:"hidden"})}}>
+                  <div style={{padding:"16px 20px 12px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+                    <div>
+                      <div style={{fontSize:13,fontWeight:700,color:LBL}}>ETHEREA — 3D CONCEPT MODEL</div>
+                      <div style={{fontSize:11,color:"#557799",marginTop:2}}>Drag to orbit · Scroll to zoom · Click objects to explore</div>
+                    </div>
+                    <span style={{fontSize:11,color:"#557799",background:D,border:`1px solid ${BL}`,borderRadius:4,padding:"4px 10px"}}>Powered by Spline</span>
+                  </div>
+                  <div style={{height:560}}>
+                    <iframe
+                      src="https://my.spline.design/untitled-pOvVpTTwH5CfmCkDVy7wjt5I/"
+                      frameBorder="0"
+                      style={{width:"100%",height:"100%",display:"block",border:"none"}}
+                      title="ETHEREA 3D Concept"
+                      allowFullScreen
+                    />
+                  </div>
+                </div>
+                <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:12}}>
+                  {[
+                    ["🖥️","Displays",     '3× Hisense 100" U8 MiniLED — One per floor'],
+                    ["⚡", "GPU",          "NVIDIA RTX PRO 6000 Blackwell · 96GB GDDR7"],
+                    ["📡","Depth Sensing","Intel RealSense D455 · One per floor"],
+                    ["🎙️","Voice Input",  "Shure MV7 Microphone · One per floor"],
+                    ["🔄","Signal Chain", "SDI · Belden 1694A · Blackmagic converters"],
+                    ["☁️","Cloud Compute","NVIDIA B300 Blackwell · $40,000 / year"],
+                  ].map(([icon,label,val])=>(
+                    <div key={label} style={{background:"#111820",border:`1px solid ${BL}`,borderRadius:8,padding:"14px 16px"}}>
+                      <div style={{fontSize:20,marginBottom:8}}>{icon}</div>
+                      <div style={{fontSize:10,color:"#557799",textTransform:"uppercase",letterSpacing:0.8}}>{label}</div>
+                      <div style={{fontSize:12,color:"#E8F0FA",marginTop:4,fontWeight:500}}>{val}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* ── OVERVIEW ── */}
+            {tab==="overview" && (
+              <div>
+                <div style={card()}>
+                  <div style={{fontSize:13,fontWeight:700,color:LBL,marginBottom:14}}>12-MONTH SPEND PROJECTION</div>
+                  <ResponsiveContainer width="100%" height={260}>
+                    <BarChart data={monthlyData} margin={{top:5,right:10,left:10,bottom:0}}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#1A2840" />
+                      <XAxis dataKey="month" tick={{fill:"#7BA0C0",fontSize:11}} axisLine={{stroke:BL}} />
+                      <YAxis tick={{fill:"#7BA0C0",fontSize:10}} axisLine={{stroke:BL}} tickFormatter={v=>"$"+(v/1000).toFixed(0)+"k"} />
+                      <Tooltip content={<Tip/>} />
+                      <Bar dataKey="hardware" stackId="a" name="Hardware"     fill="#F5C842" />
+                      <Bar dataKey="labor"    stackId="a" name="Installation" fill="#4ECDC4" />
+                      <Bar dataKey="compute"  stackId="a" name="B300 Compute" fill={BL} radius={[3,3,0,0]} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                  <div style={{display:"flex",gap:16,justifyContent:"center",marginTop:10,flexWrap:"wrap"}}>
+                    {[["#F5C842","Hardware (Month 1)"],["#4ECDC4","Installation (Month 1)"],["#2D5A8E","B300 Compute ($3,333/mo)"]].map(([c,l])=>(
+                      <span key={l} style={{fontSize:11,color:"#90B8E0",display:"flex",alignItems:"center",gap:5}}>
+                        <span style={{width:10,height:10,background:c,borderRadius:2,flexShrink:0,display:"inline-block"}}/>
+                        {l}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:16}}>
+                  <div style={card()}>
+                    <div style={{fontSize:13,fontWeight:700,color:LBL,marginBottom:14}}>HARDWARE BY CATEGORY</div>
+                    <ResponsiveContainer width="100%" height={220}>
+                      <PieChart>
+                        <Pie data={pieData} cx="50%" cy="50%" innerRadius={55} outerRadius={90} dataKey="value" paddingAngle={2}>
+                          {pieData.map((d,i)=><Cell key={i} fill={catColors[d.name]||LBL}/>)}
+                        </Pie>
+                        <Tooltip formatter={v=>fmt(v)}/>
+                      </PieChart>
+                    </ResponsiveContainer>
+                    <div style={{display:"flex",flexWrap:"wrap",gap:"4px 10px",marginTop:8}}>
+                      {[...pieData].sort((a,b)=>b.value-a.value).slice(0,8).map(d=>(
+                        <span key={d.name} style={{fontSize:10,color:"#90B8E0",display:"flex",alignItems:"center",gap:4}}>
+                          <span style={{width:8,height:8,background:catColors[d.name]||LBL,borderRadius:2,flexShrink:0,display:"inline-block"}}/>
+                          {d.name} {fmtK(d.value)}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div style={card()}>
+                    <div style={{fontSize:13,fontWeight:700,color:LBL,marginBottom:14}}>COST SUMMARY</div>
+                    {[
+                      ["Hardware (pre-tax)",          fmt(compSubtotal), "#E8F0FA", false],
+                      ["Hardware Tax (8.875%)",        fmt(compTax),      "#7BA0C0", false],
+                      ["Hardware Total",               fmt(compTotal),    "#F5C842", true ],
+                      ["Installation Labor (pre-tax)", fmt(laborSubtotal),"#E8F0FA", false],
+                      ["Installation Tax (8.875%)",    fmt(laborTax),     "#7BA0C0", false],
+                      ["Installation Total",           fmt(laborTotal),   "#4ECDC4", true ],
+                      ["B300 Cloud Compute (annual)",  fmt(B300),         "#A8D4A8", false],
+                      ["ALL-IN TOTAL",                 fmt(allIn),        "#F472B6", true ],
+                    ].map(([label,val,color,bold],i)=>(
+                      <div key={label} style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"7px 10px",borderRadius:4,background:i===7?N:i%2===0?"transparent":"#0D1820",borderTop:i===7?`1px solid ${BL}`:"none",marginTop:i===7?6:0}}>
+                        <span style={{color:bold?"#E8F0FA":"#7BA0C0",fontWeight:bold?700:400,fontSize:i===7?13:12}}>{label}</span>
+                        <span style={{color,fontWeight:bold?700:400}}>{val}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* ── HARDWARE ── */}
+            {tab==="computer" && (
+              <div>
+                <div style={{display:"flex",gap:12,marginBottom:16,flexWrap:"wrap"}}>
+                  <StatCard label="Subtotal"    value={fmt(compSubtotal)} sub="before tax"  accent="#F5C842"/>
+                  <StatCard label="NYC Tax"     value={fmt(compTax)}      sub="8.875%"       accent="#7BA0C0"/>
+                  <StatCard label="Total w/Tax" value={fmt(compTotal)}    sub="all hardware" accent="#F472B6"/>
+                </div>
+                <div style={card({padding:0})}>
+                  <table style={{width:"100%"}}>
+                    <thead>
+                      <tr style={{background:N}}>
+                        {["Category","Item","Qty","Unit Price","Total"].map((h,i)=>(
+                          <th key={h} style={{padding:"10px 14px",textAlign:i>1?"right":"left",color:LBL,fontSize:11,fontWeight:700,borderBottom:`1px solid ${BL}`,whiteSpace:"nowrap"}}>{h}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {computerItems.map((r,i)=>(
+                        <tr key={i} onClick={()=>setExp(exp===`c${i}`?null:`c${i}`)} style={{background:i%2===0?"transparent":"#0D1820",cursor:"pointer"}}>
+                          <td style={{padding:"9px 14px"}}><Tag label={r.category} color={catColors[r.category]||LBL}/></td>
+                          <td style={{padding:"9px 14px",color:"#E8F0FA"}}>
+                            {r.item}
+                            {exp===`c${i}` && <div style={{color:"#668899",fontSize:11,marginTop:3}}>{r.spec}</div>}
+                          </td>
+                          <td style={{padding:"9px 14px",textAlign:"right",color:"#7BA0C0"}}>{r.qty}</td>
+                          <td style={{padding:"9px 14px",textAlign:"right",color:"#7BA0C0"}}>{fmt(r.unit)}</td>
+                          <td style={{padding:"9px 14px",textAlign:"right",color:"#E8F0FA",fontWeight:600}}>{fmt(r.qty*r.unit)}</td>
+                        </tr>
+                      ))}
+                      <tr style={{background:N,borderTop:`2px solid ${BL}`}}>
+                        <td colSpan={4} style={{padding:"10px 14px",color:"#F5C842",fontWeight:700,textAlign:"right"}}>TOTAL (incl. 8.875% tax)</td>
+                        <td style={{padding:"10px 14px",color:"#F5C842",fontWeight:700,textAlign:"right"}}>{fmt(compTotal)}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div style={{fontSize:11,color:"#445566",marginTop:6}}>↑ Click any row to expand specifications</div>
+              </div>
+            )}
+
+            {/* ── COMPUTE ── */}
+            {tab==="compute" && (
+              <div>
+                <div style={{display:"flex",gap:12,marginBottom:16,flexWrap:"wrap"}}>
+                  <StatCard label="Annual Spend"  value="$40,000"  sub="B300 cloud GPU rental"    accent="#A8D4A8"/>
+                  <StatCard label="Monthly Cost"  value="$3,333"   sub="recurring every month"    accent="#4ECDC4"/>
+                  <StatCard label="Daily Rate"    value="$109.59"  sub="amortized over 365 days"  accent="#7BA0C0"/>
+                </div>
+                <div style={card()}>
+                  <div style={{fontSize:13,fontWeight:700,color:LBL,marginBottom:14}}>MONTHLY COMPUTE SPEND</div>
+                  <ResponsiveContainer width="100%" height={200}>
+                    <BarChart data={MONTHS.map(m=>({month:m,cost:B300/12}))} margin={{top:5,right:10,left:10,bottom:0}}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#1A2840"/>
+                      <XAxis dataKey="month" tick={{fill:"#7BA0C0",fontSize:11}} axisLine={{stroke:BL}}/>
+                      <YAxis tick={{fill:"#7BA0C0",fontSize:10}} axisLine={{stroke:BL}} tickFormatter={v=>"$"+(v/1000).toFixed(1)+"k"} domain={[0,5000]}/>
+                      <Tooltip content={<Tip/>}/>
+                      <Bar dataKey="cost" name="B300 Compute" fill={BL} radius={[3,3,0,0]}>
+                        {MONTHS.map((_,i)=><Cell key={i} fill={`hsl(${200+i*5},60%,${40+i*1.5}%)`}/>)}
+                      </Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+                <div style={card()}>
+                  <div style={{fontSize:13,fontWeight:700,color:LBL,marginBottom:14}}>B300 COMPUTE DETAILS</div>
+                  <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12}}>
+                    {[
+                      ["GPU Architecture",      "NVIDIA Blackwell (B300)"],
+                      ["Use Case",              "AI inference · generative visual synthesis · distributed rendering"],
+                      ["Annual Cost",           "$40,000 / year"],
+                      ["Monthly Cost",          "$3,333.33 / month"],
+                      ["Commitment",            "12-month annual contract"],
+                      ["Recommended Providers", "CoreWeave · Lambda Labs · AWS"],
+                      ["On-Site GPU",           "RTX PRO 6000 — handles real-time display output"],
+                      ["Cloud Role",            "Heavy model inference offloading · batch generative workloads"],
+                    ].map(([k,v])=>(
+                      <div key={k} style={{background:"#0D1820",borderRadius:6,padding:"10px 14px",borderLeft:`3px solid ${BL}`}}>
+                        <div style={{fontSize:10,color:"#557799",textTransform:"uppercase",letterSpacing:0.8,marginBottom:3}}>{k}</div>
+                        <div style={{color:"#E8F0FA",fontSize:12}}>{v}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* ── INSTALLATION ── */}
+            {tab==="installation" && (
+              <div>
+                <div style={{display:"flex",gap:12,marginBottom:16,flexWrap:"wrap"}}>
+                  <StatCard label="Labor Subtotal" value={fmt(laborSubtotal)} sub="before tax"          accent="#4ECDC4"/>
+                  <StatCard label="NYC Tax"         value={fmt(laborTax)}      sub="8.875%"               accent="#7BA0C0"/>
+                  <StatCard label="Total w/Tax"     value={fmt(laborTotal)}    sub="all labor + shipping" accent="#F472B6"/>
+                </div>
+                <div style={card({padding:0})}>
+                  <table style={{width:"100%"}}>
+                    <thead>
+                      <tr style={{background:N}}>
+                        {["Role / Service","Scope","Days/Units","Rate","Total"].map((h,i)=>(
+                          <th key={h} style={{padding:"10px 14px",textAlign:i>1?"right":"left",color:LBL,fontSize:11,fontWeight:700,borderBottom:`1px solid ${BL}`}}>{h}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {laborItems.map((r,i)=>(
+                        <tr key={i} onClick={()=>setExp(exp===`l${i}`?null:`l${i}`)} style={{background:i%2===0?"transparent":"#0D1820",cursor:"pointer"}}>
+                          <td style={{padding:"9px 14px",color:"#E8F0FA",fontWeight:600}}>
+                            {r.item}
+                            {exp===`l${i}` && <div style={{color:"#668899",fontSize:11,marginTop:3}}>{r.spec}</div>}
+                          </td>
+                          <td style={{padding:"9px 14px",color:"#668899",fontSize:12}}>{r.spec.split(",")[0]}</td>
+                          <td style={{padding:"9px 14px",textAlign:"right",color:"#7BA0C0"}}>{r.qty} {r.unitLabel}</td>
+                          <td style={{padding:"9px 14px",textAlign:"right",color:"#7BA0C0"}}>{fmt(r.unit)}</td>
+                          <td style={{padding:"9px 14px",textAlign:"right",color:"#E8F0FA",fontWeight:600}}>{fmt(r.qty*r.unit)}</td>
+                        </tr>
+                      ))}
+                      <tr style={{background:N,borderTop:`2px solid ${BL}`}}>
+                        <td colSpan={4} style={{padding:"10px 14px",color:"#4ECDC4",fontWeight:700,textAlign:"right"}}>TOTAL (incl. 8.875% tax)</td>
+                        <td style={{padding:"10px 14px",color:"#4ECDC4",fontWeight:700,textAlign:"right"}}>{fmt(laborTotal)}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div style={card()}>
+                  <div style={{fontSize:13,fontWeight:700,color:LBL,marginBottom:12}}>INSTALLATION TIMELINE</div>
+                  {[
+                    ["Day 1",     "#F5C842","Structural rigger + electrician: arc frame placement, floor anchoring, dedicated circuit install"],
+                    ["Day 2",     "#4ECDC4","AV lead + assistant: workstation build, GPU install, OS + driver setup, SDI cable runs"],
+                    ["Day 3",     "#A8D4A8","AV lead + assistant: display mounting, converter setup, camera + mic positioning"],
+                    ["Day 4",     "#F472B6","Full system test + rehearsal: ETHEREA run-through, B300 cloud setup, calibration"],
+                    ["Post-event","#94A3B8","Strike: teardown, cable recovery, equipment packing + freight out"],
+                  ].map(([day,color,desc])=>(
+                    <div key={day} style={{display:"flex",gap:14,alignItems:"flex-start",marginBottom:10}}>
+                      <div style={{background:color+"22",border:`1px solid ${color}55`,color,borderRadius:4,padding:"3px 10px",fontSize:11,fontWeight:700,whiteSpace:"nowrap",minWidth:86,textAlign:"center"}}>{day}</div>
+                      <div style={{color:"#B8CDE0",fontSize:12,paddingTop:4}}>{desc}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+          </div>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App/>);
+  </script>
+</body>
+</html>
