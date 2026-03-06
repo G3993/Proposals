@@ -3,440 +3,602 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ETHEREA — 3-Floor Activation Proposal</title>
-  <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
-  <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
-  <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
-  <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/recharts/2.12.0/Recharts.js"></script>
+  <title>ETHEREA — Proposal</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: #0D1117; font-family: Arial, sans-serif; font-size: 13px; color: #E8F0FA; }
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: #0D1117; }
-    ::-webkit-scrollbar-thumb { background: #2D5A8E; border-radius: 3px; }
-    table { border-collapse: collapse; }
-    button { cursor: pointer; font-family: Arial, sans-serif; }
+
+    :root {
+      --bg: #000000;
+      --surface: #0a0a0a;
+      --surface-2: #111111;
+      --border: #1a1a1a;
+      --border-hover: #2a2a2a;
+      --text: #f5f5f7;
+      --text-secondary: #86868b;
+      --text-tertiary: #6e6e73;
+      --accent: #f5f5f7;
+      --accent-dim: rgba(245, 245, 247, 0.06);
+      --radius: 16px;
+      --radius-sm: 10px;
+    }
+
+    body {
+      background: var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.47;
+    }
+
+    ::-webkit-scrollbar { width: 0; }
+
+    /* Layout */
+    .page { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      height: 80vh;
+      min-height: 560px;
+      max-height: 800px;
+      overflow: hidden;
+      border-radius: 0 0 var(--radius) var(--radius);
+    }
+    .hero canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .hero-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 48px;
+      background: linear-gradient(transparent, rgba(0,0,0,0.8));
+      pointer-events: none;
+    }
+    .hero-title {
+      font-size: 56px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      color: var(--text);
+    }
+    .hero-sub {
+      font-size: 21px;
+      font-weight: 400;
+      color: var(--text-secondary);
+      margin-top: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    /* Nav */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(0,0,0,0.72);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 0.5px solid var(--border);
+    }
+    .nav-inner {
+      display: flex;
+      gap: 0;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 24px;
+      overflow-x: auto;
+    }
+    .nav button {
+      background: none;
+      border: none;
+      color: var(--text-tertiary);
+      font-size: 14px;
+      font-weight: 500;
+      padding: 14px 20px;
+      cursor: pointer;
+      white-space: nowrap;
+      position: relative;
+      font-family: inherit;
+      transition: color 0.2s;
+      letter-spacing: -0.01em;
+    }
+    .nav button:hover { color: var(--text-secondary); }
+    .nav button.active { color: var(--text); }
+    .nav button.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 20px;
+      right: 20px;
+      height: 1.5px;
+      background: var(--text);
+      border-radius: 1px;
+    }
+
+    /* Sections */
+    .section { padding: 80px 0; }
+    .section-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 8px;
+    }
+    .section-title {
+      font-size: 40px;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+      margin-bottom: 48px;
+    }
+
+    /* Stats row */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 48px;
+    }
+    .stat {
+      background: var(--surface);
+      padding: 28px 24px;
+    }
+    .stat-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+    .stat-value {
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--text);
+    }
+    .stat-sub {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      margin-top: 4px;
+    }
+
+    /* Cards grid */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .card {
+      background: var(--surface);
+      padding: 24px;
+    }
+    .card-icon {
+      font-size: 28px;
+      margin-bottom: 16px;
+      opacity: 0.9;
+    }
+    .card-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+    }
+    .card-value {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    /* Table */
+    .table-wrap {
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    table { width: 100%; border-collapse: collapse; }
+    thead { background: var(--surface); }
+    th {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 12px 20px;
+      text-align: left;
+      border-bottom: 0.5px solid var(--border);
+    }
+    th.right { text-align: right; }
+    td {
+      padding: 14px 20px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      border-bottom: 0.5px solid var(--border);
+    }
+    td.right { text-align: right; font-variant-numeric: tabular-nums; }
+    td.primary { color: var(--text); font-weight: 500; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: var(--accent-dim); }
+    .tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: rgba(245,245,247,0.06);
+      color: var(--text-secondary);
+      letter-spacing: 0.02em;
+    }
+    .table-footer {
+      display: flex;
+      justify-content: space-between;
+      padding: 16px 20px;
+      background: var(--surface);
+      border-top: 0.5px solid var(--border);
+    }
+    .table-footer span { font-size: 14px; font-weight: 600; color: var(--text); }
+
+    /* Detail grid */
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .detail-cell {
+      background: var(--surface);
+      padding: 20px 24px;
+    }
+    .detail-cell .label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+    .detail-cell .value {
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    /* Timeline */
+    .timeline { display: flex; flex-direction: column; gap: 0; }
+    .timeline-row {
+      display: flex;
+      gap: 24px;
+      padding: 20px 0;
+      border-bottom: 0.5px solid var(--border);
+      align-items: baseline;
+    }
+    .timeline-row:last-child { border-bottom: none; }
+    .timeline-day {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      min-width: 80px;
+      font-variant-numeric: tabular-nums;
+    }
+    .timeline-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* Summary */
+    .summary-rows { display: flex; flex-direction: column; }
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 0.5px solid var(--border);
+      font-size: 14px;
+    }
+    .summary-row:last-child { border-bottom: none; }
+    .summary-row .label { color: var(--text-secondary); }
+    .summary-row .val { color: var(--text); font-weight: 500; font-variant-numeric: tabular-nums; }
+    .summary-row.total { padding-top: 20px; margin-top: 8px; border-top: 0.5px solid var(--border); }
+    .summary-row.total .label { font-weight: 600; color: var(--text); font-size: 16px; }
+    .summary-row.total .val { font-weight: 700; font-size: 16px; }
+
+    /* Hidden tabs */
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    @media (max-width: 768px) {
+      .hero-title { font-size: 36px; }
+      .hero-sub { font-size: 17px; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .cards { grid-template-columns: 1fr; }
+      .section-title { font-size: 28px; }
+      .detail-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
-  <div id="root"></div>
 
-  <script type="text/babel">
-    const { useState } = React;
-    const { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
-            ResponsiveContainer, PieChart, Pie, Cell } = Recharts;
+  <!-- Hero with Spline -->
+  <div class="hero">
+    <canvas id="spline-canvas"></canvas>
+    <div class="hero-overlay">
+      <div class="hero-title">ETHEREA</div>
+      <div class="hero-sub">3-Floor Immersive Activation</div>
+    </div>
+  </div>
 
-    const fmt  = n => "$" + n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    const fmtK = n => "$" + (n / 1000).toFixed(1) + "k";
-    const TAX  = 0.08875;
+  <!-- Sticky nav -->
+  <div class="nav">
+    <div class="nav-inner">
+      <button class="active" onclick="showTab('overview')">Overview</button>
+      <button onclick="showTab('hardware')">Hardware</button>
+      <button onclick="showTab('compute')">Cloud Compute</button>
+      <button onclick="showTab('installation')">Installation</button>
+    </div>
+  </div>
 
-    /* ── DATA ─────────────────────────────────────────────────────────── */
-    const computerItems = [
-      { category:"GPU",        item:"NVIDIA RTX PRO 6000 Blackwell",               spec:"96GB GDDR7 ECC | 24,064 CUDA Cores | PCIe 5.0 | 600W TDP",        qty:1, unit:8900.00 },
-      { category:"CPU",        item:"Intel Core Ultra 9 285K",                     spec:"24-core | 5.7GHz boost | LGA 1851 | Arrow Lake",                   qty:1, unit:589.00  },
-      { category:"Motherboard",item:"MSI MEG Z890 ACE",                            spec:"Z890 | PCIe 5.0 | WiFi 7 | 10G LAN | Thunderbolt 5",               qty:1, unit:599.00  },
-      { category:"RAM",        item:"128GB DDR5-6400 (4×32GB)",                    spec:"Corsair Dominator Titanium | CUDIMM compatible",                   qty:1, unit:520.00  },
-      { category:"Storage",    item:"4TB NVMe PCIe Gen 5 SSD",                     spec:"Crucial T705 | 14,500 MB/s read | M.2 2280",                       qty:1, unit:380.00  },
-      { category:"PSU",        item:"Corsair HX1600i 1600W",                       spec:"80+ Titanium | Fully modular | ATX 3.0 | 16-pin PCIe",             qty:1, unit:349.99  },
-      { category:"Case",       item:"Phanteks Enthoo Pro 2 Full Tower",             spec:"420mm+ GPU clearance | Dual chamber | Tempered glass",             qty:1, unit:199.99  },
-      { category:"Cooling",    item:"NZXT Kraken 360 AIO",                         spec:"360mm | 3× 120mm fans | LCD display | LGA1851",                    qty:1, unit:179.99  },
-      { category:"OS",         item:"Windows 11 Pro",                              spec:"Full license | OEM | USB key",                                     qty:1, unit:199.99  },
-      { category:"Misc",       item:"Cables, adapters, thermal paste",              spec:"16-pin PCIe adapters | Arctic MX-6 | Cable management kit",        qty:1, unit:60.00   },
-      { category:"Displays",   item:'Hisense 100" U8 MiniLED 4K TV (2025)',        spec:"5,000 nits | 165Hz | Dolby Vision IQ | Google TV | 100U8QG",       qty:3, unit:4500.00 },
-      { category:"Displays",   item:'Heavy Duty 100" TV Wall Mount (VESA 600×400)', spec:"Articulating arm | 300 lb max | Powder-coated steel",              qty:3, unit:249.99  },
-      { category:"Monitor",    item:'Dell UltraSharp 32" 4K USB-C (U3225QE)',      spec:"3840×2160 | USB-C 90W | KVM | 100Hz | HDR400",                    qty:1, unit:629.99  },
-      { category:"Peripherals",item:"Logitech MX Keys S + MX Master 3S",           spec:"Wireless keyboard + mouse | Multi-device | USB-C rechargeable",    qty:1, unit:209.98  },
-      { category:"SDI Chain",  item:"Blackmagic HDMI→SDI Micro Converter w/PSU",   spec:"3G-SDI | Broadcast grade | USB-C power | At PC end",               qty:3, unit:49.99   },
-      { category:"SDI Chain",  item:"Blackmagic SDI→HDMI Micro Converter w/PSU",   spec:"3G-SDI | 17-pt 3D LUT | SDI loop out | At TV end",                 qty:3, unit:49.99   },
-      { category:"SDI Chain",  item:"DP 2.1 to HDMI 2.1 Active Cable 6ft",         spec:"Active chipset | 4K60 | GPU DP output to converter HDMI input",    qty:3, unit:24.99   },
-      { category:"SDI Chain",  item:"Belden 1694A 12G-SDI BNC Cable 100ft",        spec:"75 Ohm RG6 | BNC to BNC | Inter-floor cable run",                  qty:3, unit:79.99   },
-      { category:"SDI Chain",  item:"DisplayPort 1.4 Cable 6ft",                   spec:"4K@120Hz | DP 1.4 | GPU direct to command monitor",                qty:1, unit:19.99   },
-      { category:"Cameras",    item:"Intel RealSense D455 Depth Camera",            spec:"87°×58° FoV | Up to 6m range | Global shutter | IMU | USB-C",     qty:3, unit:419.00  },
-      { category:"Cameras",    item:"Camera Mounting Arm / Wall Clamp Kit",         spec:"Adjustable articulating arm | 1/4-20 thread | Overhead mount",    qty:3, unit:39.99   },
-      { category:"Audio",      item:"Shure MV7 USB/XLR Microphone",                spec:"Cardioid dynamic | USB + XLR | All-metal body | Per floor",        qty:3, unit:249.00  },
-      { category:"Audio",      item:"Elgato Wave Low Profile Boom Arm",             spec:"Desk clamp | Cable management | 360° articulation",                qty:3, unit:34.99   },
-      { category:"Frame",      item:"Custom Welded Arc Frame — Steel/Aluminum",     spec:"3× 100\" displays | Arced top | Internal cable mgmt | Matte black | Floor anchored", qty:1, unit:8500.00 },
-    ];
+  <div class="page">
 
-    const laborItems = [
-      { item:"AV Systems Integrator / Lead Technician",  spec:"Full system build, signal chain, display mounting, SDI runs", qty:2, unit:850,  unitLabel:"day"  },
-      { item:"AV Assistant Technician",                  spec:"Cable pulling, labeling, mounting assist, camera positioning", qty:2, unit:450,  unitLabel:"day"  },
-      { item:"Structural Rigger / Fabrication Install",  spec:"Arc frame placement, floor anchoring, VESA TV mounting",       qty:1, unit:1200, unitLabel:"flat" },
-      { item:"Licensed Electrician",                     spec:"Dedicated 20A circuit, PDU setup, power distribution",         qty:1, unit:950,  unitLabel:"flat" },
-      { item:"Network Setup & Configuration",             spec:"Venue internet, workstation config, B300 cloud endpoint",      qty:1, unit:400,  unitLabel:"flat" },
-      { item:"System Test & Rehearsal Day",               spec:"Full end-to-end test, ETHEREA run-through, calibration",       qty:1, unit:850,  unitLabel:"day"  },
-      { item:"Strike / De-installation (post-event)",    spec:"Teardown, cable recovery, equipment packing",                  qty:1, unit:700,  unitLabel:"flat" },
-      { item:"Shipping & Equipment Transport (round trip)", spec:"Freight for workstation, TVs, arc frame, peripherals",      qty:1, unit:1800, unitLabel:"flat" },
-    ];
+    <!-- OVERVIEW -->
+    <div id="tab-overview" class="tab-content active">
+      <div class="section">
+        <div class="stats" id="stats-bar"></div>
 
-    const compSubtotal  = computerItems.reduce((a,r) => a + r.qty * r.unit, 0);
-    const compTax       = compSubtotal * TAX;
-    const compTotal     = compSubtotal + compTax;
-    const laborSubtotal = laborItems.reduce((a,r) => a + r.qty * r.unit, 0);
-    const laborTax      = laborSubtotal * TAX;
-    const laborTotal    = laborSubtotal + laborTax;
-    const B300          = 40000;
-    const allIn         = compTotal + B300 + laborTotal;
+        <div class="section-label">System</div>
+        <div class="section-title">Everything the space needs.</div>
 
-    const catColors = {
-      GPU:"#F5C842", CPU:"#5BA3D9", Motherboard:"#4ECDC4", RAM:"#A8D4A8",
-      Storage:"#FF6B6B", PSU:"#C084FC", Case:"#FB923C", Cooling:"#34D399",
-      OS:"#60A5FA", Misc:"#94A3B8", Displays:"#F472B6", Monitor:"#FBBF24",
-      Peripherals:"#A78BFA", "SDI Chain":"#2DD4BF", Cameras:"#E879F9",
-      Audio:"#4ADE80", Frame:"#FB7185",
-    };
-
-    const catRollup = {};
-    computerItems.forEach(r => { catRollup[r.category] = (catRollup[r.category]||0) + r.qty*r.unit; });
-    const pieData = Object.entries(catRollup).map(([name,value]) => ({name,value}));
-
-    const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-    const monthlyData = MONTHS.map((m,i) => ({
-      month: m,
-      hardware: i===0 ? compTotal  : 0,
-      labor:    i===0 ? laborTotal : 0,
-      compute:  B300/12,
-    }));
-
-    /* ── STYLE TOKENS ─────────────────────────────────────────────────── */
-    const D = "#0D1117", N = "#1E3A5F", BL = "#2D5A8E", LBL = "#5BA3D9";
-    const card  = (extra={}) => ({ background:"#111820", border:`1px solid ${BL}`, borderRadius:8, padding:"20px 22px", marginBottom:16, ...extra });
-    const scard = (extra={}) => ({ background:N, border:`1px solid ${BL}`, borderRadius:8, padding:"14px 16px", flex:1, minWidth:130, ...extra });
-
-    /* ── COMPONENTS ───────────────────────────────────────────────────── */
-    const Tip = ({active,payload,label}) => !active||!payload?.length ? null : (
-      <div style={{background:D,border:`1px solid ${BL}`,borderRadius:6,padding:"10px 14px",fontSize:12}}>
-        <div style={{color:LBL,fontWeight:700,marginBottom:4}}>{label}</div>
-        {payload.map((p,i)=><div key={i} style={{color:"#E0ECF8"}}>{p.name}: <b>{fmt(p.value)}</b></div>)}
+        <div class="cards" id="system-cards"></div>
       </div>
-    );
 
-    const StatCard = ({label,value,sub,accent=LBL}) => (
-      <div style={scard()}>
-        <div style={{fontSize:10,color:"#7BA0C0",textTransform:"uppercase",letterSpacing:1,marginBottom:5}}>{label}</div>
-        <div style={{fontSize:20,fontWeight:700,color:accent}}>{value}</div>
-        {sub && <div style={{fontSize:11,color:"#556677",marginTop:3}}>{sub}</div>}
+      <div class="section" style="padding-top:0">
+        <div class="section-label">Cost Summary</div>
+        <div class="section-title">Full project breakdown.</div>
+        <div style="max-width:560px">
+          <div class="summary-rows" id="cost-summary"></div>
+        </div>
       </div>
-    );
+    </div>
 
-    const Tag = ({label,color}) => (
-      <span style={{background:color+"22",color,border:`1px solid ${color}44`,borderRadius:4,fontSize:10,padding:"2px 7px",fontWeight:700}}>
-        {label}
-      </span>
-    );
-
-    /* ── MAIN APP ─────────────────────────────────────────────────────── */
-    function App() {
-      const [tab, setTab] = useState("scene");
-      const [exp, setExp] = useState(null);
-
-      const TABS = [
-        ["scene","🌐 3D Concept"],
-        ["overview","📊 Overview"],
-        ["computer","💻 Hardware"],
-        ["compute","☁️ Cloud Compute"],
-        ["installation","🔧 Installation"],
-      ];
-
-      return (
-        <div style={{background:D,minHeight:"100vh",color:"#E8F0FA"}}>
-
-          {/* HEADER */}
-          <div style={{background:"linear-gradient(135deg,#1E3A5F,#111820)",borderBottom:`2px solid ${BL}`,padding:"16px 28px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-            <div>
-              <div style={{fontSize:17,fontWeight:700,color:"#E8F0FA",letterSpacing:1}}>ETHEREA — 3-FLOOR ACTIVATION</div>
-              <div style={{fontSize:11,color:"#557799",marginTop:3}}>Full Project Proposal · Hardware + Installation + Cloud Compute · March 2026</div>
-            </div>
-            <div style={{textAlign:"right"}}>
-              <div style={{fontSize:22,fontWeight:800,color:"#F472B6"}}>{fmt(allIn)}</div>
-              <div style={{fontSize:10,color:"#557799",marginTop:2}}>ALL-IN TOTAL</div>
-            </div>
-          </div>
-
-          {/* STAT BAR */}
-          <div style={{display:"flex",gap:10,padding:"14px 28px",borderBottom:`1px solid #1A2840`,flexWrap:"wrap"}}>
-            <StatCard label="Hardware"      value={fmtK(compTotal)}  sub="incl. 8.875% NYC tax"    accent="#F5C842" />
-            <StatCard label="Installation"  value={fmtK(laborTotal)} sub="labor + shipping + tax"  accent="#4ECDC4" />
-            <StatCard label="Cloud Compute" value="$40k / yr"        sub="$3,333/mo · B300 Blackwell" accent="#A8D4A8" />
-            <StatCard label="All-In Total"  value={fmtK(allIn)}      sub="full project cost"       accent="#F472B6" />
-          </div>
-
-          {/* TAB NAV */}
-          <div style={{display:"flex",gap:2,padding:"12px 28px 0",borderBottom:`1px solid #1A2840`,overflowX:"auto"}}>
-            {TABS.map(([t,l]) => (
-              <button key={t} onClick={()=>setTab(t)} style={{
-                padding:"8px 18px", borderRadius:"6px 6px 0 0",
-                border:`1px solid ${tab===t?BL:"transparent"}`,
-                borderBottom: tab===t?`1px solid ${D}`:"none",
-                background: tab===t?"#111820":"transparent",
-                color: tab===t?"#E8F0FA":"#557799",
-                fontSize:12, fontWeight:tab===t?700:400,
-                whiteSpace:"nowrap", marginBottom:tab===t?-1:0,
-              }}>{l}</button>
-            ))}
-          </div>
-
-          <div style={{padding:"20px 28px"}}>
-
-            {/* ── 3D CONCEPT ── */}
-            {tab==="scene" && (
-              <div>
-                <div style={{...card({padding:0,overflow:"hidden"})}}>
-                  <div style={{padding:"16px 20px 12px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-                    <div>
-                      <div style={{fontSize:13,fontWeight:700,color:LBL}}>ETHEREA — 3D CONCEPT MODEL</div>
-                      <div style={{fontSize:11,color:"#557799",marginTop:2}}>Drag to orbit · Scroll to zoom · Click objects to explore</div>
-                    </div>
-                    <span style={{fontSize:11,color:"#557799",background:D,border:`1px solid ${BL}`,borderRadius:4,padding:"4px 10px"}}>Powered by Spline</span>
-                  </div>
-                  <div style={{height:560,position:"relative",background:"#0a0e14"}}>
-                    <canvas id="spline-canvas" style={{width:"100%",height:"100%",display:"block"}} />
-                  </div>
-                </div>
-                <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:12}}>
-                  {[
-                    ["🖥️","Displays",     '3× Hisense 100" U8 MiniLED — One per floor'],
-                    ["⚡", "GPU",          "NVIDIA RTX PRO 6000 Blackwell · 96GB GDDR7"],
-                    ["📡","Depth Sensing","Intel RealSense D455 · One per floor"],
-                    ["🎙️","Voice Input",  "Shure MV7 Microphone · One per floor"],
-                    ["🔄","Signal Chain", "SDI · Belden 1694A · Blackmagic converters"],
-                    ["☁️","Cloud Compute","NVIDIA B300 Blackwell · $40,000 / year"],
-                  ].map(([icon,label,val])=>(
-                    <div key={label} style={{background:"#111820",border:`1px solid ${BL}`,borderRadius:8,padding:"14px 16px"}}>
-                      <div style={{fontSize:20,marginBottom:8}}>{icon}</div>
-                      <div style={{fontSize:10,color:"#557799",textTransform:"uppercase",letterSpacing:0.8}}>{label}</div>
-                      <div style={{fontSize:12,color:"#E8F0FA",marginTop:4,fontWeight:500}}>{val}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* ── OVERVIEW ── */}
-            {tab==="overview" && (
-              <div>
-                <div style={card()}>
-                  <div style={{fontSize:13,fontWeight:700,color:LBL,marginBottom:14}}>12-MONTH SPEND PROJECTION</div>
-                  <ResponsiveContainer width="100%" height={260}>
-                    <BarChart data={monthlyData} margin={{top:5,right:10,left:10,bottom:0}}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="#1A2840" />
-                      <XAxis dataKey="month" tick={{fill:"#7BA0C0",fontSize:11}} axisLine={{stroke:BL}} />
-                      <YAxis tick={{fill:"#7BA0C0",fontSize:10}} axisLine={{stroke:BL}} tickFormatter={v=>"$"+(v/1000).toFixed(0)+"k"} />
-                      <Tooltip content={<Tip/>} />
-                      <Bar dataKey="hardware" stackId="a" name="Hardware"     fill="#F5C842" />
-                      <Bar dataKey="labor"    stackId="a" name="Installation" fill="#4ECDC4" />
-                      <Bar dataKey="compute"  stackId="a" name="B300 Compute" fill={BL} radius={[3,3,0,0]} />
-                    </BarChart>
-                  </ResponsiveContainer>
-                  <div style={{display:"flex",gap:16,justifyContent:"center",marginTop:10,flexWrap:"wrap"}}>
-                    {[["#F5C842","Hardware (Month 1)"],["#4ECDC4","Installation (Month 1)"],["#2D5A8E","B300 Compute ($3,333/mo)"]].map(([c,l])=>(
-                      <span key={l} style={{fontSize:11,color:"#90B8E0",display:"flex",alignItems:"center",gap:5}}>
-                        <span style={{width:10,height:10,background:c,borderRadius:2,flexShrink:0,display:"inline-block"}}/>
-                        {l}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:16}}>
-                  <div style={card()}>
-                    <div style={{fontSize:13,fontWeight:700,color:LBL,marginBottom:14}}>HARDWARE BY CATEGORY</div>
-                    <ResponsiveContainer width="100%" height={220}>
-                      <PieChart>
-                        <Pie data={pieData} cx="50%" cy="50%" innerRadius={55} outerRadius={90} dataKey="value" paddingAngle={2}>
-                          {pieData.map((d,i)=><Cell key={i} fill={catColors[d.name]||LBL}/>)}
-                        </Pie>
-                        <Tooltip formatter={v=>fmt(v)}/>
-                      </PieChart>
-                    </ResponsiveContainer>
-                    <div style={{display:"flex",flexWrap:"wrap",gap:"4px 10px",marginTop:8}}>
-                      {[...pieData].sort((a,b)=>b.value-a.value).slice(0,8).map(d=>(
-                        <span key={d.name} style={{fontSize:10,color:"#90B8E0",display:"flex",alignItems:"center",gap:4}}>
-                          <span style={{width:8,height:8,background:catColors[d.name]||LBL,borderRadius:2,flexShrink:0,display:"inline-block"}}/>
-                          {d.name} {fmtK(d.value)}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div style={card()}>
-                    <div style={{fontSize:13,fontWeight:700,color:LBL,marginBottom:14}}>COST SUMMARY</div>
-                    {[
-                      ["Hardware (pre-tax)",          fmt(compSubtotal), "#E8F0FA", false],
-                      ["Hardware Tax (8.875%)",        fmt(compTax),      "#7BA0C0", false],
-                      ["Hardware Total",               fmt(compTotal),    "#F5C842", true ],
-                      ["Installation Labor (pre-tax)", fmt(laborSubtotal),"#E8F0FA", false],
-                      ["Installation Tax (8.875%)",    fmt(laborTax),     "#7BA0C0", false],
-                      ["Installation Total",           fmt(laborTotal),   "#4ECDC4", true ],
-                      ["B300 Cloud Compute (annual)",  fmt(B300),         "#A8D4A8", false],
-                      ["ALL-IN TOTAL",                 fmt(allIn),        "#F472B6", true ],
-                    ].map(([label,val,color,bold],i)=>(
-                      <div key={label} style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"7px 10px",borderRadius:4,background:i===7?N:i%2===0?"transparent":"#0D1820",borderTop:i===7?`1px solid ${BL}`:"none",marginTop:i===7?6:0}}>
-                        <span style={{color:bold?"#E8F0FA":"#7BA0C0",fontWeight:bold?700:400,fontSize:i===7?13:12}}>{label}</span>
-                        <span style={{color,fontWeight:bold?700:400}}>{val}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* ── HARDWARE ── */}
-            {tab==="computer" && (
-              <div>
-                <div style={{display:"flex",gap:12,marginBottom:16,flexWrap:"wrap"}}>
-                  <StatCard label="Subtotal"    value={fmt(compSubtotal)} sub="before tax"  accent="#F5C842"/>
-                  <StatCard label="NYC Tax"     value={fmt(compTax)}      sub="8.875%"       accent="#7BA0C0"/>
-                  <StatCard label="Total w/Tax" value={fmt(compTotal)}    sub="all hardware" accent="#F472B6"/>
-                </div>
-                <div style={card({padding:0})}>
-                  <table style={{width:"100%"}}>
-                    <thead>
-                      <tr style={{background:N}}>
-                        {["Category","Item","Qty","Unit Price","Total"].map((h,i)=>(
-                          <th key={h} style={{padding:"10px 14px",textAlign:i>1?"right":"left",color:LBL,fontSize:11,fontWeight:700,borderBottom:`1px solid ${BL}`,whiteSpace:"nowrap"}}>{h}</th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {computerItems.map((r,i)=>(
-                        <tr key={i} onClick={()=>setExp(exp===`c${i}`?null:`c${i}`)} style={{background:i%2===0?"transparent":"#0D1820",cursor:"pointer"}}>
-                          <td style={{padding:"9px 14px"}}><Tag label={r.category} color={catColors[r.category]||LBL}/></td>
-                          <td style={{padding:"9px 14px",color:"#E8F0FA"}}>
-                            {r.item}
-                            {exp===`c${i}` && <div style={{color:"#668899",fontSize:11,marginTop:3}}>{r.spec}</div>}
-                          </td>
-                          <td style={{padding:"9px 14px",textAlign:"right",color:"#7BA0C0"}}>{r.qty}</td>
-                          <td style={{padding:"9px 14px",textAlign:"right",color:"#7BA0C0"}}>{fmt(r.unit)}</td>
-                          <td style={{padding:"9px 14px",textAlign:"right",color:"#E8F0FA",fontWeight:600}}>{fmt(r.qty*r.unit)}</td>
-                        </tr>
-                      ))}
-                      <tr style={{background:N,borderTop:`2px solid ${BL}`}}>
-                        <td colSpan={4} style={{padding:"10px 14px",color:"#F5C842",fontWeight:700,textAlign:"right"}}>TOTAL (incl. 8.875% tax)</td>
-                        <td style={{padding:"10px 14px",color:"#F5C842",fontWeight:700,textAlign:"right"}}>{fmt(compTotal)}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div style={{fontSize:11,color:"#445566",marginTop:6}}>↑ Click any row to expand specifications</div>
-              </div>
-            )}
-
-            {/* ── COMPUTE ── */}
-            {tab==="compute" && (
-              <div>
-                <div style={{display:"flex",gap:12,marginBottom:16,flexWrap:"wrap"}}>
-                  <StatCard label="Annual Spend"  value="$40,000"  sub="B300 cloud GPU rental"    accent="#A8D4A8"/>
-                  <StatCard label="Monthly Cost"  value="$3,333"   sub="recurring every month"    accent="#4ECDC4"/>
-                  <StatCard label="Daily Rate"    value="$109.59"  sub="amortized over 365 days"  accent="#7BA0C0"/>
-                </div>
-                <div style={card()}>
-                  <div style={{fontSize:13,fontWeight:700,color:LBL,marginBottom:14}}>MONTHLY COMPUTE SPEND</div>
-                  <ResponsiveContainer width="100%" height={200}>
-                    <BarChart data={MONTHS.map(m=>({month:m,cost:B300/12}))} margin={{top:5,right:10,left:10,bottom:0}}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="#1A2840"/>
-                      <XAxis dataKey="month" tick={{fill:"#7BA0C0",fontSize:11}} axisLine={{stroke:BL}}/>
-                      <YAxis tick={{fill:"#7BA0C0",fontSize:10}} axisLine={{stroke:BL}} tickFormatter={v=>"$"+(v/1000).toFixed(1)+"k"} domain={[0,5000]}/>
-                      <Tooltip content={<Tip/>}/>
-                      <Bar dataKey="cost" name="B300 Compute" fill={BL} radius={[3,3,0,0]}>
-                        {MONTHS.map((_,i)=><Cell key={i} fill={`hsl(${200+i*5},60%,${40+i*1.5}%)`}/>)}
-                      </Bar>
-                    </BarChart>
-                  </ResponsiveContainer>
-                </div>
-                <div style={card()}>
-                  <div style={{fontSize:13,fontWeight:700,color:LBL,marginBottom:14}}>B300 COMPUTE DETAILS</div>
-                  <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12}}>
-                    {[
-                      ["GPU Architecture",      "NVIDIA Blackwell (B300)"],
-                      ["Use Case",              "AI inference · generative visual synthesis · distributed rendering"],
-                      ["Annual Cost",           "$40,000 / year"],
-                      ["Monthly Cost",          "$3,333.33 / month"],
-                      ["Commitment",            "12-month annual contract"],
-                      ["Recommended Providers", "CoreWeave · Lambda Labs · AWS"],
-                      ["On-Site GPU",           "RTX PRO 6000 — handles real-time display output"],
-                      ["Cloud Role",            "Heavy model inference offloading · batch generative workloads"],
-                    ].map(([k,v])=>(
-                      <div key={k} style={{background:"#0D1820",borderRadius:6,padding:"10px 14px",borderLeft:`3px solid ${BL}`}}>
-                        <div style={{fontSize:10,color:"#557799",textTransform:"uppercase",letterSpacing:0.8,marginBottom:3}}>{k}</div>
-                        <div style={{color:"#E8F0FA",fontSize:12}}>{v}</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* ── INSTALLATION ── */}
-            {tab==="installation" && (
-              <div>
-                <div style={{display:"flex",gap:12,marginBottom:16,flexWrap:"wrap"}}>
-                  <StatCard label="Labor Subtotal" value={fmt(laborSubtotal)} sub="before tax"          accent="#4ECDC4"/>
-                  <StatCard label="NYC Tax"         value={fmt(laborTax)}      sub="8.875%"               accent="#7BA0C0"/>
-                  <StatCard label="Total w/Tax"     value={fmt(laborTotal)}    sub="all labor + shipping" accent="#F472B6"/>
-                </div>
-                <div style={card({padding:0})}>
-                  <table style={{width:"100%"}}>
-                    <thead>
-                      <tr style={{background:N}}>
-                        {["Role / Service","Scope","Days/Units","Rate","Total"].map((h,i)=>(
-                          <th key={h} style={{padding:"10px 14px",textAlign:i>1?"right":"left",color:LBL,fontSize:11,fontWeight:700,borderBottom:`1px solid ${BL}`}}>{h}</th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {laborItems.map((r,i)=>(
-                        <tr key={i} onClick={()=>setExp(exp===`l${i}`?null:`l${i}`)} style={{background:i%2===0?"transparent":"#0D1820",cursor:"pointer"}}>
-                          <td style={{padding:"9px 14px",color:"#E8F0FA",fontWeight:600}}>
-                            {r.item}
-                            {exp===`l${i}` && <div style={{color:"#668899",fontSize:11,marginTop:3}}>{r.spec}</div>}
-                          </td>
-                          <td style={{padding:"9px 14px",color:"#668899",fontSize:12}}>{r.spec.split(",")[0]}</td>
-                          <td style={{padding:"9px 14px",textAlign:"right",color:"#7BA0C0"}}>{r.qty} {r.unitLabel}</td>
-                          <td style={{padding:"9px 14px",textAlign:"right",color:"#7BA0C0"}}>{fmt(r.unit)}</td>
-                          <td style={{padding:"9px 14px",textAlign:"right",color:"#E8F0FA",fontWeight:600}}>{fmt(r.qty*r.unit)}</td>
-                        </tr>
-                      ))}
-                      <tr style={{background:N,borderTop:`2px solid ${BL}`}}>
-                        <td colSpan={4} style={{padding:"10px 14px",color:"#4ECDC4",fontWeight:700,textAlign:"right"}}>TOTAL (incl. 8.875% tax)</td>
-                        <td style={{padding:"10px 14px",color:"#4ECDC4",fontWeight:700,textAlign:"right"}}>{fmt(laborTotal)}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div style={card()}>
-                  <div style={{fontSize:13,fontWeight:700,color:LBL,marginBottom:12}}>INSTALLATION TIMELINE</div>
-                  {[
-                    ["Day 1",     "#F5C842","Structural rigger + electrician: arc frame placement, floor anchoring, dedicated circuit install"],
-                    ["Day 2",     "#4ECDC4","AV lead + assistant: workstation build, GPU install, OS + driver setup, SDI cable runs"],
-                    ["Day 3",     "#A8D4A8","AV lead + assistant: display mounting, converter setup, camera + mic positioning"],
-                    ["Day 4",     "#F472B6","Full system test + rehearsal: ETHEREA run-through, B300 cloud setup, calibration"],
-                    ["Post-event","#94A3B8","Strike: teardown, cable recovery, equipment packing + freight out"],
-                  ].map(([day,color,desc])=>(
-                    <div key={day} style={{display:"flex",gap:14,alignItems:"flex-start",marginBottom:10}}>
-                      <div style={{background:color+"22",border:`1px solid ${color}55`,color,borderRadius:4,padding:"3px 10px",fontSize:11,fontWeight:700,whiteSpace:"nowrap",minWidth:86,textAlign:"center"}}>{day}</div>
-                      <div style={{color:"#B8CDE0",fontSize:12,paddingTop:4}}>{desc}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
+    <!-- HARDWARE -->
+    <div id="tab-hardware" class="tab-content">
+      <div class="section">
+        <div class="stats" id="hw-stats"></div>
+        <div class="section-label">Hardware</div>
+        <div class="section-title">Purpose-built for generative AI.</div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Item</th>
+                <th class="right">Qty</th>
+                <th class="right">Unit</th>
+                <th class="right">Total</th>
+              </tr>
+            </thead>
+            <tbody id="hw-tbody"></tbody>
+          </table>
+          <div class="table-footer">
+            <span>Total incl. 8.875% tax</span>
+            <span id="hw-total-val"></span>
           </div>
         </div>
-      );
-    }
+      </div>
+    </div>
 
-    const root = ReactDOM.createRoot(document.getElementById("root"));
-    root.render(<App/>);
-  </script>
-  <script type="module">
-    import { Application } from 'https://unpkg.com/@splinetool/runtime@1.9.28/build/runtime.js';
-    const canvas = document.getElementById('spline-canvas');
-    if (canvas) {
-      const app = new Application(canvas);
-      app.load('https://prod.spline.design/pOvVpTTwH5CfmCkDVy7wjt5I/scene.splinecode');
+    <!-- COMPUTE -->
+    <div id="tab-compute" class="tab-content">
+      <div class="section">
+        <div class="stats" id="compute-stats"></div>
+        <div class="section-label">Cloud Compute</div>
+        <div class="section-title">Offload the heavy inference.</div>
+        <div class="detail-grid" id="compute-details"></div>
+      </div>
+    </div>
+
+    <!-- INSTALLATION -->
+    <div id="tab-installation" class="tab-content">
+      <div class="section">
+        <div class="stats" id="install-stats"></div>
+        <div class="section-label">Installation</div>
+        <div class="section-title">Four days, fully operational.</div>
+
+        <div class="table-wrap" style="margin-bottom:48px">
+          <table>
+            <thead>
+              <tr>
+                <th>Role</th>
+                <th>Scope</th>
+                <th class="right">Units</th>
+                <th class="right">Rate</th>
+                <th class="right">Total</th>
+              </tr>
+            </thead>
+            <tbody id="labor-tbody"></tbody>
+          </table>
+          <div class="table-footer">
+            <span>Total incl. 8.875% tax</span>
+            <span id="labor-total-val"></span>
+          </div>
+        </div>
+
+        <div class="section-label">Timeline</div>
+        <div class="section-title" style="margin-bottom:24px">Install to strike.</div>
+        <div class="timeline" id="timeline"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="height:120px"></div>
+
+  <script>
+    const TAX = 0.08875;
+    const fmt = n => '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const fmtK = n => '$' + (n/1000).toFixed(1) + 'k';
+
+    const hw = [
+      { cat: 'GPU', item: 'NVIDIA RTX PRO 6000 Blackwell', spec: '96 GB GDDR7 ECC', qty: 1, unit: 8900 },
+      { cat: 'CPU', item: 'Intel Core Ultra 9 285K', spec: '24-core, 5.7 GHz', qty: 1, unit: 589 },
+      { cat: 'Motherboard', item: 'MSI MEG Z890 ACE', spec: 'Z890, PCIe 5.0, WiFi 7', qty: 1, unit: 599 },
+      { cat: 'RAM', item: '128 GB DDR5-6400 (4x32)', spec: 'Corsair Dominator', qty: 1, unit: 520 },
+      { cat: 'Storage', item: '4 TB NVMe Gen 5 SSD', spec: 'Crucial T705', qty: 1, unit: 380 },
+      { cat: 'PSU', item: 'Corsair HX1600i 1600 W', spec: '80+ Titanium', qty: 1, unit: 349.99 },
+      { cat: 'Case', item: 'Phanteks Enthoo Pro 2', spec: 'Full Tower', qty: 1, unit: 199.99 },
+      { cat: 'Cooling', item: 'NZXT Kraken 360 AIO', spec: '360 mm', qty: 1, unit: 179.99 },
+      { cat: 'OS', item: 'Windows 11 Pro', spec: 'OEM license', qty: 1, unit: 199.99 },
+      { cat: 'Misc', item: 'Cables, adapters, paste', spec: 'PCIe adapters, Arctic MX-6', qty: 1, unit: 60 },
+      { cat: 'Displays', item: 'Hisense 100\u2033 U8 MiniLED 4K', spec: '5,000 nits, 165 Hz', qty: 3, unit: 4500 },
+      { cat: 'Displays', item: '100\u2033 Wall Mount (VESA)', spec: 'Articulating, 300 lb', qty: 3, unit: 249.99 },
+      { cat: 'Monitor', item: 'Dell 32\u2033 4K USB-C', spec: 'U3225QE', qty: 1, unit: 629.99 },
+      { cat: 'Peripherals', item: 'Logitech MX Keys S + Master 3S', spec: 'Wireless combo', qty: 1, unit: 209.98 },
+      { cat: 'SDI', item: 'HDMI\u2192SDI Converter', spec: 'Blackmagic Micro', qty: 3, unit: 49.99 },
+      { cat: 'SDI', item: 'SDI\u2192HDMI Converter', spec: 'Blackmagic Micro', qty: 3, unit: 49.99 },
+      { cat: 'SDI', item: 'DP 2.1\u2192HDMI 2.1 Cable', spec: 'Active, 6 ft', qty: 3, unit: 24.99 },
+      { cat: 'SDI', item: 'Belden 1694A SDI Cable 100 ft', spec: '75 \u03A9, BNC', qty: 3, unit: 79.99 },
+      { cat: 'SDI', item: 'DisplayPort 1.4 Cable', spec: '6 ft', qty: 1, unit: 19.99 },
+      { cat: 'Cameras', item: 'Intel RealSense D455', spec: 'Depth, 87\u00b0 FoV', qty: 3, unit: 419 },
+      { cat: 'Cameras', item: 'Camera Mount Arm', spec: '1/4-20 thread', qty: 3, unit: 39.99 },
+      { cat: 'Audio', item: 'Shure MV7', spec: 'USB/XLR Dynamic', qty: 3, unit: 249 },
+      { cat: 'Audio', item: 'Elgato Wave Boom Arm', spec: 'Low-profile', qty: 3, unit: 34.99 },
+      { cat: 'Frame', item: 'Custom Arc Frame', spec: 'Steel/Aluminum, matte black', qty: 1, unit: 8500 },
+    ];
+
+    const labor = [
+      { item: 'AV Lead Technician', scope: 'System build, signal chain, SDI runs', qty: 2, unit: 850, label: 'day' },
+      { item: 'AV Assistant', scope: 'Cable pulling, mounting assist', qty: 2, unit: 450, label: 'day' },
+      { item: 'Structural Rigger', scope: 'Arc frame, floor anchoring, TV mount', qty: 1, unit: 1200, label: 'flat' },
+      { item: 'Licensed Electrician', scope: 'Dedicated 20A circuit, PDU', qty: 1, unit: 950, label: 'flat' },
+      { item: 'Network Setup', scope: 'Venue internet, cloud endpoint', qty: 1, unit: 400, label: 'flat' },
+      { item: 'System Test & Rehearsal', scope: 'End-to-end test, calibration', qty: 1, unit: 850, label: 'day' },
+      { item: 'Strike', scope: 'Teardown, cable recovery, packing', qty: 1, unit: 700, label: 'flat' },
+      { item: 'Shipping (round trip)', scope: 'Freight for all equipment', qty: 1, unit: 1800, label: 'flat' },
+    ];
+
+    const hwSub = hw.reduce((a, r) => a + r.qty * r.unit, 0);
+    const hwTax = hwSub * TAX;
+    const hwTotal = hwSub + hwTax;
+    const labSub = labor.reduce((a, r) => a + r.qty * r.unit, 0);
+    const labTax = labSub * TAX;
+    const labTotal = labSub + labTax;
+    const B300 = 40000;
+    const allIn = hwTotal + B300 + labTotal;
+
+    // Stats bar
+    document.getElementById('stats-bar').innerHTML = [
+      ['Hardware', fmtK(hwTotal), 'incl. NYC tax'],
+      ['Installation', fmtK(labTotal), 'labor + shipping'],
+      ['Cloud Compute', '$40k/yr', '$3,333/mo'],
+      ['Total', fmtK(allIn), 'all-in project cost'],
+    ].map(([l,v,s]) => `<div class="stat"><div class="stat-label">${l}</div><div class="stat-value">${v}</div><div class="stat-sub">${s}</div></div>`).join('');
+
+    // System cards
+    document.getElementById('system-cards').innerHTML = [
+      ['\u{1F5A5}', 'Displays', '3\u00d7 Hisense 100\u2033 U8 MiniLED \u2014 one per floor'],
+      ['\u26A1', 'GPU', 'RTX PRO 6000 Blackwell \u00b7 96 GB GDDR7'],
+      ['\u{1F4E1}', 'Depth', 'Intel RealSense D455 \u00b7 one per floor'],
+      ['\u{1F399}', 'Voice', 'Shure MV7 \u00b7 one per floor'],
+      ['\u{1F504}', 'Signal', 'SDI \u00b7 Belden 1694A \u00b7 Blackmagic'],
+      ['\u2601', 'Compute', 'NVIDIA B300 Blackwell \u00b7 $40k/yr'],
+    ].map(([i,l,v]) => `<div class="card"><div class="card-icon">${i}</div><div class="card-label">${l}</div><div class="card-value">${v}</div></div>`).join('');
+
+    // Cost summary
+    document.getElementById('cost-summary').innerHTML = [
+      ['Hardware (pre-tax)', fmt(hwSub)],
+      ['Hardware tax (8.875%)', fmt(hwTax)],
+      ['Hardware total', fmt(hwTotal)],
+      ['Installation (pre-tax)', fmt(labSub)],
+      ['Installation tax (8.875%)', fmt(labTax)],
+      ['Installation total', fmt(labTotal)],
+      ['B300 Cloud Compute (annual)', fmt(B300)],
+    ].map(([l,v]) => `<div class="summary-row"><span class="label">${l}</span><span class="val">${v}</span></div>`).join('') +
+    `<div class="summary-row total"><span class="label">All-in total</span><span class="val">${fmt(allIn)}</span></div>`;
+
+    // HW stats
+    document.getElementById('hw-stats').innerHTML = [
+      ['Subtotal', fmt(hwSub), 'before tax'],
+      ['NYC Tax', fmt(hwTax), '8.875%'],
+      ['Total', fmt(hwTotal), 'all hardware'],
+    ].map(([l,v,s]) => `<div class="stat"><div class="stat-label">${l}</div><div class="stat-value" style="font-size:24px">${v}</div><div class="stat-sub">${s}</div></div>`).join('') +
+    '<div class="stat"></div>';
+
+    // HW table
+    document.getElementById('hw-tbody').innerHTML = hw.map(r =>
+      `<tr><td><span class="tag">${r.cat}</span></td><td class="primary">${r.item}<br><span style="font-size:12px;color:var(--text-tertiary);font-weight:400">${r.spec}</span></td><td class="right">${r.qty}</td><td class="right">${fmt(r.unit)}</td><td class="right primary">${fmt(r.qty*r.unit)}</td></tr>`
+    ).join('');
+    document.getElementById('hw-total-val').textContent = fmt(hwTotal);
+
+    // Compute stats
+    document.getElementById('compute-stats').innerHTML = [
+      ['Annual', '$40,000', 'B300 GPU rental'],
+      ['Monthly', '$3,333', 'recurring'],
+      ['Daily', '$109.59', 'amortized'],
+    ].map(([l,v,s]) => `<div class="stat"><div class="stat-label">${l}</div><div class="stat-value" style="font-size:24px">${v}</div><div class="stat-sub">${s}</div></div>`).join('') +
+    '<div class="stat"></div>';
+
+    // Compute details
+    document.getElementById('compute-details').innerHTML = [
+      ['Architecture', 'NVIDIA Blackwell (B300)'],
+      ['Use Case', 'AI inference, generative synthesis, distributed rendering'],
+      ['Commitment', '12-month annual contract'],
+      ['Providers', 'CoreWeave, Lambda Labs, AWS'],
+      ['On-site GPU', 'RTX PRO 6000 \u2014 real-time display output'],
+      ['Cloud Role', 'Heavy model inference, batch generative workloads'],
+    ].map(([l,v]) => `<div class="detail-cell"><div class="label">${l}</div><div class="value">${v}</div></div>`).join('');
+
+    // Install stats
+    document.getElementById('install-stats').innerHTML = [
+      ['Subtotal', fmt(labSub), 'before tax'],
+      ['NYC Tax', fmt(labTax), '8.875%'],
+      ['Total', fmt(labTotal), 'labor + shipping'],
+    ].map(([l,v,s]) => `<div class="stat"><div class="stat-label">${l}</div><div class="stat-value" style="font-size:24px">${v}</div><div class="stat-sub">${s}</div></div>`).join('') +
+    '<div class="stat"></div>';
+
+    // Labor table
+    document.getElementById('labor-tbody').innerHTML = labor.map(r =>
+      `<tr><td class="primary">${r.item}</td><td>${r.scope}</td><td class="right">${r.qty} ${r.label}</td><td class="right">${fmt(r.unit)}</td><td class="right primary">${fmt(r.qty*r.unit)}</td></tr>`
+    ).join('');
+    document.getElementById('labor-total-val').textContent = fmt(labTotal);
+
+    // Timeline
+    document.getElementById('timeline').innerHTML = [
+      ['Day 1', 'Structural rigger + electrician. Arc frame placement, floor anchoring, dedicated circuit install.'],
+      ['Day 2', 'AV lead + assistant. Workstation build, GPU install, OS + drivers, SDI cable runs.'],
+      ['Day 3', 'AV lead + assistant. Display mounting, converter setup, camera + mic positioning.'],
+      ['Day 4', 'Full system test + rehearsal. ETHEREA run-through, B300 cloud setup, calibration.'],
+      ['Post-event', 'Strike. Teardown, cable recovery, equipment packing + freight out.'],
+    ].map(([d,desc]) => `<div class="timeline-row"><div class="timeline-day">${d}</div><div class="timeline-desc">${desc}</div></div>`).join('');
+
+    // Tab switching
+    function showTab(id) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav button').forEach(el => el.classList.remove('active'));
+      document.getElementById('tab-' + id).classList.add('active');
+      event.target.classList.add('active');
     }
   </script>
+
+  <!-- Spline Runtime -->
+  <script type="module">
+    import { Application } from 'https://unpkg.com/@splinetool/runtime@1.9.98/build/runtime.js';
+    const canvas = document.getElementById('spline-canvas');
+    const app = new Application(canvas);
+    app.load('https://prod.spline.design/Sb89-xYUNBEJ7e1c/scene.splinecode');
+  </script>
+
 </body>
 </html>
