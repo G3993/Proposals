@@ -657,6 +657,11 @@
     const canvas = document.getElementById('spline-canvas');
     const app = new Application(canvas);
     app.load('https://prod.spline.design/Sb89-xYUNBEJ7e1c/scene.splinecode');
+
+    // Prevent page scroll when interacting with the 3D scene
+    const wrap = document.querySelector('.spline-wrap');
+    wrap.addEventListener('wheel', e => e.preventDefault(), { passive: false });
+    wrap.addEventListener('touchmove', e => e.preventDefault(), { passive: false });
   </script>
 
 </body>
