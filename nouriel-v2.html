@@ -517,10 +517,11 @@
         <p>Thanks again for the opportunity to perform on Sunday night. We had a blast co-creating with you, and are thrilled by the opportunity to work together to bring ETHEREA permanently into your beautiful home.</p>
         <p>As you have seen, ETHEREA's Imagination Engine is a dynamic, always-evolving creative intelligence that gives anyone the ability to instantly use their words to project their imagination in the space around them. We continue to discover new use cases and audiences for this technology, from musical performances, to animated poetry, to immersive audiovisual theatre, and believe that your prolific hosting will provide a living laboratory to demonstrate its immense potential while entertaining and inspiring your guests.</p>
         <p>After some thought, Gonzo and I have concluded that installing a B300 inside an apartment is infeasible. They are only sold in nodes of eight which are soldered together, with cooling and power requirements that exceed residential capacity.</p>
-        <p>We are considering what it might take to gain access to frontier compute inside the NYC metro area, which will be necessary in order to reduce latency such that we can fulfill our ambition of powering live performances in the city at the highest level of production and reliability. We are exploring the feasibility of building a small cooperative data center inside of the 20,000 square foot tech/art accelerator we are building in North Williamsburg.</p>
-        <p>In the meantime, we can get started as soon as you are ready with our remote provider, supported in a few key latency-sensitive tasks by NVIDIA's current top of the line professional workstation that can live beautifully in your home. This has the added benefit of allowing us to remain flexible to shifting compute requirements as the model landscape changes.</p>
+        <p>On latency, we found that the network roundtrip for our remote provider in Finland currently averages between 200–300ms, while the overall time from when someone speaks to when they see their ideas on the screen is around 2–3 seconds. Most of the rest of that time is spent on AI inference. While we are constantly working to optimize inference time, it remains a bottleneck to latency that will not be solved by colocation. Further, GPU requirements for frontier models are constantly changing — as an example Google Genie 3 currently requires 7 TPUs running in parallel in order to run, vs. the one B300 we're currently using to run ETHEREA.</p>
+        <p>Even in a world where it was possible to purchase one B300, the economics would only start to make sense as you approach 24/7 utilization. For the use cases we've discussed, which are primarily when you are home and entertaining other people, we expect utilization to be much lower. For these reasons, we recommend a hosted model where ETHEREA manages the cloud infrastructure on your behalf. Your installation would have priority access to a dedicated GPU that spins up on demand, with the acquisition price including two years of unlimited usage.</p>
+        <p>On the hardware side, we would install a local machine with an NVIDIA RTX PRO 6000 — NVIDIA's current top of the line professional GPU, with 96 GB of memory — that runs a smaller version of ETHEREA for ambient generation, as well as latency-critical workflows like audio reactivity and live video processing. Every session is recorded, building a living archive of everything ETHEREA creates in the space.</p>
         <p>What follows is our approach, pricing, and next steps.</p>
-        <div class="signature">James &amp; Gonzo</div>
+        <p class="signature">James &amp; Gonzo</p>
       </div>
     </div>
   </section>
@@ -538,14 +539,14 @@
           <div class="mode-card-media">Video coming soon</div>
           <div class="mode-card-body">
             <div class="mode-card-title">Active</div>
-            <div class="mode-card-desc">Speak, and watch your words instantly form worlds around you. Supports free-form play, poetry reading, storytelling, musical performances, and standup comedy. Live captions available.</div>
+            <div class="mode-card-desc">Speak, and watch your words instantly form worlds around you, always powered by the most state of the art intelligence. This mode supports both unstructured, free-form play like what we delivered on Sunday night, as well as more intentional settings like poetry reading, storytelling, musical performances, and even standup comedy. Here is a video from today of me reading a poem with live captions enabled.</div>
           </div>
         </div>
         <div class="mode-card">
           <div class="mode-card-media">Video coming soon</div>
           <div class="mode-card-body">
             <div class="mode-card-title">Ambient</div>
-            <div class="mode-card-desc">When inactive, ETHEREA autonomously evolves, producing hypnotic visuals that meander through concepts in a variety of aesthetics. Fine-tunable to specific moods, themes, or the style of a specific artist.</div>
+            <div class="mode-card-desc">Runs entirely on local compute using the best available models, with no cloud dependency. ETHEREA autonomously evolves, producing hypnotic visuals that meander through concepts in a variety of aesthetics. Fine-tunable to specific moods, themes, or the style of a specific artist. Past sessions are recorded and available for replay.</div>
           </div>
         </div>
         <div class="mode-card">
@@ -554,7 +555,7 @@
           </div>
           <div class="mode-card-body">
             <div class="mode-card-title">Imagination Guide</div>
-            <div class="mode-card-desc">ETHEREA comes to life with a voice that talks back. An interactive guide that takes you on tours, tells stories, and responds to conversation.</div>
+            <div class="mode-card-desc">We are currently developing the Imagination Guide, which brings ETHEREA to life with a voice that talks back, and is our most exciting feature to date. Here is an early demo of the Imagination Guide taking me on a tour of Tokyo — we see massive potential for this feature across many use cases from education, to entertainment, to live performances, where we're producing an interactive storytelling act with a human actor that we hope to debut in the spring.</div>
           </div>
         </div>
       </div>
@@ -566,8 +567,8 @@
     <div class="inner fade-in">
       <div class="eyebrow eyebrow-gradient">Local Brain</div>
       <h2 class="headline-medium" style="margin-bottom:20px">The workstation<br>as sculpture.</h2>
-      <p class="body-large">Powered by an RTX PRO 6000 — NVIDIA's current top of the line GPU. Local transcription, audioreactivity, a local language model, and a smaller, local version of ETHEREA that will become more capable over time. Modular and upgradeable.</p>
-      <p class="body-large" style="margin-top:20px">The workstation lives inside a commissioned glass-blown aquarium that water-cools the GPU while refracting and magnifying the system's generative visuals through water and glass. A living sculpture that is simultaneously art object, light source, and the brain of the entire installation. Crafted by glass sculptor Edoardo Cozzani.</p>
+      <p class="body-large">A local workstation powered by an NVIDIA RTX PRO 6000 — with 96 GB of GDDR7 memory — will handle latency-critical workflows including audio reactivity, live video processing, local transcription, and a smaller version of ETHEREA for ambient generation that runs independently of the cloud. Every active session is recorded locally, and when the system is idle, past creations can be replayed as a dynamic visual history of everything imagined in the space. The workstation is modular, and can be upgraded with newer GPUs as they become available.</p>
+      <p class="body-large" style="margin-top:20px">As discussed, the workstation can be housed in a commissioned glass-blown aquarium that water-cools the GPU while refracting and magnifying the system's generative visuals through water and glass, resulting in a living sculpture that is simultaneously art object, light source, and the brain of the entire installation. We work with a very talented glass sculptor, <a href="https://www.instagram.com/edoardo_cozzani/?hl=en" target="_blank" style="color:var(--blue);text-decoration:underline;text-underline-offset:3px">Edoardo Cozzani</a>, who would be a fantastic choice to bring this to life.</p>
     </div>
   </section>
 
@@ -575,21 +576,22 @@
   <section id="compute" class="section section-dark">
     <div class="inner fade-in">
       <div class="eyebrow eyebrow-gradient">Cloud Compute</div>
-      <h2 class="headline-medium" style="margin-bottom:20px">Always on.<br>Always evolving.</h2>
-      <p class="body-large">The cloud handles the heavy generative workloads — frontier model inference, image and video synthesis, and the large-scale computation that makes ETHEREA's visuals possible. The local workstation and cloud GPU work in concert, each handling what it does best.</p>
+      <h2 class="headline-medium" style="margin-bottom:20px">On demand.<br>Always evolving.</h2>
+      <p class="body-large">ETHEREA manages the cloud infrastructure on your behalf. Rather than maintaining a dedicated GPU around the clock, your installation has priority access to a B300 that spins up on demand — active when you need it, idle when you don't. This on-demand model is far more efficient than 24/7 reservation.</p>
+      <p class="body-large" style="margin-top:20px">The cloud handles the heavy generative workloads — frontier model inference, image and video synthesis, and the large-scale computation that makes ETHEREA's visuals possible. The local RTX PRO 6000 and cloud GPU work in concert, each handling what it does best.</p>
 
       <div class="stats-row">
         <div class="stat-item">
-          <div class="stat-number stat-number-gradient">$4,500</div>
-          <div class="stat-desc">per month — 24/7 B300 access</div>
+          <div class="stat-number stat-number-gradient">Hosted</div>
+          <div class="stat-desc">managed by ETHEREA</div>
         </div>
         <div class="stat-item">
-          <div class="stat-number stat-number-gradient">$5–6</div>
-          <div class="stat-desc">per hour — current market rate</div>
+          <div class="stat-number stat-number-gradient">Priority</div>
+          <div class="stat-desc">dedicated on-demand GPU</div>
         </div>
         <div class="stat-item">
-          <div class="stat-number stat-number-gradient">$54k</div>
-          <div class="stat-desc">annual projected cost</div>
+          <div class="stat-number stat-number-gradient">2 Years</div>
+          <div class="stat-desc">unlimited usage</div>
         </div>
       </div>
     </div>
@@ -637,8 +639,8 @@
     <div class="inner fade-in">
       <div class="eyebrow eyebrow-gradient">Terms</div>
       <h2 class="headline-medium" style="margin-bottom:20px">How we work together.</h2>
-      <p class="body-large">In addition to the cost of materials, we will charge a service fee of $50,000 for design, engineering, installation, integration, and ongoing software support. $25,000 is due on signing and $25,000 is due on successful completion.</p>
-      <p class="body-large" style="margin-top:20px">Hardware and compute costs are billed at cost. Monthly cloud compute is billed as incurred. We are eager to continue supporting your social gatherings in-person in the meantime.</p>
+      <p class="body-large">In addition to the cost of materials, we will charge a service fee of $60,000 for design, engineering, installation, integration, and ongoing software support including two years of unlimited cloud compute. $30,000 is due on signing and $30,000 is due on successful completion.</p>
+      <p class="body-large" style="margin-top:20px">Hardware costs are billed at cost. As members of your community, we are excited and available to support as many of your social gatherings as possible — helping run performances, onboarding guests, and continuing to push what ETHEREA can do in a live setting.</p>
     </div>
   </section>
 
@@ -673,23 +675,21 @@
       { cat:'Cameras', item:'Camera Mount', spec:'Discreet wall/ceiling', qty:3, unit:39.99 },
       { cat:'Audio', item:'Shure MV7', spec:'USB/XLR Dynamic', qty:3, unit:249 },
       { cat:'Audio', item:'Boom Arm / Mount', spec:'Low-profile', qty:3, unit:34.99 },
-      { cat:'Aquarium', item:'Custom Glass Aquarium Enclosure', spec:'Glass-blown, water-cooled', qty:1, unit:12000 },
+      { cat:'Aquarium', item:'Custom Glass Aquarium Enclosure (est.)', spec:'Glass-blown, water-cooled', qty:1, unit:12000 },
     ];
 
-    const serviceFee = 50000;
-    const monthlyCompute = 4500;
-    const annualCompute = monthlyCompute * 12;
+    const serviceFee = 60000;
     const hwSub = hw.reduce((a, r) => a + r.qty * r.unit, 0);
     const hwTax = hwSub * TAX;
     const hwTotal = hwSub + hwTax;
-    const yearOneTotal = hwTotal + serviceFee + annualCompute;
+    const acquisitionTotal = hwTotal + serviceFee;
 
     document.getElementById('cost-summary').innerHTML = [
       ['Hardware total (incl. 8.875% tax)', fmt(hwTotal)],
-      ['Service fee', fmt(serviceFee)],
-      ['Cloud compute (annual est.)', fmt(annualCompute)],
+      ['Design, engineering & installation', fmt(serviceFee)],
+      ['Cloud compute (2 years unlimited)', 'Included'],
     ].map(([l,v]) => `<div class="price-row"><span class="price-label">${l}</span><span class="price-value">${v}</span></div>`).join('') +
-    `<div class="price-row price-row-total"><span class="price-label" style="font-weight:600;color:var(--white)">Year one total</span><span class="price-value">${fmt(yearOneTotal)}</span></div>`;
+    `<div class="price-row price-row-total"><span class="price-label" style="font-weight:600;color:var(--white)">Acquisition price</span><span class="price-value">${fmt(acquisitionTotal)}</span></div>`;
 
     document.getElementById('hw-tbody').innerHTML = hw.map(r =>
       `<tr><td><span class="hw-tag">${r.cat}</span></td><td class="primary">${r.item}<div class="spec-text">${r.spec}</div></td><td class="r">${r.qty}</td><td class="r">${fmt(r.unit)}</td><td class="r primary">${fmt(r.qty*r.unit)}</td></tr>`
