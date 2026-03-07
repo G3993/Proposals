@@ -605,16 +605,11 @@
     const app = new Application(canvas);
     app.load('https://prod.spline.design/nHtoIJsfMjuKN2R0/scene.splinecode');
 
-    // Disable Spline's scroll-to-zoom so the page scrolls through normally
-    const wrap = document.querySelector('.spline-wrap');
-    const shield = document.createElement('div');
-    shield.style.cssText = 'position:absolute;inset:0;z-index:2;background:transparent;';
-    wrap.style.position = 'relative';
-    wrap.appendChild(shield);
-    // Shield eats wheel events (page scrolls naturally), but passes clicks to Spline
-    shield.addEventListener('wheel', () => {}, { passive: true });
-    shield.addEventListener('pointerdown', () => { shield.style.pointerEvents = 'none'; });
-    document.addEventListener('pointerup', () => { shield.style.pointerEvents = ''; });
+    // Block Spline's scroll-zoom by intercepting wheel events on the canvas
+    // before Spline's own listener can handle them
+    canvas.addEventListener('wheel', e => {
+      e.stopImmediatePropagation();
+    }, true);
   </script>
 
 </body>
