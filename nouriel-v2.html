@@ -316,10 +316,14 @@
     .config-pill:hover .config-pill-label {
       background: rgba(255,255,255,0.1);
     }
+    .config-item.active .config-pill {
+      padding-bottom: 0;
+    }
     .config-item.active .config-pill-label {
       background: rgba(255,255,255,0.08);
       border-radius: 20px 20px 0 0;
       width: 100%;
+      padding-bottom: 14px;
     }
     .config-pill-icon {
       width: 28px;
@@ -350,7 +354,7 @@
       color: var(--gray-400);
       background: rgba(255,255,255,0.08);
       border-radius: 0 0 20px 20px;
-      padding: 16px 24px 20px;
+      padding: 0 24px 20px;
     }
     .config-detail-inner strong {
       color: var(--white);
