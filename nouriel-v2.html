@@ -160,9 +160,56 @@
       margin: 0 auto;
       position: relative;
       overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.12);
       border-radius: 24px;
       background: #000;
+      isolation: isolate;
+    }
+    .spline-glow {
+      position: absolute;
+      inset: -2px;
+      border-radius: 26px;
+      z-index: -1;
+      overflow: hidden;
+    }
+    .spline-glow::before {
+      content: '';
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: conic-gradient(
+        #000, #402fb5 5%, #000 14%,
+        #000 50%, #cf30aa 60%, #000 64%
+      );
+      animation: spinGlow 6s linear infinite;
+    }
+    .spline-glow-inner {
+      position: absolute;
+      inset: -1px;
+      border-radius: 25px;
+      z-index: -1;
+      overflow: hidden;
+    }
+    .spline-glow-inner::before {
+      content: '';
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: conic-gradient(
+        rgba(0,0,0,0) 0%, #a099d8, rgba(0,0,0,0) 8%,
+        rgba(0,0,0,0) 50%, #dfa2da, rgba(0,0,0,0) 58%
+      );
+      filter: brightness(1.4);
+      animation: spinGlow 6s linear infinite;
+    }
+    @keyframes spinGlow {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
     }
     .spline-container canvas {
       display: block;
@@ -549,6 +596,8 @@
   <!-- Spline 3D -->
   <section class="spline-section">
     <div class="spline-container">
+      <div class="spline-glow"></div>
+      <div class="spline-glow-inner"></div>
       <canvas id="spline-canvas"></canvas>
       <div class="spline-gradient-top"></div>
       <div class="spline-gradient-bottom"></div>
