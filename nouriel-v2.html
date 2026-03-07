@@ -287,13 +287,10 @@
       background-color: hsl(0 0% 6% / 0.85);
       background-image: radial-gradient(
         var(--spotlight-size) var(--spotlight-size) at
-        calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px),
+        calc(var(--lx, -999) * 1px) calc(var(--ly, -999) * 1px),
         hsl(var(--hue) 100% 70% / var(--bg-spot-opacity, 0)),
         transparent
       );
-      background-size: calc(100% + (2 * var(--border-size))) calc(100% + (2 * var(--border-size)));
-      background-position: 50% 50%;
-      background-attachment: fixed;
       border: var(--border-size) solid hsl(0 0% 60% / 0.12);
       border-radius: calc(var(--radius) * 1px);
       position: relative;
@@ -315,8 +312,6 @@
       inset: calc(var(--border-size) * -1);
       border: var(--border-size) solid transparent;
       border-radius: calc(var(--radius) * 1px);
-      background-attachment: fixed;
-      background-size: calc(100% + (2 * var(--border-size))) calc(100% + (2 * var(--border-size)));
       background-repeat: no-repeat;
       background-position: 50% 50%;
       mask: linear-gradient(transparent, transparent), linear-gradient(white, white);
@@ -338,7 +333,7 @@
     .mode-card::before {
       background-image: radial-gradient(
         calc(var(--spotlight-size) * 0.75) calc(var(--spotlight-size) * 0.75) at
-        calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px),
+        calc(var(--lx, -999) * 1px) calc(var(--ly, -999) * 1px),
         hsl(var(--hue) 100% 50% / 1),
         transparent 100%
       );
@@ -347,7 +342,7 @@
     .mode-card::after {
       background-image: radial-gradient(
         calc(var(--spotlight-size) * 0.5) calc(var(--spotlight-size) * 0.5) at
-        calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px),
+        calc(var(--lx, -999) * 1px) calc(var(--ly, -999) * 1px),
         hsl(0 100% 100% / 1),
         transparent 100%
       );
@@ -838,12 +833,15 @@
       btn.childNodes[0].textContent = el.classList.contains('open') ? 'Hide hardware details ' : 'View hardware details ';
     }
 
-    // Spotlight glow on mode cards — only the hovered card
+    // Spotlight glow on mode cards — card-relative coordinates
     document.querySelectorAll('.mode-card').forEach(function(card) {
       card.addEventListener('pointermove', function(e) {
-        card.style.setProperty('--x', e.clientX.toFixed(2));
+        var rect = card.getBoundingClientRect();
+        var lx = e.clientX - rect.left;
+        var ly = e.clientY - rect.top;
+        card.style.setProperty('--lx', lx.toFixed(2));
+        card.style.setProperty('--ly', ly.toFixed(2));
         card.style.setProperty('--xp', (e.clientX / window.innerWidth).toFixed(2));
-        card.style.setProperty('--y', e.clientY.toFixed(2));
         card.classList.add('glow-active');
       });
       card.addEventListener('pointerleave', function() {
