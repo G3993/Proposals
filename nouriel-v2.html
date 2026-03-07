@@ -271,115 +271,110 @@
       letter-spacing: -0.01em;
     }
 
-    /* ── Mode cards ── */
-    .modes-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+    /* ── Configurator ── */
+    .configurator {
+      display: flex;
+      gap: 48px;
       margin-top: 64px;
+      min-height: 480px;
+      align-items: flex-start;
     }
-    .mode-card {
-      --border: 2;
-      --radius: 24;
-      --border-size: calc(var(--border) * 1px);
-      --spotlight-size: 300px;
-      --hue: calc(var(--base, 260) + (var(--xp, 0) * var(--spread, 60)));
-      background-color: hsl(0 0% 6% / 0.85);
-      background-image: radial-gradient(
-        var(--spotlight-size) var(--spotlight-size) at
-        calc(var(--x, 0) * 1px)
-        calc(var(--y, 0) * 1px),
-        hsl(var(--hue) 100% 70% / var(--bg-spot-opacity, 0)),
-        transparent
-      );
-      background-size: calc(100% + (2 * var(--border-size))) calc(100% + (2 * var(--border-size)));
-      background-position: 50% 50%;
-      background-attachment: fixed;
-      border: var(--border-size) solid hsl(0 0% 60% / 0.12);
-      border-radius: calc(var(--radius) * 1px);
-      position: relative;
-      transition: transform 0.3s ease, border-color 0.3s ease;
-    }
-    .mode-card:hover { transform: scale(1.02); }
-    .mode-card-inner {
-      overflow: hidden;
-      border-radius: calc(var(--radius) * 1px);
-      height: 100%;
+    .config-pills {
+      flex: 0 0 auto;
       display: flex;
       flex-direction: column;
-      position: relative;
-      z-index: 1;
+      gap: 12px;
+      min-width: 220px;
     }
-    .mode-card::before,
-    .mode-card::after {
-      pointer-events: none;
-      content: "";
-      position: absolute;
-      inset: calc(var(--border-size) * -1);
-      border: var(--border-size) solid transparent;
-      border-radius: calc(var(--radius) * 1px);
-      background-attachment: fixed;
-      background-size: calc(100% + (2 * var(--border-size))) calc(100% + (2 * var(--border-size)));
-      background-repeat: no-repeat;
-      background-position: 50% 50%;
-      mask: linear-gradient(transparent, transparent), linear-gradient(white, white);
-      -webkit-mask: linear-gradient(transparent, transparent), linear-gradient(white, white);
-      mask-clip: padding-box, border-box;
-      -webkit-mask-clip: padding-box, border-box;
-      mask-composite: intersect;
-      -webkit-mask-composite: source-in;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    .mode-card.glow-active {
-      --bg-spot-opacity: 0.1;
-      border-color: transparent;
-    }
-    .mode-card.glow-active::before,
-    .mode-card.glow-active::after {
-      opacity: 1;
-    }
-    .mode-card::before {
-      background-image: radial-gradient(
-        calc(var(--spotlight-size) * 0.75) calc(var(--spotlight-size) * 0.75) at
-        calc(var(--x, 0) * 1px)
-        calc(var(--y, 0) * 1px),
-        hsl(var(--hue) 100% 50% / 1),
-        transparent 100%
-      );
-      filter: brightness(2);
-    }
-    .mode-card::after {
-      background-image: radial-gradient(
-        calc(var(--spotlight-size) * 0.5) calc(var(--spotlight-size) * 0.5) at
-        calc(var(--x, 0) * 1px)
-        calc(var(--y, 0) * 1px),
-        hsl(0 100% 100% / 1),
-        transparent 100%
-      );
-    }
-    .mode-card-body { padding: 32px 28px; }
-    .mode-card-title {
-      font-size: 1.3rem;
-      font-weight: 600;
-      margin-bottom: 10px;
-    }
-    .mode-card-desc {
+    .config-pill {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 28px;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: var(--white);
       font-size: 0.95rem;
-      line-height: 1.5;
-      color: var(--gray-400);
+      font-weight: 600;
     }
-    .mode-card-media {
-      aspect-ratio: 16/9;
-      background: rgba(255,255,255,0.04);
+    .config-pill:hover {
+      background: rgba(255,255,255,0.1);
+    }
+    .config-pill.active {
+      border-radius: 20px;
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.12);
+    }
+    .config-pill-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.3);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.75rem;
-      font-weight: 500;
+      flex-shrink: 0;
+      font-size: 14px;
+      line-height: 1;
+      transition: all 0.3s ease;
+    }
+    .config-pill.active .config-pill-icon {
+      border-color: var(--blue);
+      background: var(--blue);
+      color: var(--white);
+    }
+    .config-pill-detail {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.4s ease, opacity 0.3s ease;
+      opacity: 0;
+      font-size: 0.9rem;
+      font-weight: 400;
+      line-height: 1.55;
       color: var(--gray-400);
+      padding: 0 20px 0 56px;
+    }
+    .config-pill.active + .config-pill-detail {
+      max-height: 200px;
+      opacity: 1;
+      padding: 0 20px 16px 56px;
+    }
+    .config-media {
+      flex: 1;
+      border-radius: 20px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.03);
+      aspect-ratio: 16/10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .config-media-item {
+      display: none;
+      width: 100%;
+      height: 100%;
+      align-items: center;
+      justify-content: center;
+    }
+    .config-media-item.active {
+      display: flex;
+    }
+    .config-media-placeholder {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--gray-500);
       letter-spacing: 0.5px;
       text-transform: uppercase;
+    }
+
+    @media (max-width: 768px) {
+      .configurator { flex-direction: column; }
+      .config-pills { min-width: 100%; }
+      .config-media { aspect-ratio: 16/9; width: 100%; }
     }
 
     /* ── Stats row ── */
@@ -581,7 +576,7 @@
 
     @media (max-width: 768px) {
       .section { padding: 100px 20px; }
-      .modes-grid { grid-template-columns: 1fr; }
+      .configurator { flex-direction: column; }
       .stats-row { grid-template-columns: 1fr; }
       .stat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); padding: 32px 24px; }
       .stat-item:last-child { border-bottom: none; }
@@ -660,34 +655,36 @@
       <p class="body-large">Ultra short throw projectors, microphones, and cameras installed throughout your home. Multi-screen visibility and interactivity, day and night. All controlled via an iOS app.</p>
       <p class="body-large" style="margin-top:16px">Every surface responds to what's happening in the room. Three modes of operation, each reacting to audiovisual inputs from the space around it.</p>
 
-      <div class="modes-grid">
-        <div class="mode-card">
-          <div class="mode-card-inner">
-            <div class="mode-card-media">Video coming soon</div>
-            <div class="mode-card-body">
-              <div class="mode-card-title">Active</div>
-              <div class="mode-card-desc">Speak, and watch your words instantly form worlds around you, always powered by the most state of the art intelligence. This mode supports both unstructured, free-form play like what we delivered on Sunday night, as well as more intentional settings like poetry reading, storytelling, musical performances, and even standup comedy. Here is a video from today of me reading a poem with live captions enabled.</div>
-            </div>
+      <div class="configurator">
+        <div class="config-pills">
+          <div class="config-pill active" data-mode="active">
+            <span class="config-pill-icon">+</span>
+            Active
           </div>
-        </div>
-        <div class="mode-card">
-          <div class="mode-card-inner">
-            <div class="mode-card-media">Video coming soon</div>
-            <div class="mode-card-body">
-              <div class="mode-card-title">Ambient</div>
-              <div class="mode-card-desc">Runs entirely on local compute using the best available models, with no cloud dependency. ETHEREA autonomously evolves, producing hypnotic visuals that meander through concepts in a variety of aesthetics. Fine-tunable to specific moods, themes, or the style of a specific artist. Past sessions are recorded and available for replay.</div>
-            </div>
+          <div class="config-pill-detail"><strong>Active.</strong> Speak, and watch your words instantly form worlds around you, always powered by the most state of the art intelligence. Supports free-form play, poetry reading, storytelling, musical performances, and standup comedy. Live captions available.</div>
+
+          <div class="config-pill" data-mode="ambient">
+            <span class="config-pill-icon">+</span>
+            Ambient
           </div>
+          <div class="config-pill-detail"><strong>Ambient.</strong> Runs entirely on local compute with no cloud dependency. ETHEREA autonomously evolves, producing hypnotic visuals that meander through concepts in a variety of aesthetics. Fine-tunable to specific moods, themes, or the style of a specific artist. Past sessions are recorded and available for replay.</div>
+
+          <div class="config-pill" data-mode="guide">
+            <span class="config-pill-icon">+</span>
+            Imagination Guide
+          </div>
+          <div class="config-pill-detail"><strong>Imagination Guide.</strong> ETHEREA comes to life with a voice that talks back. An interactive guide that takes you on tours, tells stories, and responds to conversation. Massive potential across education, entertainment, and live performance.</div>
         </div>
-        <div class="mode-card">
-          <div class="mode-card-inner">
-            <div style="position:relative;aspect-ratio:16/9;overflow:hidden">
-              <iframe src="https://www.youtube.com/embed/1XMIYZJc4XA" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
-            </div>
-            <div class="mode-card-body">
-              <div class="mode-card-title">Imagination Guide</div>
-              <div class="mode-card-desc">We are currently developing the Imagination Guide, which brings ETHEREA to life with a voice that talks back, and is our most exciting feature to date. Here is an early demo of the Imagination Guide taking me on a tour of Tokyo — we see massive potential for this feature across many use cases from education, to entertainment, to live performances, where we're producing an interactive storytelling act with a human actor that we hope to debut in the spring.</div>
-            </div>
+
+        <div class="config-media">
+          <div class="config-media-item active" data-mode="active">
+            <span class="config-media-placeholder">Video coming soon</span>
+          </div>
+          <div class="config-media-item" data-mode="ambient">
+            <span class="config-media-placeholder">Video coming soon</span>
+          </div>
+          <div class="config-media-item" data-mode="guide" style="width:100%;height:100%">
+            <iframe src="https://www.youtube.com/embed/1XMIYZJc4XA" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
           </div>
         </div>
       </div>
@@ -844,24 +841,15 @@
       btn.childNodes[0].textContent = el.classList.contains('open') ? 'Hide hardware details ' : 'View hardware details ';
     }
 
-    // Spotlight glow on mode cards — viewport coords with background-attachment:fixed
-    var allModeCards = document.querySelectorAll('.mode-card');
-    document.addEventListener('pointermove', function(e) {
-      var x = e.clientX.toFixed(2);
-      var y = e.clientY.toFixed(2);
-      var xp = (e.clientX / window.innerWidth).toFixed(2);
-      allModeCards.forEach(function(card) {
-        card.style.setProperty('--x', x);
-        card.style.setProperty('--y', y);
-        card.style.setProperty('--xp', xp);
-      });
-    });
-    allModeCards.forEach(function(card) {
-      card.addEventListener('pointerenter', function() {
-        card.classList.add('glow-active');
-      });
-      card.addEventListener('pointerleave', function() {
-        card.classList.remove('glow-active');
+    // Configurator pill toggle
+    document.querySelectorAll('.config-pill').forEach(function(pill) {
+      pill.addEventListener('click', function() {
+        document.querySelectorAll('.config-pill').forEach(function(p) { p.classList.remove('active'); });
+        pill.classList.add('active');
+        var mode = pill.getAttribute('data-mode');
+        document.querySelectorAll('.config-media-item').forEach(function(m) { m.classList.remove('active'); });
+        var target = document.querySelector('.config-media-item[data-mode="' + mode + '"]');
+        if (target) target.classList.add('active');
       });
     });
 
