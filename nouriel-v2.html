@@ -153,12 +153,16 @@
     /* ── Spline ── */
     .spline-section {
       background: var(--black);
-      padding: 0 0 20px;
+      padding: 0 24px 20px;
     }
     .spline-container {
-      width: 100%;
+      max-width: 980px;
+      margin: 0 auto;
       position: relative;
       overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 24px;
+      background: #000;
     }
     .spline-container canvas {
       width: 120%;
@@ -181,8 +185,9 @@
       position: absolute;
       bottom: 0; left: 0; right: 0;
       height: 200px;
-      background: linear-gradient(transparent, var(--black));
+      background: linear-gradient(transparent, #000);
       pointer-events: none;
+      border-radius: 0 0 24px 24px;
     }
     .spline-hint {
       text-align: center;
