@@ -230,12 +230,64 @@
       margin-top: 64px;
     }
     .mode-card {
-      background: #161617;
-      border-radius: 24px;
+      --border: 1.5;
+      --radius: 24;
+      --border-size: calc(var(--border) * 1px);
+      --spotlight-size: 350px;
+      --hue: calc(var(--base, 260) + (var(--xp, 0) * var(--spread, 60)));
+      background-color: hsl(0 0% 6% / 0.85);
+      background-image: radial-gradient(
+        var(--spotlight-size) var(--spotlight-size) at
+        calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px),
+        hsl(var(--hue) 100% 70% / 0.08),
+        transparent
+      );
+      background-size: calc(100% + (2 * var(--border-size))) calc(100% + (2 * var(--border-size)));
+      background-position: 50% 50%;
+      background-attachment: fixed;
+      border: var(--border-size) solid hsl(0 0% 60% / 0.12);
+      border-radius: calc(var(--radius) * 1px);
       overflow: hidden;
+      position: relative;
       transition: transform 0.3s ease;
     }
     .mode-card:hover { transform: scale(1.02); }
+    .mode-card::before,
+    .mode-card::after {
+      pointer-events: none;
+      content: "";
+      position: absolute;
+      inset: calc(var(--border-size) * -1);
+      border: var(--border-size) solid transparent;
+      border-radius: calc(var(--radius) * 1px);
+      background-attachment: fixed;
+      background-size: calc(100% + (2 * var(--border-size))) calc(100% + (2 * var(--border-size)));
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+      mask: linear-gradient(transparent, transparent), linear-gradient(white, white);
+      -webkit-mask: linear-gradient(transparent, transparent), linear-gradient(white, white);
+      mask-clip: padding-box, border-box;
+      -webkit-mask-clip: padding-box, border-box;
+      mask-composite: intersect;
+      -webkit-mask-composite: source-in;
+    }
+    .mode-card::before {
+      background-image: radial-gradient(
+        calc(var(--spotlight-size) * 0.75) calc(var(--spotlight-size) * 0.75) at
+        calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px),
+        hsl(var(--hue) 100% 50% / 1),
+        transparent 100%
+      );
+      filter: brightness(2);
+    }
+    .mode-card::after {
+      background-image: radial-gradient(
+        calc(var(--spotlight-size) * 0.5) calc(var(--spotlight-size) * 0.5) at
+        calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px),
+        hsl(0 100% 100% / 1),
+        transparent 100%
+      );
+    }
     .mode-card-body { padding: 32px 28px; }
     .mode-card-title {
       font-size: 1.3rem;
@@ -711,6 +763,16 @@
       btn.classList.toggle('open');
       btn.childNodes[0].textContent = el.classList.contains('open') ? 'Hide hardware details ' : 'View hardware details ';
     }
+
+    // Spotlight glow on mode cards
+    document.addEventListener('pointermove', function(e) {
+      var cards = document.querySelectorAll('.mode-card');
+      for (var i = 0; i < cards.length; i++) {
+        cards[i].style.setProperty('--x', e.clientX.toFixed(2));
+        cards[i].style.setProperty('--xp', (e.clientX / window.innerWidth).toFixed(2));
+        cards[i].style.setProperty('--y', e.clientY.toFixed(2));
+      }
+    });
 
     // Scroll fade-in
     const observer = new IntersectionObserver((entries) => {
