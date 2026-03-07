@@ -28,8 +28,8 @@
       font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Helvetica, Arial, sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      color: var(--gray-900);
-      background: var(--white);
+      color: var(--white);
+      background: var(--black);
     }
 
     ::-webkit-scrollbar { width: 0; }
@@ -39,10 +39,10 @@
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 100;
-      background: rgba(255,255,255,0.72);
+      background: rgba(0,0,0,0.72);
       backdrop-filter: saturate(180%) blur(20px);
       -webkit-backdrop-filter: saturate(180%) blur(20px);
-      border-bottom: 1px solid var(--gray-200);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
     }
     .nav-inner {
       max-width: 980px;
@@ -57,7 +57,7 @@
       font-size: 0.75rem;
       font-weight: 600;
       letter-spacing: 0.5px;
-      color: var(--gray-900);
+      color: var(--white);
       text-transform: uppercase;
     }
     .nav-links {
@@ -71,7 +71,7 @@
       text-decoration: none;
       transition: color 0.2s;
     }
-    .nav-links a:hover { color: var(--gray-900); }
+    .nav-links a:hover { color: var(--white); }
 
     /* ── Sections ── */
     .section {
@@ -83,12 +83,12 @@
       color: var(--white);
     }
     .section-light {
-      background: var(--gray-100);
-      color: var(--gray-900);
+      background: #111111;
+      color: var(--white);
     }
     .section-white {
-      background: var(--white);
-      color: var(--gray-900);
+      background: #0a0a0a;
+      color: var(--white);
     }
 
     .inner { max-width: 980px; margin: 0 auto; }
@@ -130,10 +130,9 @@
       font-size: clamp(17px, 2vw, 21px);
       line-height: 1.52;
       font-weight: 400;
-      color: var(--gray-500);
+      color: var(--gray-400);
       max-width: 680px;
     }
-    .section-dark .body-large { color: var(--gray-400); }
 
     .body-large p { margin-bottom: 20px; }
     .body-large p:last-child { margin-bottom: 0; }
@@ -209,16 +208,16 @@
     .letter {
       font-size: clamp(17px, 2vw, 21px);
       line-height: 1.58;
-      color: var(--gray-500);
+      color: var(--gray-400);
     }
     .letter p { margin-bottom: 24px; }
     .letter p:last-child { margin-bottom: 0; }
-    .letter .greeting { color: var(--gray-900); font-weight: 500; }
+    .letter .greeting { color: var(--white); font-weight: 500; }
     .letter .signature {
       margin-top: 48px;
       font-size: 1.6rem;
       font-weight: 600;
-      color: var(--gray-900);
+      color: var(--white);
       letter-spacing: -0.01em;
     }
 
@@ -230,12 +229,11 @@
       margin-top: 64px;
     }
     .mode-card {
-      background: var(--white);
+      background: #161617;
       border-radius: 24px;
       overflow: hidden;
       transition: transform 0.3s ease;
     }
-    .section-dark .mode-card { background: #161617; }
     .mode-card:hover { transform: scale(1.02); }
     .mode-card-body { padding: 32px 28px; }
     .mode-card-title {
@@ -243,16 +241,14 @@
       font-weight: 600;
       margin-bottom: 10px;
     }
-    .section-dark .mode-card-title { color: var(--white); }
     .mode-card-desc {
       font-size: 0.95rem;
       line-height: 1.5;
-      color: var(--gray-500);
+      color: var(--gray-400);
     }
-    .section-dark .mode-card-desc { color: var(--gray-400); }
     .mode-card-media {
       aspect-ratio: 16/9;
-      background: rgba(0,0,0,0.04);
+      background: rgba(255,255,255,0.04);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -262,7 +258,6 @@
       letter-spacing: 0.5px;
       text-transform: uppercase;
     }
-    .section-dark .mode-card-media { background: rgba(255,255,255,0.04); }
 
     /* ── Stats row ── */
     .stats-row {
@@ -305,22 +300,19 @@
       justify-content: space-between;
       align-items: baseline;
       padding: 20px 0;
-      border-bottom: 1px solid var(--gray-200);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
       font-size: 1.1rem;
     }
-    .section-dark .price-row { border-color: rgba(255,255,255,0.08); }
     .price-row:last-child { border-bottom: none; }
-    .price-label { color: var(--gray-500); font-weight: 400; }
-    .section-dark .price-label { color: var(--gray-400); }
+    .price-label { color: var(--gray-400); font-weight: 400; }
     .price-value { font-weight: 600; font-variant-numeric: tabular-nums; }
     .price-row-total {
       padding-top: 28px;
       margin-top: 8px;
-      border-top: 2px solid var(--gray-900);
+      border-top: 2px solid var(--white);
       border-bottom: none;
       font-size: 1.3rem;
     }
-    .section-dark .price-row-total { border-top-color: var(--white); }
     .price-row-total .price-value {
       background: var(--gradient);
       -webkit-background-clip: text;
@@ -416,20 +408,20 @@
       display: flex;
       gap: 40px;
       padding: 28px 0;
-      border-bottom: 1px solid var(--gray-200);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
       align-items: baseline;
     }
     .tl-row:last-child { border-bottom: none; }
     .tl-phase {
       font-size: 1rem;
       font-weight: 600;
-      color: var(--gray-900);
+      color: var(--white);
       min-width: 120px;
       flex-shrink: 0;
     }
     .tl-desc {
       font-size: 1rem;
-      color: var(--gray-500);
+      color: var(--gray-400);
       line-height: 1.5;
     }
 
@@ -653,8 +645,8 @@
       <div class="inner-narrow" style="margin:0 auto">
         <div class="eyebrow eyebrow-gradient">Terms</div>
         <h2 class="headline-medium" style="margin-bottom:20px">How we work together.</h2>
-        <p class="body-large" style="color:var(--gray-500)">In addition to the cost of materials, we will charge a service fee of $50,000 for design, engineering, installation, integration, and ongoing software support. $25,000 is due on signing and $25,000 is due on successful completion.</p>
-        <p class="body-large" style="margin-top:20px;color:var(--gray-500)">Hardware and compute costs are billed at cost. Monthly cloud compute is billed as incurred. We are eager to continue supporting your social gatherings in-person in the meantime.</p>
+        <p class="body-large" style="color:var(--gray-400)">In addition to the cost of materials, we will charge a service fee of $50,000 for design, engineering, installation, integration, and ongoing software support. $25,000 is due on signing and $25,000 is due on successful completion.</p>
+        <p class="body-large" style="margin-top:20px;color:var(--gray-400)">Hardware and compute costs are billed at cost. Monthly cloud compute is billed as incurred. We are eager to continue supporting your social gatherings in-person in the meantime.</p>
       </div>
     </div>
   </section>
