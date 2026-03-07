@@ -155,27 +155,29 @@
       background: var(--black);
       padding: 0 24px 20px;
     }
-    .spline-container {
+    .spline-wrapper {
       max-width: 980px;
       margin: 0 auto;
+      position: relative;
+    }
+    .spline-container {
       position: relative;
       overflow: hidden;
       border-radius: 24px;
       background: #000;
-      isolation: isolate;
     }
     .spline-glow {
       position: absolute;
-      inset: -2px;
-      border-radius: 26px;
-      z-index: -1;
+      inset: -3px;
+      border-radius: 27px;
       overflow: hidden;
+      z-index: 0;
     }
     .spline-glow::before {
       content: '';
       position: absolute;
-      width: 200%;
-      height: 200%;
+      width: 300%;
+      height: 300%;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
@@ -185,18 +187,18 @@
       );
       animation: spinGlow 6s linear infinite;
     }
-    .spline-glow-inner {
+    .spline-glow-soft {
       position: absolute;
-      inset: -1px;
-      border-radius: 25px;
-      z-index: -1;
+      inset: -2px;
+      border-radius: 26px;
       overflow: hidden;
+      z-index: 1;
     }
-    .spline-glow-inner::before {
+    .spline-glow-soft::before {
       content: '';
       position: absolute;
-      width: 200%;
-      height: 200%;
+      width: 300%;
+      height: 300%;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
@@ -294,11 +296,17 @@
       background-attachment: fixed;
       border: var(--border-size) solid hsl(0 0% 60% / 0.12);
       border-radius: calc(var(--radius) * 1px);
-      overflow: hidden;
       position: relative;
       transition: transform 0.3s ease;
     }
     .mode-card:hover { transform: scale(1.02); }
+    .mode-card-inner {
+      overflow: hidden;
+      border-radius: calc(var(--radius) * 1px);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
     .mode-card::before,
     .mode-card::after {
       pointer-events: none;
@@ -595,12 +603,14 @@
 
   <!-- Spline 3D -->
   <section class="spline-section">
-    <div class="spline-container">
+    <div class="spline-wrapper">
       <div class="spline-glow"></div>
-      <div class="spline-glow-inner"></div>
-      <canvas id="spline-canvas"></canvas>
-      <div class="spline-gradient-top"></div>
-      <div class="spline-gradient-bottom"></div>
+      <div class="spline-glow-soft"></div>
+      <div class="spline-container" style="position:relative;z-index:2">
+        <canvas id="spline-canvas"></canvas>
+        <div class="spline-gradient-top"></div>
+        <div class="spline-gradient-bottom"></div>
+      </div>
     </div>
     <div class="spline-hint">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 9 2 12 5 15"/><polyline points="9 5 12 2 15 5"/><polyline points="15 19 12 22 9 19"/><polyline points="19 9 22 12 19 15"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="12" y1="2" x2="12" y2="22"/></svg>
@@ -637,26 +647,32 @@
 
       <div class="modes-grid">
         <div class="mode-card">
-          <div class="mode-card-media">Video coming soon</div>
-          <div class="mode-card-body">
-            <div class="mode-card-title">Active</div>
-            <div class="mode-card-desc">Speak, and watch your words instantly form worlds around you, always powered by the most state of the art intelligence. This mode supports both unstructured, free-form play like what we delivered on Sunday night, as well as more intentional settings like poetry reading, storytelling, musical performances, and even standup comedy. Here is a video from today of me reading a poem with live captions enabled.</div>
+          <div class="mode-card-inner">
+            <div class="mode-card-media">Video coming soon</div>
+            <div class="mode-card-body">
+              <div class="mode-card-title">Active</div>
+              <div class="mode-card-desc">Speak, and watch your words instantly form worlds around you, always powered by the most state of the art intelligence. This mode supports both unstructured, free-form play like what we delivered on Sunday night, as well as more intentional settings like poetry reading, storytelling, musical performances, and even standup comedy. Here is a video from today of me reading a poem with live captions enabled.</div>
+            </div>
           </div>
         </div>
         <div class="mode-card">
-          <div class="mode-card-media">Video coming soon</div>
-          <div class="mode-card-body">
-            <div class="mode-card-title">Ambient</div>
-            <div class="mode-card-desc">Runs entirely on local compute using the best available models, with no cloud dependency. ETHEREA autonomously evolves, producing hypnotic visuals that meander through concepts in a variety of aesthetics. Fine-tunable to specific moods, themes, or the style of a specific artist. Past sessions are recorded and available for replay.</div>
+          <div class="mode-card-inner">
+            <div class="mode-card-media">Video coming soon</div>
+            <div class="mode-card-body">
+              <div class="mode-card-title">Ambient</div>
+              <div class="mode-card-desc">Runs entirely on local compute using the best available models, with no cloud dependency. ETHEREA autonomously evolves, producing hypnotic visuals that meander through concepts in a variety of aesthetics. Fine-tunable to specific moods, themes, or the style of a specific artist. Past sessions are recorded and available for replay.</div>
+            </div>
           </div>
         </div>
         <div class="mode-card">
-          <div style="position:relative;aspect-ratio:16/9;overflow:hidden">
-            <iframe src="https://www.youtube.com/embed/1XMIYZJc4XA" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
-          </div>
-          <div class="mode-card-body">
-            <div class="mode-card-title">Imagination Guide</div>
-            <div class="mode-card-desc">We are currently developing the Imagination Guide, which brings ETHEREA to life with a voice that talks back, and is our most exciting feature to date. Here is an early demo of the Imagination Guide taking me on a tour of Tokyo — we see massive potential for this feature across many use cases from education, to entertainment, to live performances, where we're producing an interactive storytelling act with a human actor that we hope to debut in the spring.</div>
+          <div class="mode-card-inner">
+            <div style="position:relative;aspect-ratio:16/9;overflow:hidden">
+              <iframe src="https://www.youtube.com/embed/1XMIYZJc4XA" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="mode-card-body">
+              <div class="mode-card-title">Imagination Guide</div>
+              <div class="mode-card-desc">We are currently developing the Imagination Guide, which brings ETHEREA to life with a voice that talks back, and is our most exciting feature to date. Here is an early demo of the Imagination Guide taking me on a tour of Tokyo — we see massive potential for this feature across many use cases from education, to entertainment, to live performances, where we're producing an interactive storytelling act with a human actor that we hope to debut in the spring.</div>
+            </div>
           </div>
         </div>
       </div>
