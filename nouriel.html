@@ -363,7 +363,7 @@
     .details-content.open { display: block; }
 
     @media (max-width: 768px) {
-      .modes { grid-template-columns: 1fr; }
+      .modes { grid-template-columns: 1fr !important; }
       .stats { grid-template-columns: 1fr; }
       .chapter { padding: 80px 0; }
     }
@@ -404,16 +404,18 @@
   <!-- 2. MODES -->
   <div class="chapter">
     <div class="container wide">
-      <div class="label">Experience</div>
-      <div class="heading">Four ways to inhabit the space.</div>
+      <div class="label">Spatial Canvas</div>
+      <div class="heading">The space itself becomes the screen.</div>
       <div class="divider"></div>
-      <div class="prose" style="max-width:680px;margin:0 auto 0">
-        <p>Every mode reacts to audiovisual inputs from the microphones and cameras installed throughout your space.</p>
+      <div class="prose" style="max-width:680px;margin:0 auto">
+        <p>We will install a combination of ultra short throw projectors, microphones, and cameras throughout your home to enable multi-screen visibility and interactivity at day and night, all centrally controlled via an iOS app.</p>
+        <p>Every surface responds to what's happening in the room. The system supports three modes of operation, each reacting to audiovisual inputs from the microphones and cameras installed throughout the space.</p>
       </div>
-      <div class="modes">
+
+      <div class="modes" style="grid-template-columns:1fr 1fr 1fr;margin-top:56px">
         <div class="mode">
           <div class="mode-title">Active</div>
-          <div class="mode-desc">Speak, and watch your words instantly form worlds around you. Supports free-form play, poetry reading, storytelling, musical performances, and even standup comedy. Live captions available.</div>
+          <div class="mode-desc">Speak, and watch your words instantly form worlds around you. Supports free-form play, poetry reading, storytelling, musical performances, and standup comedy. Live captions available.</div>
           <div class="mode-embed"><div class="embed-placeholder">Video coming soon</div></div>
         </div>
         <div class="mode">
@@ -423,17 +425,12 @@
         </div>
         <div class="mode">
           <div class="mode-title">Imagination Guide</div>
-          <div class="mode-desc">ETHEREA comes to life with a voice that talks back. An interactive guide that takes you on tours, tells stories, and responds to conversation. We see massive potential across education, entertainment, and live performance.</div>
+          <div class="mode-desc">ETHEREA comes to life with a voice that talks back. An interactive guide that takes you on tours, tells stories, and responds to conversation. Massive potential across education, entertainment, and live performance.</div>
           <div class="mode-embed">
             <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px">
               <iframe src="https://www.youtube.com/embed/1XMIYZJc4XA" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
             </div>
           </div>
-        </div>
-        <div class="mode">
-          <div class="mode-title">Spatial Canvas</div>
-          <div class="mode-desc">Ultra short throw projectors, microphones, and cameras throughout the space enable multi-screen visibility and interactivity at day and night, centrally controlled via an iOS app.</div>
-          <div class="mode-embed"><div class="embed-placeholder">Video coming soon</div></div>
         </div>
       </div>
     </div>
