@@ -156,6 +156,22 @@
       color: var(--text-secondary);
       line-height: 1.65;
     }
+    .mode-embed {
+      margin-top: 20px;
+    }
+    .embed-placeholder {
+      aspect-ratio: 16/9;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.03);
+      border: 1px dashed rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      color: var(--text-tertiary);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
 
     /* ── Stats ── */
     .stats {
@@ -398,21 +414,26 @@
         <div class="mode">
           <div class="mode-title">Active</div>
           <div class="mode-desc">Speak, and watch your words instantly form worlds around you. Supports free-form play, poetry reading, storytelling, musical performances, and even standup comedy. Live captions available.</div>
+          <div class="mode-embed"><div class="embed-placeholder">Video coming soon</div></div>
         </div>
         <div class="mode">
           <div class="mode-title">Ambient</div>
           <div class="mode-desc">When inactive, ETHEREA autonomously evolves, producing hypnotic visuals that meander through concepts in a variety of aesthetics. Fine-tunable to specific moods, themes, or the style of a specific artist.</div>
+          <div class="mode-embed"><div class="embed-placeholder">Video coming soon</div></div>
         </div>
-        <div class="mode" style="grid-column: 1 / -1">
+        <div class="mode">
           <div class="mode-title">Imagination Guide</div>
-          <div class="mode-desc" style="margin-bottom:24px">ETHEREA comes to life with a voice that talks back. An interactive guide that takes you on tours, tells stories, and responds to conversation. We see massive potential across education, entertainment, and live performance.</div>
-          <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:10px">
-            <iframe src="https://www.youtube.com/embed/1XMIYZJc4XA" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+          <div class="mode-desc">ETHEREA comes to life with a voice that talks back. An interactive guide that takes you on tours, tells stories, and responds to conversation. We see massive potential across education, entertainment, and live performance.</div>
+          <div class="mode-embed">
+            <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px">
+              <iframe src="https://www.youtube.com/embed/1XMIYZJc4XA" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+            </div>
           </div>
         </div>
         <div class="mode">
           <div class="mode-title">Spatial Canvas</div>
           <div class="mode-desc">Ultra short throw projectors, microphones, and cameras throughout the space enable multi-screen visibility and interactivity at day and night, centrally controlled via an iOS app.</div>
+          <div class="mode-embed"><div class="embed-placeholder">Video coming soon</div></div>
         </div>
       </div>
     </div>
