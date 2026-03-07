@@ -288,7 +288,7 @@
       background-image: radial-gradient(
         var(--spotlight-size) var(--spotlight-size) at
         calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px),
-        hsl(var(--hue) 100% 70% / 0.08),
+        hsl(var(--hue) 100% 70% / var(--bg-spot-opacity, 0)),
         transparent
       );
       background-size: calc(100% + (2 * var(--border-size))) calc(100% + (2 * var(--border-size)));
@@ -325,6 +325,15 @@
       -webkit-mask-clip: padding-box, border-box;
       mask-composite: intersect;
       -webkit-mask-composite: source-in;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .mode-card.glow-active {
+      --bg-spot-opacity: 0.08;
+    }
+    .mode-card.glow-active::before,
+    .mode-card.glow-active::after {
+      opacity: 1;
     }
     .mode-card::before {
       background-image: radial-gradient(
@@ -829,14 +838,17 @@
       btn.childNodes[0].textContent = el.classList.contains('open') ? 'Hide hardware details ' : 'View hardware details ';
     }
 
-    // Spotlight glow on mode cards
-    document.addEventListener('pointermove', function(e) {
-      var cards = document.querySelectorAll('.mode-card');
-      for (var i = 0; i < cards.length; i++) {
-        cards[i].style.setProperty('--x', e.clientX.toFixed(2));
-        cards[i].style.setProperty('--xp', (e.clientX / window.innerWidth).toFixed(2));
-        cards[i].style.setProperty('--y', e.clientY.toFixed(2));
-      }
+    // Spotlight glow on mode cards — only the hovered card
+    document.querySelectorAll('.mode-card').forEach(function(card) {
+      card.addEventListener('pointermove', function(e) {
+        card.style.setProperty('--x', e.clientX.toFixed(2));
+        card.style.setProperty('--xp', (e.clientX / window.innerWidth).toFixed(2));
+        card.style.setProperty('--y', e.clientY.toFixed(2));
+        card.classList.add('glow-active');
+      });
+      card.addEventListener('pointerleave', function() {
+        card.classList.remove('glow-active');
+      });
     });
 
     // Scroll fade-in
