@@ -3,46 +3,44 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ETHEREA — Proposal</title>
+  <title>ETHEREA</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0a0a0a;
-      --surface: #111112;
-      --border: rgba(255,255,255,0.06);
-      --text: rgba(255,255,255,0.85);
-      --text-2: rgba(255,255,255,0.5);
-      --text-3: rgba(255,255,255,0.3);
+      --bg: #050505;
+      --surface: #0c0c0d;
+      --border: rgba(255,255,255,0.05);
+      --text: rgba(255,255,255,0.9);
+      --text-2: rgba(255,255,255,0.45);
+      --text-3: rgba(255,255,255,0.2);
       --gradient: linear-gradient(90deg, #4466ff, #8844ff, #cc44aa, #8844ff, #4466ff);
     }
 
     body {
       background: var(--bg);
-      font-family: Helvetica, Arial, sans-serif;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       color: var(--text);
       -webkit-font-smoothing: antialiased;
-      font-size: 15px;
-      line-height: 1.7;
+      font-size: 14px;
+      line-height: 1.65;
     }
 
     ::-webkit-scrollbar { width: 0; }
 
-    .wrap { max-width: 720px; margin: 0 auto; padding: 0 32px; }
+    .wrap { max-width: 640px; margin: 0 auto; padding: 0 28px; }
 
     /* ── Spline ── */
-    .spline-hero {
+    .hero {
       position: relative;
       width: 100%;
-      height: 80vh;
+      height: 85vh;
       min-height: 500px;
-      max-height: 750px;
     }
-    .spline-hero canvas { width: 100%; height: 100%; display: block; }
-    .spline-hero .fade {
+    .hero canvas { width: 100%; height: 100%; display: block; }
+    .hero .fade {
       position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 40%;
+      bottom: 0; left: 0; right: 0; height: 50%;
       background: linear-gradient(transparent, var(--bg));
       pointer-events: none;
     }
@@ -50,129 +48,127 @@
     /* ── Type ── */
     h1 {
       font-family: 'Times New Roman', Times, serif;
-      font-size: 2.4rem;
+      font-size: 2rem;
       font-weight: 400;
-      letter-spacing: 0.03em;
-      margin-bottom: 6px;
+      letter-spacing: 0.06em;
     }
-    .subtitle {
-      font-size: 0.95rem;
-      color: var(--text-2);
-      margin-bottom: 56px;
+    .sub {
+      font-size: 0.8rem;
+      color: var(--text-3);
+      letter-spacing: 0.5px;
+      margin-top: 4px;
     }
-    h2 {
-      font-family: 'Times New Roman', Times, serif;
-      font-size: 1.5rem;
-      font-weight: 400;
-      margin: 80px 0 24px;
-      padding-top: 56px;
-      border-top: 1px solid var(--border);
-    }
-    h3 {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--text);
-      margin: 32px 0 8px;
-    }
-    p {
-      color: var(--text-2);
-      margin-bottom: 16px;
-    }
-    p:last-child { margin-bottom: 0; }
-    .chapter-label {
-      font-size: 0.6rem;
+
+    .act {
+      font-size: 0.55rem;
       font-weight: 700;
       letter-spacing: 3px;
       text-transform: uppercase;
       color: var(--text-3);
-      margin-bottom: 12px;
-      display: block;
+      margin-top: 80px;
     }
-
-    /* ── Video ── */
-    .video-wrap {
-      position: relative;
-      padding-bottom: 56.25%;
-      height: 0;
-      overflow: hidden;
-      border-radius: 10px;
-      margin: 24px 0;
-      background: var(--surface);
-    }
-    .video-wrap iframe {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      border: none;
-    }
-    .video-placeholder {
-      aspect-ratio: 16/9;
-      border-radius: 10px;
-      background: var(--surface);
-      border: 1px dashed rgba(255,255,255,0.06);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.7rem;
-      color: var(--text-3);
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin: 24px 0;
-    }
-
-    /* ── Stats ── */
-    .stat-row {
-      display: flex;
-      gap: 1px;
-      background: var(--border);
-      border-radius: 10px;
-      overflow: hidden;
-      margin: 24px 0;
-    }
-    .stat-cell {
-      flex: 1;
-      background: var(--surface);
-      padding: 20px 16px;
-    }
-    .stat-cell .n {
+    h2 {
       font-family: 'Times New Roman', Times, serif;
-      font-size: 1.4rem;
+      font-size: 1.3rem;
+      font-weight: 400;
       color: var(--text);
+      margin: 8px 0 20px;
     }
-    .stat-cell .l {
-      font-size: 0.6rem;
-      font-weight: 600;
+    h3 {
+      font-size: 0.7rem;
+      font-weight: 700;
       letter-spacing: 2px;
       text-transform: uppercase;
       color: var(--text-3);
-      margin-top: 4px;
+      margin: 36px 0 8px;
+    }
+    p {
+      color: var(--text-2);
+      margin-bottom: 14px;
+      font-size: 0.88rem;
+      line-height: 1.7;
+    }
+
+    .sep {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      margin: 80px 0 0;
+    }
+
+    /* ── Video ── */
+    .vid {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 16px 0 0;
+      background: var(--surface);
+    }
+    .vid iframe {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%; border: none;
+    }
+    .vid-ph {
+      aspect-ratio: 16/9;
+      border-radius: 8px;
+      background: var(--surface);
+      margin: 16px 0 0;
+    }
+
+    /* ── Stats ── */
+    .stats {
+      display: flex;
+      gap: 1px;
+      background: var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 20px 0 0;
+    }
+    .st {
+      flex: 1;
+      background: var(--surface);
+      padding: 16px 14px;
+    }
+    .st .n {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 1.2rem;
+      color: var(--text);
+    }
+    .st .l {
+      font-size: 0.55rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-3);
+      margin-top: 3px;
     }
 
     /* ── Lines ── */
-    .line {
+    .ln {
       display: flex;
       justify-content: space-between;
-      padding: 12px 0;
+      padding: 10px 0;
       border-bottom: 1px solid var(--border);
-      font-size: 0.9rem;
+      font-size: 0.85rem;
     }
-    .line:last-child { border-bottom: none; }
-    .line .k { color: var(--text-2); }
-    .line .v { color: var(--text); font-weight: 500; font-variant-numeric: tabular-nums; }
-    .line.total {
-      margin-top: 12px;
-      padding-top: 16px;
-      border-top: 1px solid rgba(255,255,255,0.1);
+    .ln:last-child { border-bottom: none; }
+    .ln .k { color: var(--text-2); }
+    .ln .v { color: var(--text); font-weight: 500; font-variant-numeric: tabular-nums; }
+    .ln.total {
+      margin-top: 10px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255,255,255,0.08);
       border-bottom: none;
     }
-    .line.total .k {
+    .ln.total .k {
       font-family: 'Times New Roman', Times, serif;
-      font-size: 1.05rem;
-      color: var(--text);
+      font-size: 1rem; color: var(--text);
     }
-    .line.total .v {
+    .ln.total .v {
       font-family: 'Times New Roman', Times, serif;
-      font-size: 1.05rem;
+      font-size: 1rem;
       background: var(--gradient);
       background-size: 200% 100%;
       -webkit-background-clip: text;
@@ -184,87 +180,88 @@
     /* ── Timeline ── */
     .tl {
       display: flex;
-      gap: 24px;
-      padding: 14px 0;
+      gap: 20px;
+      padding: 10px 0;
       border-bottom: 1px solid var(--border);
-      font-size: 0.9rem;
+      font-size: 0.85rem;
     }
     .tl:last-child { border-bottom: none; }
-    .tl .when { min-width: 90px; font-weight: 600; color: var(--text); }
-    .tl .what { color: var(--text-2); }
+    .tl .w { min-width: 80px; font-weight: 600; color: var(--text); font-size: 0.8rem; }
+    .tl .d { color: var(--text-2); }
 
     /* ── Toggle ── */
-    .toggle-btn {
+    .tbtn {
       background: none;
       border: 1px solid var(--border);
-      color: var(--text-2);
+      color: var(--text-3);
       font-family: inherit;
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 1px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
-      padding: 10px 24px;
+      padding: 8px 20px;
       border-radius: 20px;
       cursor: pointer;
       transition: all 0.3s;
-      margin-top: 20px;
+      margin-top: 16px;
     }
-    .toggle-btn:hover { border-color: rgba(255,255,255,0.2); color: var(--text); }
-    .toggle-content { display: none; margin-top: 24px; }
-    .toggle-content.open { display: block; }
+    .tbtn:hover { border-color: rgba(255,255,255,0.15); color: var(--text-2); }
+    .tc { display: none; margin-top: 20px; }
+    .tc.open { display: block; }
 
     /* ── Table ── */
-    .table-wrap {
+    .tw {
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: 8px;
       overflow: hidden;
     }
     table { width: 100%; border-collapse: collapse; }
     thead { background: var(--surface); }
     th {
-      font-size: 0.6rem; font-weight: 600; letter-spacing: 2px;
+      font-size: 0.55rem; font-weight: 700; letter-spacing: 2px;
       text-transform: uppercase; color: var(--text-3);
-      padding: 12px 16px; text-align: left;
+      padding: 10px 14px; text-align: left;
       border-bottom: 1px solid var(--border);
     }
     th.r { text-align: right; }
     td {
-      padding: 12px 16px; font-size: 0.8rem;
+      padding: 10px 14px; font-size: 0.78rem;
       color: var(--text-2); border-bottom: 1px solid var(--border);
     }
     td.r { text-align: right; font-variant-numeric: tabular-nums; }
     td.p { color: var(--text); font-weight: 500; }
     tr:last-child td { border-bottom: none; }
-    .spec { font-size: 0.7rem; color: var(--text-3); margin-top: 2px; }
+    .spec { font-size: 0.65rem; color: var(--text-3); margin-top: 1px; }
     .tag {
-      display: inline-block; font-size: 0.55rem; font-weight: 600;
+      display: inline-block; font-size: 0.5rem; font-weight: 700;
       letter-spacing: 1px; text-transform: uppercase;
-      padding: 2px 7px; border-radius: 4px;
-      background: rgba(255,255,255,0.04); color: var(--text-2);
+      padding: 2px 6px; border-radius: 3px;
+      background: rgba(255,255,255,0.04); color: var(--text-3);
     }
-    .table-footer {
+    .tf {
       display: flex; justify-content: space-between;
-      padding: 14px 16px; background: var(--surface);
+      padding: 12px 14px; background: var(--surface);
       border-top: 1px solid var(--border);
-      font-size: 0.85rem; font-weight: 600; color: var(--text);
+      font-size: 0.8rem; font-weight: 600; color: var(--text);
     }
 
     /* ── Closing ── */
-    .closing {
-      margin-top: 80px;
-      padding-top: 48px;
+    .end {
+      margin: 80px 0;
+      padding-top: 40px;
       border-top: 1px solid var(--border);
     }
-    .closing p {
+    .end p {
       font-family: 'Times New Roman', Times, serif;
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       color: var(--text);
       font-style: italic;
     }
-    .sig {
-      margin-top: 32px;
-      font-size: 0.85rem;
+    .end .sig {
+      margin-top: 24px;
+      font-size: 0.75rem;
       color: var(--text-3);
+      letter-spacing: 0.5px;
     }
 
     @keyframes gs {
@@ -273,14 +270,14 @@
     }
 
     @media (max-width: 600px) {
-      .stat-row { flex-direction: column; }
-      h1 { font-size: 1.8rem; }
+      .stats { flex-direction: column; }
+      h1 { font-size: 1.6rem; }
     }
   </style>
 </head>
 <body>
 
-  <div class="spline-hero">
+  <div class="hero">
     <canvas id="spline-canvas"></canvas>
     <div class="fade"></div>
   </div>
@@ -288,131 +285,98 @@
   <div class="wrap">
 
     <h1>ETHEREA</h1>
-    <div class="subtitle">Permanent Home Installation &mdash; Proposal</div>
+    <div class="sub">Permanent Home Installation</div>
 
-    <!-- ════════════════════════════════════════════════ -->
-    <!-- WHY                                             -->
-    <!-- ════════════════════════════════════════════════ -->
+    <!-- WHY -->
+    <div class="sep"></div>
+    <div class="act">I. Why</div>
+    <h2>Sunday night was just the beginning.</h2>
+    <p>Your home becomes more than a space where people gather. It becomes the space where a dinner party turns into an act of collective imagination &mdash; where every guest leaves having seen something they've never seen before.</p>
+    <p>ETHEREA is a creative intelligence that lets anyone project their imagination into the space around them using only their voice. We see your prolific hosting as a living laboratory to demonstrate its potential while entertaining and inspiring your guests.</p>
 
-    <span class="chapter-label">I. Why</span>
-    <h2 style="border:none;padding-top:0;margin-top:12px">Thank you for Sunday night.</h2>
+    <!-- WHO -->
+    <div class="sep"></div>
+    <div class="act">II. Who</div>
+    <h2>Built for the room you already fill.</h2>
+    <p>No technical skill required. Anyone can walk up and speak, and the space responds. A child discovers it differently than a poet. A musician uses it differently than a comedian. The system adapts to whoever is in the room.</p>
 
-    <p>We had a blast co-creating with you, and are thrilled by the opportunity to bring ETHEREA permanently into your beautiful home.</p>
+    <!-- HOW -->
+    <div class="sep"></div>
+    <div class="act">III. How</div>
+    <h2>Making it real.</h2>
 
-    <p>ETHEREA's Imagination Engine is a dynamic, always-evolving creative intelligence that gives anyone the ability to instantly use their words to project their imagination in the space around them. We continue to discover new use cases and audiences for this technology &mdash; musical performances, animated poetry, immersive audiovisual theatre &mdash; and believe that your prolific hosting will provide a living laboratory to demonstrate its immense potential while entertaining and inspiring your guests.</p>
-
-    <p>Your home becomes more than a space where people gather. It becomes the space where people experience what's next &mdash; where a dinner party becomes an act of collective imagination, and where every guest leaves having seen something they've never seen before.</p>
-
-    <!-- ════════════════════════════════════════════════ -->
-    <!-- WHO                                             -->
-    <!-- ════════════════════════════════════════════════ -->
-
-    <span class="chapter-label">II. Who</span>
-    <h2>Your guests. Your world.</h2>
-
-    <p>ETHEREA is built for the room you already fill. The dinner guests, the artists, the thinkers, the friends who stay late. It doesn't require technical skill or setup &mdash; anyone can walk up and speak, and the space responds.</p>
-
-    <p>For casual evenings, ETHEREA runs itself &mdash; generating ambient, evolving visuals that set a mood without demanding attention. For performances and gatherings, it becomes an instrument that your guests play with their voices and presence. For one-on-one moments, the Imagination Guide becomes a conversational companion that can take you anywhere.</p>
-
-    <p>The system adapts to whoever is in the room. A child discovers it differently than a poet. A musician uses it differently than a comedian. That range is the point.</p>
-
-    <!-- ════════════════════════════════════════════════ -->
-    <!-- HOW                                             -->
-    <!-- ════════════════════════════════════════════════ -->
-
-    <span class="chapter-label">III. How</span>
-    <h2>Making it happen.</h2>
-
-    <h3>The Compute Question</h3>
-    <p>After some thought, Gonzo and I have concluded that installing a B300 inside an apartment is infeasible. They are only sold in nodes of eight which are soldered together, with cooling and power requirements that exceed residential capacity.</p>
-
-    <p>We are exploring what it might take to gain access to frontier compute inside the NYC metro area &mdash; necessary for reducing latency to power live performances at the highest level of production and reliability. We are exploring the feasibility of building a small cooperative data center inside of the 20,000 square foot tech/art accelerator we are building in North Williamsburg.</p>
-
-    <p>In the meantime, we can get started immediately with our remote provider, supported by NVIDIA's current top of the line professional workstation living in your home. This has the added benefit of keeping us flexible as the model landscape shifts.</p>
+    <h3>Compute</h3>
+    <p>A B300 can't live in an apartment &mdash; sold only in nodes of eight, with cooling and power that exceed residential capacity. We start with a remote provider, supported by an on-site NVIDIA RTX PRO 6000 for real-time tasks. We're also exploring a cooperative data center in our North Williamsburg accelerator for ultra-low latency.</p>
 
     <h3>Spatial Canvas</h3>
-    <p>We will install a combination of ultra short throw projectors, microphones, and cameras throughout your home to enable multi-screen visibility and interactivity at day and night, all centrally controlled via an iOS app.</p>
+    <p>Ultra short throw projectors, microphones, and cameras installed throughout the home. Multi-screen, day and night, controlled from an iOS app.</p>
 
     <h3>Local Brain</h3>
-    <p>An RTX PRO 6000 workstation powers everything latency-sensitive: real-time transcription, audioreactivity, a local language model, and a smaller local version of ETHEREA that will become more capable over time. The workstation is modular and upgradeable.</p>
+    <p>The RTX PRO 6000 handles transcription, audioreactivity, a local language model, and a smaller local ETHEREA that improves over time. Modular and upgradeable.</p>
 
-    <p>As discussed, the workstation can be housed in a commissioned glass-blown aquarium that water-cools the GPU while refracting and magnifying the system's generative visuals through water and glass &mdash; a living sculpture that is simultaneously art object, light source, and the brain of the entire installation. We work with a very talented glass sculptor, Edoardo Cozzani, who would be a fantastic choice to bring this to life.</p>
+    <h3>Aquarium</h3>
+    <p>The workstation housed in a commissioned glass-blown aquarium &mdash; water-cooled, refracting generative visuals through glass. Art object, light source, and brain of the installation. Sculptor: Edoardo Cozzani.</p>
 
-    <h3>Cloud Compute</h3>
-    <p>A B300 currently runs about $5&ndash;6/hr, making 24/7 operation around $4,500/mo. The cloud handles the heavy generative workloads &mdash; frontier model inference, image and video synthesis &mdash; while the local workstation handles everything real-time. As GPU supply increases, we expect these costs to decrease.</p>
+    <h3>Cloud</h3>
+    <p>B300 at $5&ndash;6/hr for frontier inference and generative workloads. 24/7 access at ~$4,500/mo. Costs expected to decrease as supply increases.</p>
 
-    <div class="stat-row">
-      <div class="stat-cell"><div class="n">$4,500</div><div class="l">Monthly</div></div>
-      <div class="stat-cell"><div class="n">$5&ndash;6</div><div class="l">Per hour</div></div>
-      <div class="stat-cell"><div class="n">$54k</div><div class="l">Annual est.</div></div>
+    <div class="stats">
+      <div class="st"><div class="n">$4,500</div><div class="l">Monthly</div></div>
+      <div class="st"><div class="n">$5&ndash;6</div><div class="l">Per hour</div></div>
+      <div class="st"><div class="n">$54k</div><div class="l">Annual</div></div>
     </div>
 
-    <h3>iOS App</h3>
-    <p>A dedicated app gives you full control from your iPhone or iPad &mdash; mode selection, ambient theme curation, and system management. The entire installation in your pocket.</p>
+    <!-- WHAT -->
+    <div class="sep"></div>
+    <div class="act">IV. What</div>
+    <h2>Three modes, one space.</h2>
 
-    <!-- ════════════════════════════════════════════════ -->
-    <!-- WHAT                                            -->
-    <!-- ════════════════════════════════════════════════ -->
+    <h3>Active</h3>
+    <p>Speak and watch your words form worlds. Poetry, music, comedy, free-form play. Live captions available.</p>
+    <div class="vid-ph"></div>
 
-    <span class="chapter-label">IV. What</span>
-    <h2>What you get.</h2>
-
-    <h3>Active Mode</h3>
-    <p>Speak, and watch your words instantly form worlds around you. Supports free-form play, poetry reading, storytelling, musical performances, and standup comedy. Live captions available.</p>
-    <div class="video-placeholder">Video coming soon</div>
-
-    <h3>Ambient Mode</h3>
-    <p>When no one is speaking, ETHEREA autonomously evolves &mdash; producing hypnotic visuals that meander through concepts in a variety of aesthetics. Fine-tunable to specific moods, themes, or the style of a specific artist.</p>
-    <div class="video-placeholder">Video coming soon</div>
+    <h3>Ambient</h3>
+    <p>Autonomous evolving visuals. Fine-tunable to moods, themes, or specific artists.</p>
+    <div class="vid-ph"></div>
 
     <h3>Imagination Guide</h3>
-    <p>Our most exciting feature. ETHEREA comes to life with a voice that talks back &mdash; an interactive guide that can take you on a tour of Tokyo, tell you a story, or respond to a question. We see massive potential across education, entertainment, and live performance, and are producing an interactive storytelling act with a human actor that we hope to debut in the spring.</p>
-    <div class="video-wrap">
+    <p>ETHEREA talks back. Tours, stories, conversation. Our most exciting feature to date.</p>
+    <div class="vid">
       <iframe src="https://www.youtube.com/embed/1XMIYZJc4XA" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
     </div>
 
-    <h3>The Aquarium</h3>
-    <p>A commissioned glass-blown sculpture that houses the workstation, water-cools the GPU, and refracts ETHEREA's generative visuals through water and glass. Art object. Light source. Brain of the installation.</p>
-
-    <!-- ════════════════════════════════════════════════ -->
-    <!-- PRICING + TIMELINE                              -->
-    <!-- ════════════════════════════════════════════════ -->
-
-    <span class="chapter-label">V. Investment</span>
+    <!-- INVESTMENT -->
+    <div class="sep"></div>
+    <div class="act">V. Investment</div>
     <h2>Pricing &amp; timeline.</h2>
 
     <div id="cost-summary"></div>
 
-    <button class="toggle-btn" onclick="toggleDetails()">View hardware details</button>
-    <div class="toggle-content" id="hw-details">
-      <div class="table-wrap">
+    <button class="tbtn" onclick="toggle()">Hardware details</button>
+    <div class="tc" id="hw-details">
+      <div class="tw">
         <table>
           <thead><tr><th>Category</th><th>Item</th><th class="r">Qty</th><th class="r">Unit</th><th class="r">Total</th></tr></thead>
           <tbody id="hw-tbody"></tbody>
         </table>
-        <div class="table-footer">
+        <div class="tf">
           <span>Total incl. 8.875% tax</span>
           <span id="hw-total-val"></span>
         </div>
       </div>
     </div>
 
-    <h3 style="margin-top:48px">Timeline</h3>
-    <p>We expect everything installed and working autonomously by the end of June. In the meantime, we are eager to continue supporting your social gatherings in-person.</p>
+    <h3 style="margin-top:40px">Timeline</h3>
+    <p>Operational by end of June.</p>
+    <div id="timeline"></div>
 
-    <div id="timeline" style="margin-top:24px"></div>
+    <h3 style="margin-top:40px">Fee</h3>
+    <p>$50,000 &mdash; design, engineering, installation, software. $25k on signing, $25k on completion. Hardware and compute at cost.</p>
 
-    <h3 style="margin-top:48px">Fee</h3>
-    <p>$50,000 service fee covers design, engineering, installation, integration, and ongoing software support. $25,000 due on signing, $25,000 on successful completion. Hardware and compute billed at cost.</p>
-
-    <!-- ════════════════════════════════════════════════ -->
-
-    <div class="closing">
+    <div class="end">
       <p>Ready when you are.</p>
       <div class="sig">James &amp; Gonzo</div>
     </div>
-
-    <div style="height:80px"></div>
 
   </div>
 
@@ -431,60 +395,55 @@
       { cat:'Cooling', item:'NZXT Kraken 360 AIO', spec:'360 mm', qty:1, unit:179.99 },
       { cat:'OS', item:'Windows 11 Pro', spec:'OEM', qty:1, unit:199.99 },
       { cat:'Misc', item:'Cables, adapters, paste', spec:'PCIe adapters, MX-6', qty:1, unit:60 },
-      { cat:'Projectors', item:'UST Projector', spec:'Ultra short throw, ceiling mount', qty:3, unit:3500 },
+      { cat:'Projectors', item:'UST Projector', spec:'Ultra short throw', qty:3, unit:3500 },
       { cat:'Projectors', item:'Projector Mount', spec:'Ceiling bracket', qty:3, unit:199.99 },
-      { cat:'Cameras', item:'Intel RealSense D455', spec:'Depth, 87\u00b0 FoV', qty:3, unit:419 },
-      { cat:'Cameras', item:'Camera Mount', spec:'Discreet wall/ceiling', qty:3, unit:39.99 },
-      { cat:'Audio', item:'Shure MV7', spec:'USB/XLR Dynamic', qty:3, unit:249 },
-      { cat:'Audio', item:'Boom Arm / Mount', spec:'Low-profile', qty:3, unit:34.99 },
-      { cat:'Aquarium', item:'Custom Glass Aquarium Enclosure', spec:'Glass-blown, water-cooled', qty:1, unit:12000 },
+      { cat:'Cameras', item:'Intel RealSense D455', spec:'Depth camera', qty:3, unit:419 },
+      { cat:'Cameras', item:'Camera Mount', spec:'Wall/ceiling', qty:3, unit:39.99 },
+      { cat:'Audio', item:'Shure MV7', spec:'USB/XLR', qty:3, unit:249 },
+      { cat:'Audio', item:'Boom Arm', spec:'Low-profile', qty:3, unit:34.99 },
+      { cat:'Aquarium', item:'Glass Aquarium Enclosure', spec:'Commissioned, water-cooled', qty:1, unit:12000 },
     ];
 
-    const serviceFee = 50000;
-    const monthlyCompute = 4500;
-    const annualCompute = monthlyCompute * 12;
-    const hwSub = hw.reduce((a, r) => a + r.qty * r.unit, 0);
-    const hwTax = hwSub * TAX;
-    const hwTotal = hwSub + hwTax;
-    const yearOneTotal = hwTotal + serviceFee + annualCompute;
+    const fee = 50000, mo = 4500, yr = mo * 12;
+    const sub = hw.reduce((a, r) => a + r.qty * r.unit, 0);
+    const tax = sub * TAX, tot = sub + tax, all = tot + fee + yr;
 
     document.getElementById('cost-summary').innerHTML = [
-      ['Hardware (incl. 8.875% tax)', fmt(hwTotal)],
-      ['Service fee', fmt(serviceFee)],
-      ['Cloud compute (annual est.)', fmt(annualCompute)],
-    ].map(([l,v]) => `<div class="line"><span class="k">${l}</span><span class="v">${v}</span></div>`).join('') +
-    `<div class="line total"><span class="k">Year one total</span><span class="v">${fmt(yearOneTotal)}</span></div>`;
+      ['Hardware (incl. tax)', fmt(tot)],
+      ['Service fee', fmt(fee)],
+      ['Cloud compute (annual)', fmt(yr)],
+    ].map(([l,v]) => `<div class="ln"><span class="k">${l}</span><span class="v">${v}</span></div>`).join('') +
+    `<div class="ln total"><span class="k">Year one</span><span class="v">${fmt(all)}</span></div>`;
 
     document.getElementById('hw-tbody').innerHTML = hw.map(r =>
       `<tr><td><span class="tag">${r.cat}</span></td><td class="p">${r.item}<div class="spec">${r.spec}</div></td><td class="r">${r.qty}</td><td class="r">${fmt(r.unit)}</td><td class="r p">${fmt(r.qty*r.unit)}</td></tr>`
     ).join('');
-    document.getElementById('hw-total-val').textContent = fmt(hwTotal);
+    document.getElementById('hw-total-val').textContent = fmt(tot);
 
     document.getElementById('timeline').innerHTML = [
-      ['Signing', 'Agreement signed. $25k due. Hardware procurement begins.'],
-      ['Weeks 1\u20134', 'Hardware sourcing, aquarium commission, iOS app development.'],
-      ['Weeks 5\u20138', 'Workstation build, cloud setup, system integration.'],
-      ['Weeks 9\u201312', 'On-site install. Projectors, cameras, mics, aquarium.'],
-      ['Completion', 'System test, calibration, handoff. $25k balance due.'],
-    ].map(([d,w]) => `<div class="tl"><div class="when">${d}</div><div class="what">${w}</div></div>`).join('');
+      ['Signing', '$25k due. Procurement begins.'],
+      ['Wk 1\u20134', 'Hardware, aquarium commission, app dev.'],
+      ['Wk 5\u20138', 'Build, cloud setup, integration.'],
+      ['Wk 9\u201312', 'On-site install and calibration.'],
+      ['Done', '$25k balance. System live.'],
+    ].map(([d,w]) => `<div class="tl"><div class="w">${d}</div><div class="d">${w}</div></div>`).join('');
 
-    function toggleDetails() {
+    function toggle() {
       const el = document.getElementById('hw-details');
-      const btn = document.querySelector('.toggle-btn');
+      const btn = document.querySelector('.tbtn');
       el.classList.toggle('open');
-      btn.textContent = el.classList.contains('open') ? 'Hide hardware details' : 'View hardware details';
+      btn.textContent = el.classList.contains('open') ? 'Hide details' : 'Hardware details';
     }
   </script>
 
   <script type="module">
     import { Application } from 'https://unpkg.com/@splinetool/runtime@1.9.98/build/runtime.js';
-    const canvas = document.getElementById('spline-canvas');
-    const app = new Application(canvas);
+    const c = document.getElementById('spline-canvas');
+    const app = new Application(c);
     app.load('https://prod.spline.design/nHtoIJsfMjuKN2R0/scene.splinecode');
-
-    const wrap = document.querySelector('.spline-hero');
-    wrap.addEventListener('wheel', e => e.preventDefault(), { passive: false });
-    wrap.addEventListener('touchmove', e => e.preventDefault(), { passive: false });
+    const h = document.querySelector('.hero');
+    h.addEventListener('wheel', e => e.preventDefault(), { passive: false });
+    h.addEventListener('touchmove', e => e.preventDefault(), { passive: false });
   </script>
 
 </body>
