@@ -28,10 +28,9 @@
 
     ::-webkit-scrollbar { width: 0; }
 
-    /* ── Layout ── */
     .wrap { max-width: 720px; margin: 0 auto; padding: 0 32px; }
 
-    /* ── Spline hero ── */
+    /* ── Spline ── */
     .spline-hero {
       position: relative;
       width: 100%;
@@ -48,7 +47,7 @@
       pointer-events: none;
     }
 
-    /* ── Typography ── */
+    /* ── Type ── */
     h1 {
       font-family: 'Times New Roman', Times, serif;
       font-size: 2.4rem;
@@ -65,11 +64,10 @@
       font-family: 'Times New Roman', Times, serif;
       font-size: 1.5rem;
       font-weight: 400;
-      margin: 64px 0 20px;
-      padding-top: 48px;
+      margin: 80px 0 24px;
+      padding-top: 56px;
       border-top: 1px solid var(--border);
     }
-    h2:first-of-type { border-top: none; padding-top: 0; margin-top: 56px; }
     h3 {
       font-size: 0.9rem;
       font-weight: 600;
@@ -81,25 +79,24 @@
       margin-bottom: 16px;
     }
     p:last-child { margin-bottom: 0; }
-
-    /* ── Inline label ── */
-    .tag-label {
+    .chapter-label {
       font-size: 0.6rem;
       font-weight: 700;
-      letter-spacing: 2px;
+      letter-spacing: 3px;
       text-transform: uppercase;
       color: var(--text-3);
-      margin-bottom: 8px;
+      margin-bottom: 12px;
+      display: block;
     }
 
-    /* ── Video embed ── */
+    /* ── Video ── */
     .video-wrap {
       position: relative;
       padding-bottom: 56.25%;
       height: 0;
       overflow: hidden;
       border-radius: 10px;
-      margin: 20px 0;
+      margin: 24px 0;
       background: var(--surface);
     }
     .video-wrap iframe {
@@ -120,10 +117,10 @@
       color: var(--text-3);
       letter-spacing: 1px;
       text-transform: uppercase;
-      margin: 20px 0;
+      margin: 24px 0;
     }
 
-    /* ── Stat row ── */
+    /* ── Stats ── */
     .stat-row {
       display: flex;
       gap: 1px;
@@ -151,7 +148,7 @@
       margin-top: 4px;
     }
 
-    /* ── Summary lines ── */
+    /* ── Lines ── */
     .line {
       display: flex;
       justify-content: space-between;
@@ -196,7 +193,7 @@
     .tl .when { min-width: 90px; font-weight: 600; color: var(--text); }
     .tl .what { color: var(--text-2); }
 
-    /* ── Details toggle ── */
+    /* ── Toggle ── */
     .toggle-btn {
       background: none;
       border: 1px solid var(--border);
@@ -283,7 +280,6 @@
 </head>
 <body>
 
-  <!-- 3D Model -->
   <div class="spline-hero">
     <canvas id="spline-canvas"></canvas>
     <div class="fade"></div>
@@ -294,57 +290,56 @@
     <h1>ETHEREA</h1>
     <div class="subtitle">Permanent Home Installation &mdash; Proposal</div>
 
-    <!-- ━━ Letter ━━ -->
+    <!-- ════════════════════════════════════════════════ -->
+    <!-- WHY                                             -->
+    <!-- ════════════════════════════════════════════════ -->
 
-    <p>Thanks again for the opportunity to perform on Sunday night. We had a blast co-creating with you, and are thrilled by the opportunity to work together to bring ETHEREA permanently into your beautiful home.</p>
+    <span class="chapter-label">I. Why</span>
+    <h2 style="border:none;padding-top:0;margin-top:12px">Thank you for Sunday night.</h2>
 
-    <p>As you have seen, ETHEREA's Imagination Engine is a dynamic, always-evolving creative intelligence that gives anyone the ability to instantly use their words to project their imagination in the space around them. We continue to discover new use cases and audiences for this technology, from musical performances, to animated poetry, to immersive audiovisual theatre, and believe that your prolific hosting will provide a living laboratory to demonstrate its immense potential while entertaining and inspiring your guests.</p>
+    <p>We had a blast co-creating with you, and are thrilled by the opportunity to bring ETHEREA permanently into your beautiful home.</p>
 
+    <p>ETHEREA's Imagination Engine is a dynamic, always-evolving creative intelligence that gives anyone the ability to instantly use their words to project their imagination in the space around them. We continue to discover new use cases and audiences for this technology &mdash; musical performances, animated poetry, immersive audiovisual theatre &mdash; and believe that your prolific hosting will provide a living laboratory to demonstrate its immense potential while entertaining and inspiring your guests.</p>
+
+    <p>Your home becomes more than a space where people gather. It becomes the space where people experience what's next &mdash; where a dinner party becomes an act of collective imagination, and where every guest leaves having seen something they've never seen before.</p>
+
+    <!-- ════════════════════════════════════════════════ -->
+    <!-- WHO                                             -->
+    <!-- ════════════════════════════════════════════════ -->
+
+    <span class="chapter-label">II. Who</span>
+    <h2>Your guests. Your world.</h2>
+
+    <p>ETHEREA is built for the room you already fill. The dinner guests, the artists, the thinkers, the friends who stay late. It doesn't require technical skill or setup &mdash; anyone can walk up and speak, and the space responds.</p>
+
+    <p>For casual evenings, ETHEREA runs itself &mdash; generating ambient, evolving visuals that set a mood without demanding attention. For performances and gatherings, it becomes an instrument that your guests play with their voices and presence. For one-on-one moments, the Imagination Guide becomes a conversational companion that can take you anywhere.</p>
+
+    <p>The system adapts to whoever is in the room. A child discovers it differently than a poet. A musician uses it differently than a comedian. That range is the point.</p>
+
+    <!-- ════════════════════════════════════════════════ -->
+    <!-- HOW                                             -->
+    <!-- ════════════════════════════════════════════════ -->
+
+    <span class="chapter-label">III. How</span>
+    <h2>Making it happen.</h2>
+
+    <h3>The Compute Question</h3>
     <p>After some thought, Gonzo and I have concluded that installing a B300 inside an apartment is infeasible. They are only sold in nodes of eight which are soldered together, with cooling and power requirements that exceed residential capacity.</p>
 
-    <p>We are considering what it might take to gain access to frontier compute inside the NYC metro area, which will be necessary in order to reduce latency such that we can fulfill our ambition of powering live performances in the city at the highest level of production and reliability. We are exploring the feasibility of building a small cooperative data center inside of the 20,000 square foot tech/art accelerator we are building in North Williamsburg.</p>
+    <p>We are exploring what it might take to gain access to frontier compute inside the NYC metro area &mdash; necessary for reducing latency to power live performances at the highest level of production and reliability. We are exploring the feasibility of building a small cooperative data center inside of the 20,000 square foot tech/art accelerator we are building in North Williamsburg.</p>
 
-    <p>In the meantime, we can get started as soon as you are ready with our remote provider, supported in a few key latency-sensitive tasks by NVIDIA's current top of the line professional workstation that can live beautifully in your home. This has the added benefit of allowing us to remain flexible to shifting compute requirements as the model landscape changes.</p>
+    <p>In the meantime, we can get started immediately with our remote provider, supported by NVIDIA's current top of the line professional workstation living in your home. This has the added benefit of keeping us flexible as the model landscape shifts.</p>
 
-    <p>What follows is our approach, pricing, and next steps.</p>
+    <h3>Spatial Canvas</h3>
+    <p>We will install a combination of ultra short throw projectors, microphones, and cameras throughout your home to enable multi-screen visibility and interactivity at day and night, all centrally controlled via an iOS app.</p>
 
-    <!-- ━━ Spatial Canvas ━━ -->
+    <h3>Local Brain</h3>
+    <p>An RTX PRO 6000 workstation powers everything latency-sensitive: real-time transcription, audioreactivity, a local language model, and a smaller local version of ETHEREA that will become more capable over time. The workstation is modular and upgradeable.</p>
 
-    <h2>Spatial Canvas</h2>
+    <p>As discussed, the workstation can be housed in a commissioned glass-blown aquarium that water-cools the GPU while refracting and magnifying the system's generative visuals through water and glass &mdash; a living sculpture that is simultaneously art object, light source, and the brain of the entire installation. We work with a very talented glass sculptor, Edoardo Cozzani, who would be a fantastic choice to bring this to life.</p>
 
-    <p>We will install a combination of ultra short throw projectors, microphones, and cameras throughout your home to enable multi-screen visibility and interactivity at day and night, all centrally controlled via an iOS app. Every surface responds to what's happening in the room.</p>
-
-    <p>The system supports three modes of operation, each reacting to audiovisual inputs from the microphones and cameras installed throughout the space.</p>
-
-    <h3>Active</h3>
-    <p>Speak, and watch your words instantly form worlds around you. Supports free-form play, poetry reading, storytelling, musical performances, and standup comedy. Live captions available.</p>
-    <div class="video-placeholder">Video coming soon</div>
-
-    <h3>Ambient</h3>
-    <p>When inactive, ETHEREA autonomously evolves, producing hypnotic visuals that meander through concepts in a variety of aesthetics. Fine-tunable to specific moods, themes, or the style of a specific artist.</p>
-    <div class="video-placeholder">Video coming soon</div>
-
-    <h3>Imagination Guide</h3>
-    <p>ETHEREA comes to life with a voice that talks back. An interactive guide that takes you on tours, tells stories, and responds to conversation. Massive potential across education, entertainment, and live performance.</p>
-    <div class="video-wrap">
-      <iframe src="https://www.youtube.com/embed/1XMIYZJc4XA" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
-    </div>
-
-    <!-- ━━ Local Brain ━━ -->
-
-    <h2>Local Brain</h2>
-
-    <p>The system will be controlled via an RTX PRO 6000, NVIDIA's current top of the line GPU workstation. This will power latency-sensitive workloads including local transcription, audioreactivity, a local language model, as well as a smaller, local version of ETHEREA that will become more capable over time. The workstation is modular, and can be upgraded with newer GPUs as they become available.</p>
-
-    <p>As discussed, the workstation can be housed in a commissioned glass-blown aquarium that water-cools the GPU while refracting and magnifying the system's generative visuals through water and glass, resulting in a living sculpture that is simultaneously art object, light source, and the brain of the entire installation. We work with a very talented glass sculptor, Edoardo Cozzani, who would be a fantastic choice to bring this to life.</p>
-
-    <!-- ━━ Cloud Compute ━━ -->
-
-    <h2>Cloud Compute</h2>
-
-    <p>Currently, a B300 runs about $5&ndash;6/hr, which makes 24/7 operation around $4,500/mo. While current chip scarcity requires keeping the GPU warm around the clock to guarantee on-demand access, we expect costs to decrease as GPU supply increases.</p>
-
-    <p>The cloud handles the heavy generative workloads &mdash; frontier model inference, image and video synthesis, and the large-scale computation that makes ETHEREA's visuals possible. The local workstation and cloud GPU work in concert, each handling what it does best.</p>
+    <h3>Cloud Compute</h3>
+    <p>A B300 currently runs about $5&ndash;6/hr, making 24/7 operation around $4,500/mo. The cloud handles the heavy generative workloads &mdash; frontier model inference, image and video synthesis &mdash; while the local workstation handles everything real-time. As GPU supply increases, we expect these costs to decrease.</p>
 
     <div class="stat-row">
       <div class="stat-cell"><div class="n">$4,500</div><div class="l">Monthly</div></div>
@@ -352,9 +347,39 @@
       <div class="stat-cell"><div class="n">$54k</div><div class="l">Annual est.</div></div>
     </div>
 
-    <!-- ━━ Pricing ━━ -->
+    <h3>iOS App</h3>
+    <p>A dedicated app gives you full control from your iPhone or iPad &mdash; mode selection, ambient theme curation, and system management. The entire installation in your pocket.</p>
 
-    <h2>Pricing</h2>
+    <!-- ════════════════════════════════════════════════ -->
+    <!-- WHAT                                            -->
+    <!-- ════════════════════════════════════════════════ -->
+
+    <span class="chapter-label">IV. What</span>
+    <h2>What you get.</h2>
+
+    <h3>Active Mode</h3>
+    <p>Speak, and watch your words instantly form worlds around you. Supports free-form play, poetry reading, storytelling, musical performances, and standup comedy. Live captions available.</p>
+    <div class="video-placeholder">Video coming soon</div>
+
+    <h3>Ambient Mode</h3>
+    <p>When no one is speaking, ETHEREA autonomously evolves &mdash; producing hypnotic visuals that meander through concepts in a variety of aesthetics. Fine-tunable to specific moods, themes, or the style of a specific artist.</p>
+    <div class="video-placeholder">Video coming soon</div>
+
+    <h3>Imagination Guide</h3>
+    <p>Our most exciting feature. ETHEREA comes to life with a voice that talks back &mdash; an interactive guide that can take you on a tour of Tokyo, tell you a story, or respond to a question. We see massive potential across education, entertainment, and live performance, and are producing an interactive storytelling act with a human actor that we hope to debut in the spring.</p>
+    <div class="video-wrap">
+      <iframe src="https://www.youtube.com/embed/1XMIYZJc4XA" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+    </div>
+
+    <h3>The Aquarium</h3>
+    <p>A commissioned glass-blown sculpture that houses the workstation, water-cools the GPU, and refracts ETHEREA's generative visuals through water and glass. Art object. Light source. Brain of the installation.</p>
+
+    <!-- ════════════════════════════════════════════════ -->
+    <!-- PRICING + TIMELINE                              -->
+    <!-- ════════════════════════════════════════════════ -->
+
+    <span class="chapter-label">V. Investment</span>
+    <h2>Pricing &amp; timeline.</h2>
 
     <div id="cost-summary"></div>
 
@@ -372,21 +397,15 @@
       </div>
     </div>
 
-    <!-- ━━ Timeline ━━ -->
-
-    <h2>Timeline</h2>
-
-    <p>We expect everything installed, ready, and working autonomously by the end of June. In the meantime, we are eager to continue supporting your social gatherings in-person.</p>
+    <h3 style="margin-top:48px">Timeline</h3>
+    <p>We expect everything installed and working autonomously by the end of June. In the meantime, we are eager to continue supporting your social gatherings in-person.</p>
 
     <div id="timeline" style="margin-top:24px"></div>
 
-    <!-- ━━ Terms ━━ -->
+    <h3 style="margin-top:48px">Fee</h3>
+    <p>$50,000 service fee covers design, engineering, installation, integration, and ongoing software support. $25,000 due on signing, $25,000 on successful completion. Hardware and compute billed at cost.</p>
 
-    <h2>Fee</h2>
-
-    <p>In addition to the cost of materials, we will charge a service fee of $50,000 for design, engineering, installation, integration, and ongoing software support. $25,000 is due on signing and $25,000 is due on successful completion. Hardware and compute costs are billed at cost.</p>
-
-    <!-- ━━ Closing ━━ -->
+    <!-- ════════════════════════════════════════════════ -->
 
     <div class="closing">
       <p>Ready when you are.</p>
