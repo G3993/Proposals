@@ -47,7 +47,7 @@
     .nav-inner {
       max-width: 980px;
       margin: 0 auto;
-      padding: 0 22px;
+      padding: 0 24px;
       height: 52px;
       display: flex;
       align-items: center;
@@ -92,7 +92,6 @@
     }
 
     .inner { max-width: 980px; margin: 0 auto; }
-    .inner-narrow { max-width: 720px; margin: 0 auto; }
 
     /* ── Typography ── */
     .eyebrow {
@@ -508,10 +507,10 @@
 
   <!-- Letter -->
   <section id="letter" class="section section-white">
-    <div class="inner-narrow fade-in">
+    <div class="inner fade-in">
       <div class="eyebrow eyebrow-gradient">A letter</div>
       <h2 class="headline-medium" style="margin-bottom:40px">Built for your world.</h2>
-      <div class="letter">
+      <div class="letter" style="max-width:720px">
         <p class="greeting">Nouriel,</p>
         <p>Thanks again for the opportunity to perform on Sunday night. We had a blast co-creating with you, and are thrilled by the opportunity to work together to bring ETHEREA permanently into your beautiful home.</p>
         <p>As you have seen, ETHEREA's Imagination Engine is a dynamic, always-evolving creative intelligence that gives anyone the ability to instantly use their words to project their imagination in the space around them. We continue to discover new use cases and audiences for this technology, from musical performances, to animated poetry, to immersive audiovisual theatre, and believe that your prolific hosting will provide a living laboratory to demonstrate its immense potential while entertaining and inspiring your guests.</p>
@@ -563,23 +562,19 @@
   <!-- Local Brain -->
   <section id="brain" class="section section-white">
     <div class="inner fade-in">
-      <div style="max-width:720px">
-        <div class="eyebrow eyebrow-gradient">Local Brain</div>
-        <h2 class="headline-medium" style="margin-bottom:20px">The workstation<br>as sculpture.</h2>
-        <p class="body-large">Powered by an RTX PRO 6000 — NVIDIA's current top of the line GPU. Local transcription, audioreactivity, a local language model, and a smaller, local version of ETHEREA that will become more capable over time. Modular and upgradeable.</p>
-        <p class="body-large" style="margin-top:20px">The workstation lives inside a commissioned glass-blown aquarium that water-cools the GPU while refracting and magnifying the system's generative visuals through water and glass. A living sculpture that is simultaneously art object, light source, and the brain of the entire installation. Crafted by glass sculptor Edoardo Cozzani.</p>
-      </div>
+      <div class="eyebrow eyebrow-gradient">Local Brain</div>
+      <h2 class="headline-medium" style="margin-bottom:20px">The workstation<br>as sculpture.</h2>
+      <p class="body-large">Powered by an RTX PRO 6000 — NVIDIA's current top of the line GPU. Local transcription, audioreactivity, a local language model, and a smaller, local version of ETHEREA that will become more capable over time. Modular and upgradeable.</p>
+      <p class="body-large" style="margin-top:20px">The workstation lives inside a commissioned glass-blown aquarium that water-cools the GPU while refracting and magnifying the system's generative visuals through water and glass. A living sculpture that is simultaneously art object, light source, and the brain of the entire installation. Crafted by glass sculptor Edoardo Cozzani.</p>
     </div>
   </section>
 
   <!-- Cloud Compute -->
   <section id="compute" class="section section-dark">
     <div class="inner fade-in">
-      <div style="text-align:center">
-        <div class="eyebrow eyebrow-gradient">Cloud Compute</div>
-        <h2 class="headline-medium" style="margin-bottom:20px">Always on.<br>Always evolving.</h2>
-        <p class="body-large" style="margin:0 auto">The cloud handles the heavy generative workloads — frontier model inference, image and video synthesis, and the large-scale computation that makes ETHEREA's visuals possible. The local workstation and cloud GPU work in concert, each handling what it does best.</p>
-      </div>
+      <div class="eyebrow eyebrow-gradient">Cloud Compute</div>
+      <h2 class="headline-medium" style="margin-bottom:20px">Always on.<br>Always evolving.</h2>
+      <p class="body-large">The cloud handles the heavy generative workloads — frontier model inference, image and video synthesis, and the large-scale computation that makes ETHEREA's visuals possible. The local workstation and cloud GPU work in concert, each handling what it does best.</p>
 
       <div class="stats-row">
         <div class="stat-item">
@@ -601,27 +596,25 @@
   <!-- Pricing -->
   <section id="pricing" class="section section-dark" style="padding-top:0">
     <div class="inner fade-in">
-      <div class="inner-narrow" style="margin:0 auto">
-        <div class="eyebrow eyebrow-gradient">Investment</div>
-        <h2 class="headline-medium" style="margin-bottom:20px">Full project pricing.</h2>
+      <div class="eyebrow eyebrow-gradient">Investment</div>
+      <h2 class="headline-medium" style="margin-bottom:20px">Full project pricing.</h2>
 
-        <div class="pricing-summary" id="cost-summary"></div>
+      <div class="pricing-summary" id="cost-summary" style="max-width:720px"></div>
 
-        <button class="details-btn" id="hw-toggle" onclick="toggleDetails()">
-          View hardware details
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-        </button>
+      <button class="details-btn" id="hw-toggle" onclick="toggleDetails()">
+        View hardware details
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
 
-        <div class="details-panel" id="hw-details">
-          <div class="hw-table-wrap">
-            <table class="hw-table">
-              <thead><tr><th>Category</th><th>Item</th><th class="r">Qty</th><th class="r">Unit</th><th class="r">Total</th></tr></thead>
-              <tbody id="hw-tbody"></tbody>
-            </table>
-            <div class="hw-table-footer">
-              <span>Total incl. 8.875% tax</span>
-              <span id="hw-total-val"></span>
-            </div>
+      <div class="details-panel" id="hw-details">
+        <div class="hw-table-wrap">
+          <table class="hw-table">
+            <thead><tr><th>Category</th><th>Item</th><th class="r">Qty</th><th class="r">Unit</th><th class="r">Total</th></tr></thead>
+            <tbody id="hw-tbody"></tbody>
+          </table>
+          <div class="hw-table-footer">
+            <span>Total incl. 8.875% tax</span>
+            <span id="hw-total-val"></span>
           </div>
         </div>
       </div>
@@ -631,23 +624,19 @@
   <!-- Timeline -->
   <section id="timeline" class="section section-white">
     <div class="inner fade-in">
-      <div class="inner-narrow" style="margin:0 auto">
-        <div class="eyebrow eyebrow-gradient">Timeline</div>
-        <h2 class="headline-medium" style="margin-bottom:8px">Operational by<br>end of June.</h2>
-        <div class="timeline" id="timeline-rows"></div>
-      </div>
+      <div class="eyebrow eyebrow-gradient">Timeline</div>
+      <h2 class="headline-medium" style="margin-bottom:8px">Operational by<br>end of June.</h2>
+      <div class="timeline" id="timeline-rows" style="max-width:720px"></div>
     </div>
   </section>
 
   <!-- Terms -->
   <section class="section section-light">
     <div class="inner fade-in">
-      <div class="inner-narrow" style="margin:0 auto">
-        <div class="eyebrow eyebrow-gradient">Terms</div>
-        <h2 class="headline-medium" style="margin-bottom:20px">How we work together.</h2>
-        <p class="body-large" style="color:var(--gray-400)">In addition to the cost of materials, we will charge a service fee of $50,000 for design, engineering, installation, integration, and ongoing software support. $25,000 is due on signing and $25,000 is due on successful completion.</p>
-        <p class="body-large" style="margin-top:20px;color:var(--gray-400)">Hardware and compute costs are billed at cost. Monthly cloud compute is billed as incurred. We are eager to continue supporting your social gatherings in-person in the meantime.</p>
-      </div>
+      <div class="eyebrow eyebrow-gradient">Terms</div>
+      <h2 class="headline-medium" style="margin-bottom:20px">How we work together.</h2>
+      <p class="body-large">In addition to the cost of materials, we will charge a service fee of $50,000 for design, engineering, installation, integration, and ongoing software support. $25,000 is due on signing and $25,000 is due on successful completion.</p>
+      <p class="body-large" style="margin-top:20px">Hardware and compute costs are billed at cost. Monthly cloud compute is billed as incurred. We are eager to continue supporting your social gatherings in-person in the meantime.</p>
     </div>
   </section>
 
