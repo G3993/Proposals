@@ -109,12 +109,24 @@
     }
 
     /* ── Spline ── */
+    .spline-outer {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .spline-border {
+      position: relative;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      overflow: hidden;
+      background: var(--surface);
+    }
     .spline-wrap {
       position: relative;
       width: 100%;
-      height: 70vh;
-      min-height: 480px;
-      max-height: 700px;
+      height: 85vh;
+      min-height: 560px;
+      max-height: 860px;
       overflow: hidden;
     }
     .spline-wrap canvas {
@@ -128,8 +140,34 @@
       position: absolute;
       bottom: 0; left: 0; right: 0;
       height: 30%;
-      background: linear-gradient(transparent, var(--bg));
+      background: linear-gradient(transparent, var(--surface));
       pointer-events: none;
+    }
+    .spline-hint {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      pointer-events: none;
+      animation: hintPulse 2.5s ease-in-out infinite;
+      z-index: 2;
+    }
+    .spline-hint svg {
+      width: 16px;
+      height: 16px;
+      opacity: 0.4;
+    }
+    @keyframes hintPulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
     }
 
     /* ── Mode Cards ── */
@@ -394,9 +432,17 @@
   </div>
 
   <!-- 3D Model -->
-  <div class="spline-wrap">
-    <canvas id="spline-canvas"></canvas>
-    <div class="spline-fade"></div>
+  <div class="spline-outer">
+    <div class="spline-border">
+      <div class="spline-wrap">
+        <canvas id="spline-canvas"></canvas>
+        <div class="spline-fade"></div>
+      </div>
+      <div class="spline-hint">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 9 2 12 5 15"/><polyline points="9 5 12 2 15 5"/><polyline points="15 19 12 22 9 19"/><polyline points="19 9 22 12 19 15"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="12" y1="2" x2="12" y2="22"/></svg>
+        Click &amp; drag to explore
+      </div>
+    </div>
   </div>
 
   <!-- 2. MODES -->
