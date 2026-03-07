@@ -3,14 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ETHEREA — Residential Installation Proposal</title>
+  <title>ETHEREA — Proposal</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
       --bg: #0a0a0a;
       --surface: #121213;
-      --surface-2: #1a1a1c;
       --border: rgba(255,255,255,0.06);
       --text: rgba(255,255,255,0.85);
       --text-secondary: rgba(255,255,255,0.5);
@@ -24,19 +23,69 @@
       font-family: Helvetica, Arial, sans-serif;
       color: var(--text);
       -webkit-font-smoothing: antialiased;
-      line-height: 1.5;
     }
 
     ::-webkit-scrollbar { width: 0; }
 
-    .page { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    /* ── Shared ── */
+    .container { max-width: 680px; margin: 0 auto; padding: 0 24px; }
+    .container.wide { max-width: 1100px; }
+
+    .chapter {
+      padding: 120px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .chapter:last-child { border-bottom: none; }
+
+    .label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .heading {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      line-height: 1.15;
+      color: var(--text);
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .prose {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.75;
+    }
+    .prose p { margin-bottom: 24px; }
+    .prose p:last-child { margin-bottom: 0; }
+
+    .divider {
+      width: 48px;
+      height: 1px;
+      background: var(--gradient);
+      background-size: 200% 100%;
+      animation: gradientSlide 3s linear infinite;
+      margin: 0 auto 48px;
+    }
+
+    @keyframes gradientSlide {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 200% 50%; }
+    }
 
     /* ── Hero ── */
     .hero-header {
       text-align: center;
-      padding: 80px 24px 48px;
+      padding: 100px 24px 56px;
     }
-    .hero-label {
+    .hero-eyebrow {
       font-size: 0.7rem;
       font-weight: 600;
       letter-spacing: 3px;
@@ -46,28 +95,20 @@
     }
     .hero-title {
       font-family: 'Times New Roman', Times, serif;
-      font-size: clamp(32px, 5vw, 56px);
+      font-size: clamp(40px, 6vw, 72px);
       font-weight: 400;
       letter-spacing: 0.04em;
       line-height: 1;
-      color: #ffffff;
+      color: #fff;
     }
     .hero-sub {
-      font-size: 1.3rem;
-      font-weight: 400;
+      font-size: 1.2rem;
       color: var(--text-secondary);
       margin-top: 16px;
       letter-spacing: 0.5px;
     }
-    .hero-desc {
-      font-size: 0.95rem;
-      color: var(--text-tertiary);
-      margin-top: 20px;
-      max-width: 620px;
-      margin-left: auto;
-      margin-right: auto;
-      line-height: 1.6;
-    }
+
+    /* ── Spline ── */
     .spline-wrap {
       position: relative;
       width: 100%;
@@ -83,98 +124,49 @@
     }
     .spline-fade {
       position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
+      bottom: 0; left: 0; right: 0;
       height: 30%;
       background: linear-gradient(transparent, var(--bg));
       pointer-events: none;
     }
 
-    @keyframes gradientSlide {
-      0% { background-position: 0% 50%; }
-      100% { background-position: 200% 50%; }
+    /* ── Mode Cards ── */
+    .modes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-top: 56px;
     }
-
-    /* ── Nav ── */
-    .nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(10,10,10,0.72);
-      backdrop-filter: saturate(180%) blur(20px);
-      -webkit-backdrop-filter: saturate(180%) blur(20px);
-      border-bottom: 1px solid var(--border);
+    .mode {
+      background: var(--surface);
+      padding: 40px 32px;
     }
-    .nav-inner {
-      display: flex;
-      justify-content: center;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-    .nav button {
-      background: none;
-      border: none;
-      color: var(--text-tertiary);
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      padding: 16px 24px;
-      cursor: pointer;
-      white-space: nowrap;
-      position: relative;
-      font-family: inherit;
-      transition: color 0.3s;
-    }
-    .nav button:hover { color: var(--text-secondary); }
-    .nav button.active { color: var(--text); }
-    .nav button.active::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 24px;
-      right: 24px;
-      height: 1px;
-      background: var(--gradient);
-      background-size: 200% 100%;
-      animation: gradientSlide 3s linear infinite;
-    }
-
-    /* ── Sections ── */
-    .section {
-      padding: 100px 0;
-      text-align: center;
-    }
-    .section-label {
-      font-size: 0.65rem;
-      font-weight: 600;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--text-tertiary);
+    .mode-title {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: var(--text);
       margin-bottom: 12px;
     }
-    .section-title {
-      font-family: 'Times New Roman', Times, serif;
-      font-size: clamp(32px, 5vw, 48px);
-      font-weight: 400;
-      letter-spacing: 0.01em;
-      line-height: 1.1;
-      color: var(--text);
-      margin-bottom: 56px;
+    .mode-desc {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
     }
 
     /* ── Stats ── */
     .stats {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 1px;
       background: var(--border);
       border-radius: var(--radius);
       overflow: hidden;
-      margin-bottom: 56px;
       text-align: center;
+      margin-bottom: 48px;
     }
     .stat {
       background: var(--surface);
@@ -190,7 +182,7 @@
     }
     .stat-value {
       font-family: 'Times New Roman', Times, serif;
-      font-size: 2rem;
+      font-size: 1.8rem;
       font-weight: 400;
       color: var(--text);
     }
@@ -200,63 +192,37 @@
       margin-top: 6px;
     }
 
-    /* ── Mode Cards ── */
-    .modes {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      background: var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      text-align: left;
-    }
-    .mode {
-      background: var(--surface);
-      padding: 40px 32px;
-      transition: background 0.3s;
-    }
-    .mode:hover { background: var(--surface-2); }
-    .mode-title {
-      font-family: 'Times New Roman', Times, serif;
-      font-size: 1.4rem;
-      font-weight: 400;
-      color: var(--text);
-      margin-bottom: 12px;
-    }
-    .mode-desc {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      line-height: 1.6;
-    }
-
-    /* ── Cards ── */
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      text-align: left;
-    }
-    .card {
-      background: var(--surface);
-      padding: 32px 28px;
-      transition: background 0.3s;
-    }
-    .card:hover { background: var(--surface-2); }
-    .card-label {
-      font-size: 0.65rem;
-      font-weight: 600;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--text-tertiary);
-      margin-bottom: 10px;
-    }
-    .card-value {
+    /* ── Summary Rows ── */
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
       font-size: 0.95rem;
-      color: var(--text-secondary);
-      line-height: 1.5;
+    }
+    .summary-row:last-child { border-bottom: none; }
+    .summary-row .sl { color: var(--text-secondary); }
+    .summary-row .sv { color: var(--text); font-weight: 500; font-variant-numeric: tabular-nums; }
+    .summary-row.total {
+      padding-top: 24px;
+      margin-top: 12px;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      border-bottom: none;
+    }
+    .summary-row.total .sl {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 1.15rem;
+      color: var(--text);
+    }
+    .summary-row.total .sv {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 1.15rem;
+      background: var(--gradient);
+      background-size: 200% 100%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientSlide 3s linear infinite;
     }
 
     /* ── Table ── */
@@ -264,7 +230,7 @@
       border: 1px solid var(--border);
       border-radius: var(--radius);
       overflow: hidden;
-      text-align: left;
+      margin-top: 48px;
     }
     table { width: 100%; border-collapse: collapse; }
     thead { background: var(--surface); }
@@ -274,137 +240,48 @@
       letter-spacing: 2px;
       text-transform: uppercase;
       color: var(--text-tertiary);
-      padding: 14px 24px;
+      padding: 14px 20px;
       text-align: left;
       border-bottom: 1px solid var(--border);
     }
     th.r { text-align: right; }
     td {
-      padding: 16px 24px;
-      font-size: 0.9rem;
+      padding: 14px 20px;
+      font-size: 0.85rem;
       color: var(--text-secondary);
       border-bottom: 1px solid var(--border);
     }
     td.r { text-align: right; font-variant-numeric: tabular-nums; }
     td.p { color: var(--text); font-weight: 500; }
     tr:last-child td { border-bottom: none; }
-    tr { transition: background 0.2s; }
-    tr:hover td { background: rgba(255,255,255,0.02); }
-    .spec { font-size: 0.78rem; color: var(--text-tertiary); margin-top: 3px; }
     .tag {
       display: inline-block;
-      font-size: 0.65rem;
+      font-size: 0.6rem;
       font-weight: 600;
       letter-spacing: 1px;
       text-transform: uppercase;
-      padding: 4px 10px;
-      border-radius: 6px;
+      padding: 3px 8px;
+      border-radius: 5px;
       background: rgba(255,255,255,0.04);
       color: var(--text-secondary);
     }
     .table-footer {
       display: flex;
       justify-content: space-between;
-      padding: 18px 24px;
+      padding: 16px 20px;
       background: var(--surface);
       border-top: 1px solid var(--border);
       font-size: 0.9rem;
       font-weight: 600;
       color: var(--text);
     }
-
-    /* ── Detail Grid ── */
-    .detail-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      background: var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      text-align: left;
-    }
-    .detail-cell {
-      background: var(--surface);
-      padding: 24px 28px;
-    }
-    .detail-cell .label {
-      font-size: 0.65rem;
-      font-weight: 600;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--text-tertiary);
-      margin-bottom: 8px;
-    }
-    .detail-cell .value {
-      font-size: 0.95rem;
-      color: var(--text);
-      line-height: 1.5;
-    }
-
-    /* ── Summary ── */
-    .summary {
-      max-width: 560px;
-      margin: 0 auto;
-      text-align: left;
-    }
-    .summary-row {
-      display: flex;
-      justify-content: space-between;
-      padding: 14px 0;
-      border-bottom: 1px solid var(--border);
-      font-size: 0.9rem;
-    }
-    .summary-row:last-child { border-bottom: none; }
-    .summary-row .label { color: var(--text-secondary); }
-    .summary-row .val { color: var(--text); font-weight: 500; font-variant-numeric: tabular-nums; }
-    .summary-row.total {
-      padding-top: 24px;
-      margin-top: 12px;
-      border-top: 1px solid rgba(255,255,255,0.12);
-      border-bottom: none;
-    }
-    .summary-row.total .label {
-      font-family: 'Times New Roman', Times, serif;
-      font-size: 1.2rem;
-      font-weight: 400;
-      color: var(--text);
-    }
-    .summary-row.total .val {
-      font-family: 'Times New Roman', Times, serif;
-      font-size: 1.2rem;
-      font-weight: 400;
-      background: var(--gradient);
-      background-size: 200% 100%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: gradientSlide 3s linear infinite;
-    }
-
-    /* ── Prose block ── */
-    .prose {
-      max-width: 640px;
-      margin: 0 auto;
-      text-align: left;
-    }
-    .prose p {
-      font-size: 0.95rem;
-      color: var(--text-secondary);
-      line-height: 1.7;
-      margin-bottom: 20px;
-    }
-    .prose p:last-child { margin-bottom: 0; }
+    .spec { font-size: 0.75rem; color: var(--text-tertiary); margin-top: 2px; }
 
     /* ── Timeline ── */
-    .timeline {
-      text-align: left;
-      max-width: 700px;
-      margin: 0 auto;
-    }
     .timeline-row {
       display: flex;
       gap: 32px;
-      padding: 24px 0;
+      padding: 20px 0;
       border-bottom: 1px solid var(--border);
       align-items: baseline;
     }
@@ -413,8 +290,7 @@
       font-size: 0.85rem;
       font-weight: 600;
       color: var(--text);
-      min-width: 110px;
-      letter-spacing: 0.5px;
+      min-width: 100px;
     }
     .timeline-desc {
       font-size: 0.9rem;
@@ -422,113 +298,175 @@
       line-height: 1.6;
     }
 
-    /* ── Tab visibility ── */
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
-
-    /* ── Divider ── */
-    .divider {
-      width: 48px;
-      height: 1px;
-      background: var(--gradient);
-      background-size: 200% 100%;
-      animation: gradientSlide 3s linear infinite;
-      margin: 0 auto 56px;
+    /* ── Closing ── */
+    .closing {
+      text-align: center;
+      padding: 120px 24px;
+    }
+    .closing-text {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: clamp(24px, 3.5vw, 36px);
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.3;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+    .closing-sig {
+      margin-top: 40px;
+      font-size: 0.9rem;
+      color: var(--text-tertiary);
+      letter-spacing: 0.5px;
     }
 
+    /* ── Details toggle ── */
+    .details-toggle {
+      display: block;
+      margin: 48px auto 0;
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 12px 28px;
+      border-radius: 24px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .details-toggle:hover {
+      border-color: rgba(255,255,255,0.2);
+      color: var(--text);
+    }
+    .details-content {
+      display: none;
+      margin-top: 48px;
+    }
+    .details-content.open { display: block; }
+
     @media (max-width: 768px) {
-      .stats { grid-template-columns: repeat(2, 1fr); }
-      .cards { grid-template-columns: 1fr; }
       .modes { grid-template-columns: 1fr; }
-      .detail-grid { grid-template-columns: 1fr; }
-      .nav button { padding: 14px 16px; font-size: 0.7rem; }
+      .stats { grid-template-columns: 1fr; }
+      .chapter { padding: 80px 0; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
+  <!-- Hero -->
   <div class="hero-header">
-    <div class="hero-label">Residential Installation</div>
+    <div class="hero-eyebrow">Proposal</div>
     <div class="hero-title">ETHEREA</div>
     <div class="hero-sub">Permanent Home Installation</div>
-    <div class="hero-desc">A living AI environment that transforms your home into a responsive, generative experience. Speak, and watch your words instantly form worlds around you.</div>
   </div>
 
-  <!-- Spline Scene -->
+  <!-- Spline -->
   <div class="spline-wrap">
     <canvas id="spline-canvas"></canvas>
     <div class="spline-fade"></div>
   </div>
 
-  <!-- Nav -->
-  <div class="nav">
-    <div class="nav-inner">
-      <button class="active" onclick="showTab('overview')">Overview</button>
-      <button onclick="showTab('experience')">Experience</button>
-      <button onclick="showTab('hardware')">Hardware</button>
-      <button onclick="showTab('compute')">Compute</button>
-      <button onclick="showTab('pricing')">Pricing</button>
+  <!-- 1. LETTER -->
+  <div class="chapter">
+    <div class="container">
+      <div class="label">A Note</div>
+      <div class="heading">Thank you for Sunday night.</div>
+      <div class="divider"></div>
+      <div class="prose">
+        <p>Thanks again for the opportunity to perform on Sunday night. We had a blast co-creating with you, and are thrilled by the opportunity to work together to bring ETHEREA permanently into your beautiful home.</p>
+        <p>As you have seen, ETHEREA's Imagination Engine is a dynamic, always-evolving creative intelligence that gives anyone the ability to instantly use their words to project their imagination in the space around them. We continue to discover new use cases and audiences for this technology, from musical performances, to animated poetry, to immersive audiovisual theatre, and believe that your prolific hosting will provide a living laboratory to demonstrate its immense potential while entertaining and inspiring your guests.</p>
+        <p>We can get started as soon as you are ready with our remote compute provider, supported in a few key latency-sensitive tasks by NVIDIA's current top of the line professional workstation that can live beautifully in your home. This has the added benefit of allowing us to remain flexible to shifting compute requirements as the model landscape changes.</p>
+        <p>What follows is our approach, pricing, and next steps.</p>
+      </div>
     </div>
   </div>
 
-  <div class="page">
-
-    <!-- OVERVIEW -->
-    <div id="tab-overview" class="tab-content active">
-      <div class="section">
-        <div class="stats" id="stats-bar"></div>
-
-        <div class="section-label">Approach</div>
-        <div class="section-title">Your home, reimagined.</div>
-        <div class="divider"></div>
-        <div class="prose">
-          <p>ETHEREA's Imagination Engine is a dynamic, always-evolving creative intelligence that gives anyone the ability to instantly use their words to project their imagination in the space around them.</p>
-          <p>The system will be powered by a combination of cloud GPU compute for heavy generative workloads and a local NVIDIA RTX PRO 6000 workstation for latency-sensitive tasks including transcription, audioreactivity, and a local language model. The workstation is modular and can be upgraded as newer GPUs become available.</p>
-          <p>We will install a combination of ultra short throw projectors, microphones, and cameras throughout the space to enable multi-screen visibility and interactivity, centrally controlled via an iOS app.</p>
+  <!-- 2. MODES -->
+  <div class="chapter">
+    <div class="container wide">
+      <div class="label">Experience</div>
+      <div class="heading">Four ways to inhabit the space.</div>
+      <div class="divider"></div>
+      <div class="prose" style="max-width:680px;margin:0 auto 0">
+        <p>Every mode reacts to audiovisual inputs from the microphones and cameras installed throughout your space.</p>
+      </div>
+      <div class="modes">
+        <div class="mode">
+          <div class="mode-title">Active</div>
+          <div class="mode-desc">Speak, and watch your words instantly form worlds around you. Supports free-form play, poetry reading, storytelling, musical performances, and even standup comedy. Live captions available.</div>
         </div>
-      </div>
-
-      <div class="section" style="padding-top:0">
-        <div class="section-label">System</div>
-        <div class="section-title">Everything the space needs.</div>
-        <div class="cards" id="system-cards"></div>
-      </div>
-    </div>
-
-    <!-- EXPERIENCE -->
-    <div id="tab-experience" class="tab-content">
-      <div class="section">
-        <div class="section-label">Modes of Operation</div>
-        <div class="section-title">Four ways to inhabit the space.</div>
-        <div class="modes" id="modes-grid"></div>
-      </div>
-
-      <div class="section" style="padding-top:0">
-        <div class="section-label">Aquarium</div>
-        <div class="section-title">The brain as sculpture.</div>
-        <div class="divider"></div>
-        <div class="prose">
-          <p>The workstation can be housed in a commissioned glass-blown aquarium that water-cools the GPU while refracting and magnifying the system's generative visuals through water and glass, resulting in a living sculpture that is simultaneously art object, light source, and the brain of the entire installation.</p>
+        <div class="mode">
+          <div class="mode-title">Ambient</div>
+          <div class="mode-desc">When inactive, ETHEREA autonomously evolves, producing hypnotic visuals that meander through concepts in a variety of aesthetics. Fine-tunable to specific moods, themes, or the style of a specific artist.</div>
         </div>
-      </div>
-
-      <div class="section" style="padding-top:0">
-        <div class="section-label">Control</div>
-        <div class="section-title">iOS app.</div>
-        <div class="divider"></div>
-        <div class="prose">
-          <p>A dedicated iOS app will allow full control of the installation from iPhone or iPad, including mode selection, ambient theme curation, and system management.</p>
+        <div class="mode">
+          <div class="mode-title">Imagination Guide</div>
+          <div class="mode-desc">ETHEREA comes to life with a voice that talks back. An interactive guide that takes you on tours, tells stories, and responds to conversation. We see massive potential across education, entertainment, and live performance.</div>
+        </div>
+        <div class="mode">
+          <div class="mode-title">Spatial Canvas</div>
+          <div class="mode-desc">Ultra short throw projectors, microphones, and cameras throughout the space enable multi-screen visibility and interactivity at day and night, centrally controlled via an iOS app.</div>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- HARDWARE -->
-    <div id="tab-hardware" class="tab-content">
-      <div class="section">
-        <div class="stats" id="hw-stats"></div>
-        <div class="section-label">Hardware</div>
-        <div class="section-title">Purpose-built for<br>generative intelligence.</div>
+  <!-- 3. LOCAL BRAIN + AQUARIUM -->
+  <div class="chapter">
+    <div class="container">
+      <div class="label">Local Brain</div>
+      <div class="heading">The workstation as sculpture.</div>
+      <div class="divider"></div>
+      <div class="prose">
+        <p>The system will be controlled via an RTX PRO 6000, NVIDIA's current top of the line GPU workstation. This will power latency-sensitive workloads including local transcription, audioreactivity, a local language model, as well as a smaller, local version of ETHEREA that will become more capable over time. The workstation is modular, and can be upgraded with newer GPUs as they become available.</p>
+        <p>As discussed, the workstation can be housed in a commissioned glass-blown aquarium that water-cools the GPU while refracting and magnifying the system's generative visuals through water and glass, resulting in a living sculpture that is simultaneously art object, light source, and the brain of the entire installation.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. COMPUTE -->
+  <div class="chapter">
+    <div class="container">
+      <div class="label">Cloud Compute</div>
+      <div class="heading">Always on. Always evolving.</div>
+      <div class="divider"></div>
+      <div class="prose">
+        <p>Currently, a B300 runs about $5–6/hr, which makes 24/7 operation around $4,500/mo. While current chip scarcity requires us to keep the GPU warm around the clock to guarantee on-demand access, we expect to become more flexible as GPU supply increases.</p>
+        <p>The cloud handles the heavy generative workloads — frontier model inference, image and video synthesis, and the large-scale computation that makes ETHEREA's visuals possible. The local workstation and cloud GPU work in concert, each handling what it does best.</p>
+      </div>
+      <div class="stats" style="margin-top:48px">
+        <div class="stat">
+          <div class="stat-label">Monthly</div>
+          <div class="stat-value">$4,500</div>
+          <div class="stat-sub">24/7 B300 access</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Hourly</div>
+          <div class="stat-value">$5–6</div>
+          <div class="stat-sub">current market rate</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Annual</div>
+          <div class="stat-value">$54k</div>
+          <div class="stat-sub">projected</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. PRICING -->
+  <div class="chapter">
+    <div class="container">
+      <div class="label">Investment</div>
+      <div class="heading">Full project pricing.</div>
+      <div class="divider"></div>
+      <div id="cost-summary"></div>
+
+      <button class="details-toggle" onclick="toggleDetails()">View hardware details</button>
+
+      <div class="details-content" id="hw-details">
         <div class="table-wrap">
           <table>
             <thead><tr><th>Category</th><th>Item</th><th class="r">Qty</th><th class="r">Unit</th><th class="r">Total</th></tr></thead>
@@ -541,52 +479,38 @@
         </div>
       </div>
     </div>
-
-    <!-- COMPUTE -->
-    <div id="tab-compute" class="tab-content">
-      <div class="section">
-        <div class="stats" id="compute-stats"></div>
-        <div class="section-label">Cloud Compute</div>
-        <div class="section-title">Always on. Always evolving.</div>
-        <div class="divider"></div>
-        <div class="prose" style="margin-bottom:56px">
-          <p>Currently, a B300 runs approximately $5\u20136/hr, making 24/7 operation around $4,500/mo. While current chip scarcity requires keeping the GPU warm around the clock to guarantee on-demand access, we expect to become more flexible as GPU supply increases.</p>
-          <p>The local RTX PRO 6000 handles latency-sensitive workloads including real-time transcription, audioreactivity, a local language model, and a smaller local version of ETHEREA that will become more capable over time.</p>
-        </div>
-        <div class="detail-grid" id="compute-details"></div>
-      </div>
-    </div>
-
-    <!-- PRICING -->
-    <div id="tab-pricing" class="tab-content">
-      <div class="section">
-        <div class="section-label">Investment</div>
-        <div class="section-title">Full project pricing.</div>
-        <div class="divider"></div>
-        <div class="summary" id="cost-summary"></div>
-      </div>
-
-      <div class="section" style="padding-top:0">
-        <div class="section-label">Timeline</div>
-        <div class="section-title">Installed by end of June.</div>
-        <div class="divider"></div>
-        <div class="timeline" id="timeline"></div>
-      </div>
-
-      <div class="section" style="padding-top:0">
-        <div class="section-label">Terms</div>
-        <div class="section-title">Next steps.</div>
-        <div class="divider"></div>
-        <div class="prose">
-          <p>Service fee of $50,000 covers design, engineering, installation, integration, and ongoing software support. Payment is split: $25,000 due on signing, $25,000 due on successful completion.</p>
-          <p>Hardware and compute costs are billed at cost. Monthly cloud compute is billed as incurred. We are eager to continue supporting your social gatherings in-person in the meantime.</p>
-        </div>
-      </div>
-    </div>
-
   </div>
 
-  <div style="height:120px"></div>
+  <!-- 6. TIMELINE -->
+  <div class="chapter">
+    <div class="container">
+      <div class="label">Timeline</div>
+      <div class="heading">Operational by end of June.</div>
+      <div class="divider"></div>
+      <div id="timeline"></div>
+    </div>
+  </div>
+
+  <!-- 7. TERMS -->
+  <div class="chapter">
+    <div class="container">
+      <div class="label">Terms</div>
+      <div class="heading">How we work together.</div>
+      <div class="divider"></div>
+      <div class="prose">
+        <p>In addition to the cost of materials, we will charge a service fee of $50,000 for design, engineering, installation, integration, and ongoing software support. $25,000 is due on signing and $25,000 is due on successful completion.</p>
+        <p>Hardware and compute costs are billed at cost. Monthly cloud compute is billed as incurred. We are eager to continue supporting your social gatherings in-person in the meantime.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. CLOSING -->
+  <div class="closing">
+    <div class="closing-text">Ready when you are.</div>
+    <div class="closing-sig">James &amp; Gonzo</div>
+  </div>
+
+  <div style="height:80px"></div>
 
   <script>
     const TAX = 0.08875;
@@ -594,7 +518,7 @@
     const fmtK = n => '$' + (n/1000).toFixed(1) + 'k';
 
     const hw = [
-      { cat:'GPU', item:'NVIDIA RTX PRO 6000 Blackwell', spec:'96 GB GDDR7 ECC \u2014 local brain', qty:1, unit:8900 },
+      { cat:'GPU', item:'NVIDIA RTX PRO 6000 Blackwell', spec:'96 GB GDDR7 ECC', qty:1, unit:8900 },
       { cat:'CPU', item:'Intel Core Ultra 9 285K', spec:'24-core, 5.7 GHz', qty:1, unit:589 },
       { cat:'Motherboard', item:'MSI MEG Z890 ACE', spec:'Z890, PCIe 5.0, WiFi 7', qty:1, unit:599 },
       { cat:'RAM', item:'128 GB DDR5-6400 (4\u00d732)', spec:'Corsair Dominator', qty:1, unit:520 },
@@ -605,56 +529,29 @@
       { cat:'OS', item:'Windows 11 Pro', spec:'OEM', qty:1, unit:199.99 },
       { cat:'Misc', item:'Cables, adapters, paste', spec:'PCIe adapters, MX-6', qty:1, unit:60 },
       { cat:'Projectors', item:'UST Projector', spec:'Ultra short throw, ceiling mount', qty:3, unit:3500 },
-      { cat:'Projectors', item:'Projector Mount', spec:'Ceiling bracket, adjustable', qty:3, unit:199.99 },
+      { cat:'Projectors', item:'Projector Mount', spec:'Ceiling bracket', qty:3, unit:199.99 },
       { cat:'Cameras', item:'Intel RealSense D455', spec:'Depth, 87\u00b0 FoV', qty:3, unit:419 },
-      { cat:'Cameras', item:'Camera Mount', spec:'Discreet ceiling/wall mount', qty:3, unit:39.99 },
+      { cat:'Cameras', item:'Camera Mount', spec:'Discreet wall/ceiling', qty:3, unit:39.99 },
       { cat:'Audio', item:'Shure MV7', spec:'USB/XLR Dynamic', qty:3, unit:249 },
       { cat:'Audio', item:'Boom Arm / Mount', spec:'Low-profile', qty:3, unit:34.99 },
-      { cat:'Aquarium', item:'Custom Glass Aquarium Enclosure', spec:'Glass-blown, water-cooled, commissioned sculpture', qty:1, unit:12000 },
+      { cat:'Aquarium', item:'Custom Glass Aquarium Enclosure', spec:'Glass-blown, water-cooled', qty:1, unit:12000 },
     ];
 
     const serviceFee = 50000;
     const monthlyCompute = 4500;
     const annualCompute = monthlyCompute * 12;
-
     const hwSub = hw.reduce((a, r) => a + r.qty * r.unit, 0);
     const hwTax = hwSub * TAX;
     const hwTotal = hwSub + hwTax;
     const yearOneTotal = hwTotal + serviceFee + annualCompute;
 
-    // Stats bar
-    document.getElementById('stats-bar').innerHTML = [
-      ['Hardware', fmtK(hwTotal), 'incl. NYC tax'],
-      ['Service Fee', '$50k', '$25k signing + $25k completion'],
-      ['Compute', '$4.5k/mo', '24/7 B300 access'],
-      ['Year One', fmtK(yearOneTotal), 'hardware + service + compute'],
-    ].map(([l,v,s]) => `<div class="stat"><div class="stat-label">${l}</div><div class="stat-value">${v}</div><div class="stat-sub">${s}</div></div>`).join('');
-
-    // System cards
-    document.getElementById('system-cards').innerHTML = [
-      ['Local Brain', 'RTX PRO 6000 Blackwell \u00b7 96 GB GDDR7 \u00b7 housed in aquarium sculpture'],
-      ['Cloud Compute', 'NVIDIA B300 Blackwell \u00b7 24/7 access \u00b7 $4,500/mo'],
-      ['Spatial Canvas', 'UST projectors + cameras + mics throughout the space'],
-      ['Depth Sensing', 'Intel RealSense D455 \u00b7 presence detection'],
-      ['Voice Input', 'Shure MV7 microphones \u00b7 real-time transcription'],
-      ['iOS App', 'Full control from iPhone or iPad'],
-    ].map(([l,v]) => `<div class="card"><div class="card-label">${l}</div><div class="card-value">${v}</div></div>`).join('');
-
-    // Modes
-    document.getElementById('modes-grid').innerHTML = [
-      ['Active', 'Speak, and watch your words instantly form worlds around you. Supports free-form play, poetry reading, storytelling, musical performances, and even standup comedy. Live captions available.'],
-      ['Ambient', 'When inactive, ETHEREA autonomously evolves, producing hypnotic visuals that meander through visual concepts in a variety of aesthetics. Fine-tunable to specific moods, themes, or the style of a specific artist.'],
-      ['Imagination Guide', 'ETHEREA comes to life with a voice that talks back. An interactive guide that can take you on tours, tell stories, and respond to conversation. Massive potential across education, entertainment, and live performance.'],
-      ['Spatial Canvas', 'Ultra short throw projectors, microphones, and cameras throughout the space enable multi-screen visibility and interactivity at day and night, centrally controlled via iOS app.'],
-    ].map(([t,d]) => `<div class="mode"><div class="mode-title">${t}</div><div class="mode-desc">${d}</div></div>`).join('');
-
-    // HW stats
-    document.getElementById('hw-stats').innerHTML = [
-      ['Subtotal', fmt(hwSub), 'before tax'],
-      ['NYC Tax', fmt(hwTax), '8.875%'],
-      ['Total', fmt(hwTotal), 'all hardware'],
-      ['Items', hw.length, 'line items'],
-    ].map(([l,v,s]) => `<div class="stat"><div class="stat-label">${l}</div><div class="stat-value" style="font-size:1.5rem">${v}</div><div class="stat-sub">${s}</div></div>`).join('');
+    // Cost summary
+    document.getElementById('cost-summary').innerHTML = [
+      ['Hardware total (incl. 8.875% tax)', fmt(hwTotal)],
+      ['Service fee', fmt(serviceFee)],
+      ['Cloud compute (annual est.)', fmt(annualCompute)],
+    ].map(([l,v]) => `<div class="summary-row"><span class="sl">${l}</span><span class="sv">${v}</span></div>`).join('') +
+    `<div class="summary-row total"><span class="sl">Year one total</span><span class="sv">${fmt(yearOneTotal)}</span></div>`;
 
     // HW table
     document.getElementById('hw-tbody').innerHTML = hw.map(r =>
@@ -662,49 +559,20 @@
     ).join('');
     document.getElementById('hw-total-val').textContent = fmt(hwTotal);
 
-    // Compute stats
-    document.getElementById('compute-stats').innerHTML = [
-      ['Monthly', '$4,500', '24/7 B300 access'],
-      ['Hourly', '$5\u2013$6', 'current market rate'],
-      ['Annual', fmtK(annualCompute), 'projected'],
-      ['Local GPU', 'RTX PRO 6000', 'latency-sensitive tasks'],
-    ].map(([l,v,s]) => `<div class="stat"><div class="stat-label">${l}</div><div class="stat-value" style="font-size:1.5rem">${v}</div><div class="stat-sub">${s}</div></div>`).join('');
-
-    // Compute details
-    document.getElementById('compute-details').innerHTML = [
-      ['Cloud GPU', 'NVIDIA Blackwell B300'],
-      ['Access Model', '24/7 reserved instance \u2014 GPU kept warm for on-demand access'],
-      ['Local Brain', 'RTX PRO 6000 \u2014 transcription, audioreactivity, local LLM, local ETHEREA'],
-      ['Flexibility', 'Cloud-first approach allows shifting compute requirements as model landscape changes'],
-      ['Providers', 'CoreWeave, Lambda Labs, AWS'],
-      ['Future', 'Costs expected to decrease as GPU supply increases'],
-    ].map(([l,v]) => `<div class="detail-cell"><div class="label">${l}</div><div class="value">${v}</div></div>`).join('');
-
-    // Cost summary
-    document.getElementById('cost-summary').innerHTML = [
-      ['Hardware (pre-tax)', fmt(hwSub)],
-      ['Hardware tax (8.875%)', fmt(hwTax)],
-      ['Hardware total', fmt(hwTotal)],
-      ['Service fee', fmt(serviceFee)],
-      ['Cloud compute (annual est.)', fmt(annualCompute)],
-    ].map(([l,v]) => `<div class="summary-row"><span class="label">${l}</span><span class="val">${v}</span></div>`).join('') +
-    `<div class="summary-row total"><span class="label">Year one total</span><span class="val">${fmt(yearOneTotal)}</span></div>`;
-
     // Timeline
     document.getElementById('timeline').innerHTML = [
       ['Signing', 'Agreement signed. $25k service fee due. Hardware procurement begins.'],
       ['Weeks 1\u20134', 'Hardware sourcing, aquarium commission, iOS app development.'],
       ['Weeks 5\u20138', 'Workstation build, cloud compute setup, system integration and testing.'],
       ['Weeks 9\u201312', 'On-site installation. Projectors, cameras, mics, network, aquarium placement.'],
-      ['Completion', 'Full system test, calibration, handoff. $25k balance due. Operational by end of June.'],
+      ['Completion', 'Full system test, calibration, handoff. $25k balance due.'],
     ].map(([d,desc]) => `<div class="timeline-row"><div class="timeline-day">${d}</div><div class="timeline-desc">${desc}</div></div>`).join('');
 
-    function showTab(id) {
-      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-      document.querySelectorAll('.nav button').forEach(btn => btn.classList.remove('active'));
-      document.getElementById('tab-' + id).classList.add('active');
-      event.target.classList.add('active');
-      window.scrollTo({ top: document.querySelector('.nav').offsetTop, behavior: 'smooth' });
+    function toggleDetails() {
+      const el = document.getElementById('hw-details');
+      const btn = document.querySelector('.details-toggle');
+      el.classList.toggle('open');
+      btn.textContent = el.classList.contains('open') ? 'Hide hardware details' : 'View hardware details';
     }
   </script>
 
