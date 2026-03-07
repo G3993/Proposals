@@ -311,10 +311,15 @@
       align-items: center;
       gap: 14px;
       font-size: 1.1rem;
-      transition: background 0.2s ease;
+      transition: all 0.3s ease;
     }
     .config-pill:hover .config-pill-label {
       background: rgba(255,255,255,0.1);
+    }
+    .config-item.active .config-pill-label {
+      background: rgba(255,255,255,0.08);
+      border-radius: 20px 20px 0 0;
+      width: 100%;
     }
     .config-pill-icon {
       width: 28px;
@@ -330,10 +335,7 @@
       transition: all 0.3s ease;
     }
     .config-item.active .config-pill-icon {
-      border-color: var(--blue);
-      background: var(--blue);
-      color: var(--white);
-      font-size: 11px;
+      border-color: rgba(255,255,255,0.5);
     }
     .config-detail {
       max-height: 0;
@@ -342,14 +344,13 @@
       opacity: 0;
     }
     .config-detail-inner {
-      padding: 4px 0 20px 0;
       font-size: 0.9rem;
       font-weight: 400;
       line-height: 1.6;
       color: var(--gray-400);
-      background: rgba(255,255,255,0.04);
-      border-radius: 16px;
-      padding: 20px 24px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 0 0 20px 20px;
+      padding: 16px 24px 20px;
     }
     .config-detail-inner strong {
       color: var(--white);
@@ -357,7 +358,6 @@
     .config-item.active .config-detail {
       max-height: 300px;
       opacity: 1;
-      margin-top: 4px;
       margin-bottom: 8px;
     }
     .config-media {
