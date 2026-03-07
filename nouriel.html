@@ -603,11 +603,21 @@
     import { Application } from 'https://unpkg.com/@splinetool/runtime@1.9.98/build/runtime.js';
     const canvas = document.getElementById('spline-canvas');
     const app = new Application(canvas);
-    app.load('https://prod.spline.design/nHtoIJsfMjuKN2R0/scene.splinecode');
+    app.load('https://prod.spline.design/nHtoIJsfMjuKN2R0/scene.splinecode').then(() => {
+      // Disable Spline's built-in scroll zoom
+      app.setZoom && app.setZoom(false);
+    });
 
+    // Disable Spline's scroll-to-zoom so the page scrolls through normally
     const wrap = document.querySelector('.spline-wrap');
-    wrap.addEventListener('wheel', e => e.preventDefault(), { passive: false });
-    wrap.addEventListener('touchmove', e => e.preventDefault(), { passive: false });
+    const shield = document.createElement('div');
+    shield.style.cssText = 'position:absolute;inset:0;z-index:2;';
+    wrap.style.position = 'relative';
+    wrap.appendChild(shield);
+    // Shield eats wheel events (page scrolls naturally), but passes clicks to Spline
+    shield.addEventListener('wheel', () => {}, { passive: true });
+    shield.addEventListener('pointerdown', () => { shield.style.pointerEvents = 'none'; });
+    document.addEventListener('pointerup', () => { shield.style.pointerEvents = ''; });
   </script>
 
 </body>
