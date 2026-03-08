@@ -431,7 +431,7 @@
     }
 
     @media (max-width: 768px) {
-      .configurator { grid-template-columns: 1fr; }
+      .configurator { grid-template-columns: 1fr; gap: 24px; margin-top: 40px; }
       .config-media { aspect-ratio: 16/9; width: 100%; }
     }
 
@@ -636,6 +636,17 @@
       font-weight: 400;
     }
 
+    /* ── Glass containers ── */
+    .glass-container {
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(40px);
+      -webkit-backdrop-filter: blur(40px);
+      border-radius: 24px;
+      padding: 56px 56px 48px;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+
     /* ── Scroll animations ── */
     .fade-in {
       opacity: 0;
@@ -648,13 +659,29 @@
     }
 
     @media (max-width: 768px) {
-      .section { padding: 100px 20px; }
+      .section { padding: 60px 12px; }
+      .inner { padding: 0 8px; }
+      .hero { padding: 120px 16px 60px; }
+      .hero .headline { font-size: clamp(32px, 8vw, 48px); }
+      .closing-section { padding: 100px 16px; }
+      .closing-headline { font-size: clamp(36px, 10vw, 64px); }
       .configurator { flex-direction: column; }
       .stats-row { grid-template-columns: 1fr; }
       .stat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); padding: 32px 24px; }
       .stat-item:last-child { border-bottom: none; }
       .tl-row { flex-direction: column; gap: 8px; }
+      .tl-phase { min-width: unset; }
       .nav-links { display: none; }
+      .spline-container canvas { height: 50vh; min-height: 300px; max-height: 500px; }
+      .hw-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .hw-table { min-width: 600px; }
+      .price-row { font-size: 0.9rem; flex-wrap: wrap; gap: 4px; }
+      .price-row-total { font-size: 1.05rem; }
+      .headline-medium { font-size: clamp(26px, 6vw, 40px); }
+      .body-large { font-size: clamp(15px, 3.5vw, 19px); }
+      .spec-list li { font-size: clamp(15px, 3.5vw, 20px); }
+      .letter { font-size: clamp(15px, 3.5vw, 19px); }
+      .glass-container { padding: 28px 20px 24px; border-radius: 16px; }
     }
   </style>
 </head>
@@ -707,7 +734,7 @@
   <!-- Letter -->
   <section id="letter" class="section section-white">
     <div class="inner fade-in">
-      <div style="background:rgba(255,255,255,0.04);backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);border-radius:24px;padding:56px 56px 48px;border:1px solid rgba(255,255,255,0.08);box-shadow:0 8px 32px rgba(0,0,0,0.4)">
+      <div class="glass-container">
         <div class="eyebrow eyebrow-gradient" style="margin-bottom:14px">A letter</div>
         <h2 class="headline-medium" style="margin-bottom:40px">Built for your world.</h2>
         <div class="letter">
@@ -728,7 +755,7 @@
   <!-- Spatial Canvas -->
   <section id="canvas" class="section section-dark">
     <div class="inner fade-in">
-      <div style="background:rgba(255,255,255,0.04);backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);border-radius:24px;padding:56px 56px 48px;border:1px solid rgba(255,255,255,0.08);box-shadow:0 8px 32px rgba(0,0,0,0.4)">
+      <div class="glass-container">
         <div class="eyebrow eyebrow-gradient" style="margin-bottom:14px">Spatial Canvas</div>
         <h2 class="headline-medium" style="margin-bottom:20px">New York's most<br>imaginative stage.</h2>
         <p class="body-large">Ultra short throw projectors, microphones, and cameras installed throughout your home. Multi-screen visibility and interactivity, day and night. All controlled via an iOS app.</p>
@@ -781,7 +808,7 @@
   <!-- Local Brain -->
   <section id="brain" class="section section-white">
     <div class="inner fade-in">
-      <div style="background:rgba(255,255,255,0.04);backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);border-radius:24px;padding:56px 56px 48px;border:1px solid rgba(255,255,255,0.08);box-shadow:0 8px 32px rgba(0,0,0,0.4)">
+      <div class="glass-container">
         <div class="eyebrow eyebrow-gradient" style="margin-bottom:14px">Local Brain</div>
         <h2 class="headline-medium" style="margin-bottom:20px">The workstation<br>as sculpture.</h2>
         <p class="body-large">A local workstation powered by an NVIDIA RTX PRO 6000 — with 96 GB of GDDR7 memory — will handle latency-critical workflows including audio reactivity, live video processing, local transcription, and a smaller version of ETHEREA for ambient generation that runs independently of the cloud. Every active session is recorded locally, and when the system is idle, past creations can be replayed as a dynamic visual history of everything imagined in the space. The workstation is modular, and can be upgraded with newer GPUs as they become available.</p>
@@ -793,7 +820,7 @@
   <!-- Cloud Compute -->
   <section id="compute" class="section section-dark">
     <div class="inner fade-in">
-      <div style="background:rgba(255,255,255,0.04);backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);border-radius:24px;padding:56px 56px 48px;border:1px solid rgba(255,255,255,0.08);box-shadow:0 8px 32px rgba(0,0,0,0.4)">
+      <div class="glass-container">
         <div class="eyebrow eyebrow-gradient" style="margin-bottom:14px">Cloud Compute</div>
         <h2 class="headline-medium" style="margin-bottom:28px">On demand.<br>Always evolving.</h2>
         <p class="body-large"><strong style="color:var(--white);font-weight:600">ETHEREA manages the cloud infrastructure on your behalf.</strong> Rather than maintaining a dedicated GPU around the clock, your installation has priority access to a B300 that spins up on demand — active when you need it, idle when you don't. This on-demand model is far more efficient than 24/7 reservation.</p>
@@ -814,7 +841,7 @@
   <!-- Pricing -->
   <section id="pricing" class="section section-dark" style="padding-top:80px">
     <div class="inner fade-in">
-      <div style="background:rgba(255,255,255,0.04);backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);border-radius:24px;padding:56px 56px 48px;border:1px solid rgba(255,255,255,0.08);box-shadow:0 8px 32px rgba(0,0,0,0.4)">
+      <div class="glass-container">
         <div class="eyebrow eyebrow-gradient" style="margin-bottom:14px">Investment</div>
         <h2 class="headline-medium" style="margin-bottom:44px">Full project pricing.</h2>
 
@@ -844,7 +871,7 @@
   <!-- Timeline -->
   <section id="timeline" class="section section-white">
     <div class="inner fade-in">
-      <div style="background:rgba(255,255,255,0.04);backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);border-radius:24px;padding:56px 56px 48px;border:1px solid rgba(255,255,255,0.08);box-shadow:0 8px 32px rgba(0,0,0,0.4)">
+      <div class="glass-container">
         <div class="eyebrow eyebrow-gradient" style="margin-bottom:14px">Timeline</div>
         <h2 class="headline-medium" style="margin-bottom:44px">Operational by<br>end of June.</h2>
         <div class="timeline" id="timeline-rows"></div>
@@ -855,7 +882,7 @@
   <!-- Terms -->
   <section class="section section-light">
     <div class="inner fade-in">
-      <div style="background:rgba(255,255,255,0.04);backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);border-radius:24px;padding:56px 56px 48px;border:1px solid rgba(255,255,255,0.08);box-shadow:0 8px 32px rgba(0,0,0,0.4)">
+      <div class="glass-container">
         <div class="eyebrow eyebrow-gradient" style="margin-bottom:14px">Terms</div>
         <h2 class="headline-medium" style="margin-bottom:20px">How we work together.</h2>
         <p class="body-large">In addition to the cost of materials, we will charge a service fee of $60,000 for design, engineering, installation, integration, and ongoing software support including two years of unlimited cloud compute. $30,000 is due on signing and $30,000 is due on successful completion.</p>
@@ -969,7 +996,15 @@
     import { Application } from 'https://unpkg.com/@splinetool/runtime@1.9.98/build/runtime.js';
     const canvas = document.getElementById('spline-canvas');
     const app = new Application(canvas);
-    app.load('https://prod.spline.design/nHtoIJsfMjuKN2R0/scene.splinecode');
+    app.load('https://prod.spline.design/nHtoIJsfMjuKN2R0/scene.splinecode').then(() => {
+      // Zoom out on mobile
+      if (window.innerWidth <= 768) {
+        const cam = app.findObjectByType('camera');
+        if (cam) {
+          cam.position.z = cam.position.z * 1.4;
+        }
+      }
+    });
     canvas.addEventListener('wheel', e => { e.stopImmediatePropagation(); }, true);
   </script>
 
