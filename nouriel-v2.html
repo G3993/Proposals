@@ -144,9 +144,9 @@
     }
 
     .headline {
-      font-size: clamp(32px, 5vw, 56px);
+      font-size: clamp(40px, 7vw, 80px);
       font-weight: 700;
-      letter-spacing: -0.015em;
+      letter-spacing: -0.02em;
       line-height: 1.05;
     }
     .headline-medium {
@@ -260,6 +260,39 @@
       height: 85vh;
       min-height: 560px;
       max-height: 860px;
+    }
+
+    .spline-loader {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: var(--black);
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+    .spline-loader.loaded {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .spline-loader video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.6;
+    }
+    .spline-loader-text {
+      position: absolute;
+      bottom: 25%;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gray-500);
+      animation: pulse 2s ease-in-out infinite;
     }
     .spline-gradient-top {
       position: absolute;
@@ -751,7 +784,7 @@
       .section { padding: 60px 12px; }
       .inner { padding: 0 8px; }
       .hero { padding: 120px 16px 60px; }
-      .hero .headline { font-size: clamp(26px, 6vw, 40px); }
+      .hero .headline { font-size: clamp(32px, 8vw, 48px); }
       .closing-section { padding: 100px 16px; }
       .closing-headline { font-size: clamp(36px, 10vw, 64px); }
       .config-tabs { flex-wrap: wrap; }
@@ -807,6 +840,12 @@
       <div class="spline-glow"></div>
       <div class="spline-glow-soft"></div>
       <div class="spline-container" style="position:relative;z-index:2">
+        <div class="spline-loader" id="spline-loader">
+          <video autoplay muted loop playsinline>
+            <source src="shader_loop_loading.mp4" type="video/mp4">
+          </video>
+          <div class="spline-loader-text">Loading 3D Model</div>
+        </div>
         <canvas id="spline-canvas"></canvas>
         <div class="spline-gradient-top"></div>
         <div class="spline-gradient-bottom"></div>
@@ -828,7 +867,7 @@
           <p class="greeting">Nouriel,</p>
           <p>Thanks again for the opportunity to perform on Sunday night. We had a blast co-creating with you, and are thrilled by the opportunity to work together to bring ETHEREA permanently into your beautiful home.</p>
           <p>As you have seen, ETHEREA's Imagination Engine is a dynamic, always-evolving creative intelligence that gives anyone the ability to instantly use their words to project their imagination in the space around them. We continue to discover new use cases and audiences for this technology, from musical performances, to animated poetry, to immersive audiovisual theatre, and believe that your prolific hosting will provide a living laboratory to demonstrate its immense potential while entertaining and inspiring your guests.</p>
-          <p>After some thought, we have concluded that installing frontier GPUs inside an apartment is infeasible. They are only sold in multi-unit configurations with cooling and power requirements that exceed residential capacity. Even if it were possible, the economics would only start to make sense as you approach 24/7 utilization. For these reasons, we recommend a hosted model where ETHEREA manages the cloud infrastructure on your behalf, paired with a powerful local workstation that will power latency-sensitive workloads and become increasingly capable of running models locally over time. Two years of unlimited cloud compute are included. This also ensures your installation is always running the most capable models available, without being locked into any single piece of hardware.</p>
+          <p>After some thought, we have concluded that installing frontier GPUs inside an apartment is infeasible. They are only sold in multi-unit configurations with cooling and power requirements that exceed residential capacity. Even if it were possible, the economics would only start to make sense as you approach 24/7 utilization. For these reasons, we recommend a hosted model where ETHEREA manages the cloud infrastructure on your behalf, paired with a powerful local workstation that will power latency-sensitive workloads and become increasingly capable of running models locally over time. Two years of unlimited cloud compute are included.</p>
           <p>What follows is our approach, pricing, and next steps.</p>
           <p class="signature">James &amp; Gonzo</p>
         </div>
@@ -841,8 +880,9 @@
     <div class="inner fade-in">
       <div class="glass-container">
         <div class="eyebrow eyebrow-gradient" style="margin-bottom:14px">Spatial Canvas</div>
-        <h2 class="headline-medium" style="margin-bottom:20px">A Living Canvas for<br>Unlimited Creativity.</h2>
-        <p class="body-large">ETHEREA's Imagination Engine will utilize projectors, cameras, and microphones placed throughout your home to transform speech, motion, and music into a limitless creative canvas. All controlled via an iOS app.</p>
+        <h2 class="headline-medium" style="margin-bottom:20px">Come home to NYC's most<br>imaginative stage.</h2>
+        <p class="body-large">Ultra short throw projectors, microphones, and cameras installed throughout your home. Multi-screen visibility and interactivity, day and night. All controlled via an iOS app.</p>
+        <p class="body-large" style="margin-top:16px">Every surface responds to what's happening in the room. Three modes of operation, each reacting to audiovisual inputs from the space around it. Every session is recorded locally, building a living archive of everything imagined in the space.</p>
 
         <div class="configurator">
           <div class="config-media">
@@ -856,16 +896,16 @@
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
                   </button>
                   <div class="carousel-slide active" data-caption="Our installation at the 30 Years of New York Technology gala sponsored by Betaworks, Alleycorp, and Union Square Ventures">
-                    <iframe src="https://www.youtube-nocookie.com/embed/BjrzHGTwAY4?controls=0&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&disablekb=1&fs=0&autoplay=1&mute=1" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+                    <iframe src="https://www.youtube.com/embed/BjrzHGTwAY4?controls=0&modestbranding=1&rel=0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
                   </div>
                   <div class="carousel-slide" data-caption="James reads a poem animated by ETHEREA">
-                    <iframe src="https://www.youtube-nocookie.com/embed/RFRVfpXyXW4?controls=0&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&disablekb=1&fs=0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+                    <iframe src="https://www.youtube.com/embed/RFRVfpXyXW4?controls=0&modestbranding=1&rel=0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
                   </div>
                   <div class="carousel-slide" data-caption="Lauren Ducrey reads a poem animated by ETHEREA at Florent Variety Show">
-                    <iframe src="https://www.youtube-nocookie.com/embed/SzAtz72l3YY?controls=0&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&disablekb=1&fs=0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+                    <iframe src="https://www.youtube.com/embed/SzAtz72l3YY?controls=0&modestbranding=1&rel=0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
                   </div>
                   <div class="carousel-slide" data-caption="Moth StorySlam champion Kona Morris tells a story animated by ETHEREA at Florent Variety Show">
-                    <iframe src="https://www.youtube-nocookie.com/embed/XzTSqCImtnU?controls=0&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&disablekb=1&fs=0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+                    <iframe src="https://www.youtube.com/embed/XzTSqCImtnU?controls=0&modestbranding=1&rel=0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
                   </div>
                   <div class="carousel-nav">
                     <div class="carousel-dots">
@@ -880,12 +920,12 @@
             </div>
             <div class="config-media-item" data-mode="ambient">
               <div style="aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#000">
-                <video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"><source src="https://pub-26ded2d3239743d8aaffae8fd29fa32a.r2.dev/shader_loop.mp4" type="video/mp4"></video>
+                <video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"><source src="shader_loop_web.webm" type="video/webm"><source src="shader_loop_web.mp4" type="video/mp4"></video>
               </div>
             </div>
             <div class="config-media-item" data-mode="guide">
               <div style="position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden">
-                <iframe src="https://www.youtube-nocookie.com/embed/1XMIYZJc4XA?controls=0&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&disablekb=1&fs=0" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/1XMIYZJc4XA?controls=0&modestbranding=1&rel=0" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
               </div>
             </div>
           </div>
@@ -903,15 +943,15 @@
             </div>
             <div class="config-item" data-mode="guide">
               <button class="config-pill">
-                <span class="config-pill-label"><span class="config-pill-icon">+</span> Guided</span>
+                <span class="config-pill-label"><span class="config-pill-icon">+</span> Imagination Guide</span>
               </button>
             </div>
           </div>
 
           <div class="config-desc">
             <div class="config-desc-item active" data-mode="active">Speak, and watch your words instantly form worlds around you, always powered by the most state of the art intelligence. This mode supports both unstructured, free-form play like what we delivered on Sunday night, as well as more intentional settings like poetry reading, storytelling, musical performances, and even standup comedy.</div>
-            <div class="config-desc-item" data-mode="ambient">Every session is recorded locally, building a living memory of everything imagined in the space. When the system is idle, ETHEREA draws from this memory, autonomously evolving and remixing past creations into hypnotic new visuals.</div>
-            <div class="config-desc-item" data-mode="guide">The Imagination Guide brings ETHEREA to life as a creative partner you can talk to. It can improvise a story, guide you through ancient Rome, or run a two-hour scripted performance, all while painting the world around you in real time.</div>
+            <div class="config-desc-item" data-mode="ambient">ETHEREA autonomously evolves, producing hypnotic visuals that meander through concepts in a variety of aesthetics. Can run locally for always-on ambience or tap into frontier models for higher fidelity. Fine-tunable to specific moods, themes, or the style of a specific artist. Past sessions are recorded and available for replay.</div>
+            <div class="config-desc-item" data-mode="guide">We are currently developing the Imagination Guide, which brings ETHEREA to life with a voice that talks back, and is our most exciting feature to date. Here is an early demo of the Imagination Guide taking me on a tour of Tokyo. We see massive potential for this feature across many use cases from education, to entertainment, to live performances, where we're producing an interactive storytelling act with a human actor that we hope to debut in the spring.</div>
           </div>
         </div>
       </div>
@@ -923,10 +963,10 @@
     <div class="inner fade-in">
       <div class="glass-container">
         <div class="eyebrow eyebrow-gradient" style="margin-bottom:14px">The Brain</div>
-        <h2 class="headline-medium" style="margin-bottom:20px">Always at the frontier.</h2>
+        <h2 class="headline-medium" style="margin-bottom:20px">At the frontier in the cloud<br>and your living room.</h2>
         <p class="body-large">ETHEREA runs on frontier cloud compute for heavy generative workloads and an NVIDIA RTX PRO 6000 locally for everything that needs to feel instant. ETHEREA manages the cloud infrastructure on your behalf, with a dedicated GPU that spins up on demand. Two years of unlimited cloud compute are included.</p>
         <p class="body-large" style="margin-top:20px">The system ships fully functional with smaller models running locally on delivery, and as AI continues to get smaller and more efficient, we will keep working to bring more capabilities onto your local machine, making the system increasingly autonomous from the cloud over time. The workstation is modular and can be upgraded as newer GPUs become available.</p>
-        <p class="body-large" style="margin-top:20px">The workstation can be hidden in your existing AV infrastructure or housed in a custom glass aquarium that water-cools the GPU while refracting its generative visuals through water and glass. We work with glass sculptor <a href="https://www.instagram.com/edoardo_cozzani/?hl=en" target="_blank" style="color:var(--white);text-decoration:none">Edoardo Cozzani</a>, who would be a fantastic choice to bring this to life.</p>
+        <p class="body-large" style="margin-top:20px">As discussed, the workstation can be housed in a commissioned glass-blown aquarium that water-cools the GPU while refracting and magnifying the system's generative visuals through water and glass, resulting in a living sculpture that is simultaneously art object, light source, and the brain of the entire installation. We work with a very talented glass sculptor, <a href="https://www.instagram.com/edoardo_cozzani/?hl=en" target="_blank" style="color:var(--white);text-decoration:none">Edoardo Cozzani</a>, who would be a fantastic choice to bring this to life.</p>
       </div>
     </div>
   </section>
@@ -936,8 +976,7 @@
     <div class="inner fade-in">
       <div class="glass-container">
         <div class="eyebrow eyebrow-gradient" style="margin-bottom:14px">Investment</div>
-        <h2 class="headline-medium" style="margin-bottom:20px">Full project pricing.</h2>
-        <p class="body-large" style="margin-bottom:36px">In addition to hardware at cost, we charge a service fee of $60,000 for design, engineering, installation, integration, two years of unlimited cloud compute, and two years of ongoing support including attending your social gatherings to help run performances and onboard guests. $30,000 is due on signing and $30,000 is due on successful completion.</p>
+        <h2 class="headline-medium" style="margin-bottom:44px">Full project pricing.</h2>
 
         <div class="pricing-summary" id="cost-summary"></div>
 
@@ -973,12 +1012,22 @@
     </div>
   </section>
 
+  <!-- Terms -->
+  <section class="section section-light">
+    <div class="inner fade-in">
+      <div class="glass-container">
+        <div class="eyebrow eyebrow-gradient" style="margin-bottom:14px">Terms</div>
+        <h2 class="headline-medium" style="margin-bottom:20px">How we work together.</h2>
+        <p class="body-large">In addition to the cost of materials, we will charge a service fee of $60,000 for design, engineering, installation, integration, and ongoing software support including two years of unlimited cloud compute. $30,000 is due on signing and $30,000 is due on successful completion.</p>
+        <p class="body-large" style="margin-top:20px">Hardware costs are billed at cost. As members of your community, we are excited and available to support as many of your social gatherings as possible, helping run performances, onboarding guests, and continuing to push what ETHEREA can do in a live setting.</p>
+      </div>
+    </div>
+  </section>
 
   <!-- Closing -->
   <section class="closing-section">
     <div class="fade-in">
       <h2 class="closing-headline">Let's dream together.</h2>
-      <p style="margin-top:24px;font-size:0.9rem;color:rgba(255,255,255,0.4)">Contact <a href="mailto:james@generalsemantics.nyc" style="color:rgba(255,255,255,0.6);text-decoration:none">james@generalsemantics.nyc</a> to arrange a followup meeting.</p>
     </div>
   </section>
 
@@ -1018,7 +1067,6 @@
       ['Hardware total (incl. 8.875% tax)', fmt(hwTotal)],
       ['Design, engineering & installation', fmt(serviceFee)],
       ['Cloud compute (2 years unlimited)', 'Included'],
-      ['Ongoing support (2 years)', 'Included'],
     ].map(([l,v]) => `<div class="price-row"><span class="price-label">${l}</span><span class="price-value">${v}</span></div>`).join('') +
     `<div class="price-row price-row-total"><span class="price-label" style="font-weight:600;color:var(--white)">Acquisition price</span><span class="price-value">${fmt(acquisitionTotal)}</span></div>`;
 
@@ -1109,6 +1157,10 @@
     const canvas = document.getElementById('spline-canvas');
     const app = new Application(canvas);
     app.load('https://prod.spline.design/nHtoIJsfMjuKN2R0/scene.splinecode').then(() => {
+      // Hide loading state
+      const loader = document.getElementById('spline-loader');
+      if (loader) loader.classList.add('loaded');
+
       // Zoom out on mobile
       if (window.innerWidth <= 768) {
         const cam = app.findObjectByType('camera');
@@ -1116,6 +1168,7 @@
           cam.position.z = cam.position.z * 1.4;
         }
       }
+
     });
     canvas.addEventListener('wheel', e => { e.stopImmediatePropagation(); }, true);
   </script>
