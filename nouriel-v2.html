@@ -479,11 +479,13 @@
       position: absolute;
       inset: 0;
       opacity: 0;
-      transition: opacity 0.5s ease;
+      visibility: hidden;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
       pointer-events: none;
     }
     .carousel-slide.active {
       opacity: 1;
+      visibility: visible;
       pointer-events: auto;
     }
     .carousel-slide iframe {
@@ -842,7 +844,7 @@
       <div class="spline-container" style="position:relative;z-index:2">
         <div class="spline-loader" id="spline-loader">
           <video autoplay muted loop playsinline>
-            <source src="shader_loop_loading.mp4" type="video/mp4">
+            <source src="https://pub-26ded2d3239743d8aaffae8fd29fa32a.r2.dev/shader_loop.mp4" type="video/mp4">
           </video>
           <div class="spline-loader-text">Loading 3D Model</div>
         </div>
@@ -916,12 +918,12 @@
             </div>
             <div class="config-media-item" data-mode="ambient">
               <div style="aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#000">
-                <video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"><source src="https://pub-26ded2d3239743d8aaffae8fd29fa32a.r2.dev/shader_loop.mp4" type="video/mp4"></video>
+                <video muted loop playsinline preload="none" style="width:100%;height:100%;object-fit:cover"><source src="https://pub-26ded2d3239743d8aaffae8fd29fa32a.r2.dev/shader_loop.mp4" type="video/mp4"></video>
               </div>
             </div>
             <div class="config-media-item" data-mode="guide">
               <div style="position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden">
-                <iframe src="https://www.youtube.com/embed/1XMIYZJc4XA?controls=0&modestbranding=1&rel=0" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+                <iframe data-src="https://www.youtube.com/embed/1XMIYZJc4XA?controls=0&modestbranding=1&rel=0" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
               </div>
             </div>
           </div>
@@ -1080,6 +1082,16 @@
       btn.childNodes[0].textContent = el.classList.contains('open') ? 'Hide hardware details ' : 'View hardware details ';
     }
 
+    // Lazy-load iframes with data-src
+    function loadIframe(container) {
+      var iframes = container.querySelectorAll('iframe[data-src]');
+      iframes.forEach(function(iframe) {
+        if (!iframe.src || iframe.src === 'about:blank' || iframe.src === '') {
+          iframe.src = iframe.getAttribute('data-src');
+        }
+      });
+    }
+
     // Configurator pill toggle
     document.querySelectorAll('.config-item').forEach(function(item) {
       item.querySelector('.config-pill').addEventListener('click', function() {
@@ -1091,7 +1103,14 @@
         if (descTarget) descTarget.classList.add('active');
         document.querySelectorAll('.config-media-item').forEach(function(m) { m.classList.remove('active'); });
         var target = document.querySelector('.config-media-item[data-mode="' + mode + '"]');
-        if (target) target.classList.add('active');
+        if (target) {
+          target.classList.add('active');
+          // Lazy-load iframes in the newly active tab
+          loadIframe(target);
+          // Play ambient video when switching to ambient tab
+          var video = target.querySelector('video');
+          if (video) video.play();
+        }
       });
     });
 
@@ -1163,23 +1182,41 @@
   </script>
 
   <script type="module">
-    import { Application } from 'https://unpkg.com/@splinetool/runtime@1.9.98/build/runtime.js';
     const canvas = document.getElementById('spline-canvas');
-    const app = new Application(canvas);
-    app.load('https://prod.spline.design/nHtoIJsfMjuKN2R0/scene.splinecode').then(() => {
-      // Hide loading state
-      const loader = document.getElementById('spline-loader');
-      if (loader) loader.classList.add('loaded');
+    const splineSection = document.querySelector('.spline-section');
+    let splineLoaded = false;
 
-      // Zoom out on mobile
-      if (window.innerWidth <= 768) {
-        const cam = app.findObjectByType('camera');
-        if (cam) {
-          cam.position.z = cam.position.z * 1.4;
+    function loadSpline() {
+      if (splineLoaded) return;
+      splineLoaded = true;
+      import('https://unpkg.com/@splinetool/runtime@1.9.98/build/runtime.js').then(({ Application }) => {
+        const app = new Application(canvas);
+        app.load('https://prod.spline.design/nHtoIJsfMjuKN2R0/scene.splinecode').then(() => {
+          // Hide loading state
+          const loader = document.getElementById('spline-loader');
+          if (loader) loader.classList.add('loaded');
+
+          // Zoom out on mobile
+          if (window.innerWidth <= 768) {
+            const cam = app.findObjectByType('camera');
+            if (cam) {
+              cam.position.z = cam.position.z * 1.4;
+            }
+          }
+        });
+      });
+    }
+
+    const splineObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          loadSpline();
+          splineObserver.disconnect();
         }
-      }
+      });
+    }, { rootMargin: '200px' });
+    splineObserver.observe(splineSection);
 
-    });
     canvas.addEventListener('wheel', e => { e.stopImmediatePropagation(); }, true);
   </script>
 
@@ -1189,8 +1226,9 @@
     var gl = c.getContext('webgl') || c.getContext('experimental-webgl');
     if (!gl) return;
 
+    var isMobile = window.innerWidth <= 768;
     function resize() {
-      var dpr = window.devicePixelRatio || 1;
+      var dpr = isMobile ? 1 : (window.devicePixelRatio || 1);
       c.width = window.innerWidth * dpr;
       c.height = window.innerHeight * dpr;
       gl.viewport(0, 0, c.width, c.height);
@@ -1215,7 +1253,7 @@
       uniform float fadeIn;
       varying vec2 vUv;
 
-      #define NUM_OCTAVES 5
+      #define NUM_OCTAVES ` + (isMobile ? '3' : '5') + `
 
       float rand(vec2 n) {
         return fract(sin(dot(n, vec2(12.9898, 4.1414))) * 43758.5453);
@@ -1261,12 +1299,12 @@
 
         float f = 3.0 + fbm(p + vec2(t2 * 7.0, 0.0));
 
-        for(int j = 0; j < 50; j++) {
+        for(int j = 0; j < ` + (isMobile ? '25' : '50') + `; j++) {
           float i = float(j);
           v = p + cos(i * i + (t2 + p.x * 0.1) * 0.03 + i * vec2(11.0, 9.0)) * 5.0 + vec2(sin(t2 * 4.0 + i) * 0.005, cos(t2 * 4.5 - i) * 0.005);
-          float tailNoise = fbm(v + vec2(t2, i)) * (1.0 - (i / 50.0));
+          float tailNoise = fbm(v + vec2(t2, i)) * (1.0 - (i / ` + (isMobile ? '25.0' : '50.0') + `));
           vec4 currentContribution = (cos(sin(i) * vec4(3.0, 5.0, 7.0, 1.0)) + 1.0) * exp(sin(i * i + t2)) / length(max(v, vec2(v.x * f * 0.02, v.y)));
-          float thinnessFactor = smoothstep(0.0, 1.0, i / 50.0);
+          float thinnessFactor = smoothstep(0.0, 1.0, i / ` + (isMobile ? '25.0' : '50.0') + `);
           o += currentContribution * (1.0 + tailNoise * 2.0) * thinnessFactor;
         }
 
@@ -1312,8 +1350,15 @@
     });
 
     var startTime = -1;
+    var frameInterval = isMobile ? 1000 / 30 : 0; // throttle to 30fps on mobile
+    var lastFrame = 0;
     function draw(t) {
       if (startTime < 0) startTime = t;
+      if (isMobile && t - lastFrame < frameInterval) {
+        requestAnimationFrame(draw);
+        return;
+      }
+      lastFrame = t;
       var elapsed = (t - startTime) * 0.001;
       var fade = Math.min(elapsed / 4.0, 1.0); // fade in over 4 seconds
       fade = fade * fade * (3.0 - 2.0 * fade); // smoothstep easing
