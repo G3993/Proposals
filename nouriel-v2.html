@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ETHEREA — General Semantics, Inc.</title>
+  <title>ETHEREA | General Semantics, Inc.</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -314,73 +314,67 @@
 
     /* ── Configurator ── */
     .configurator {
-      display: grid;
-      grid-template-columns: 340px 1fr;
-      gap: 40px;
-      margin-top: 64px;
-      min-height: 500px;
-      align-items: start;
-    }
-    .config-left {
       display: flex;
       flex-direction: column;
-      gap: 0;
+      margin-top: 64px;
+    }
+    .config-tabs {
+      display: flex;
+      gap: 8px;
+      margin-top: 28px;
+      margin-bottom: 20px;
+      justify-content: center;
     }
     .config-item {
-      margin-bottom: 2px;
+      flex-shrink: 0;
     }
     .config-pill {
       background: none;
       border: none;
-      padding: 8px 0;
-      display: flex;
-      align-items: center;
-      gap: 12px;
+      padding: 0;
       cursor: pointer;
       color: var(--white);
       font-family: inherit;
       font-size: 0.95rem;
       font-weight: 600;
-      width: 100%;
-      text-align: left;
     }
     .config-pill-label {
-      background: rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.06);
       border-radius: 40px;
-      padding: 16px 28px 16px 18px;
+      padding: 14px 24px 14px 16px;
       display: inline-flex;
       align-items: center;
-      gap: 14px;
-      font-size: 1.1rem;
+      gap: 10px;
+      font-size: 1rem;
       transition: all 0.3s ease;
+      border: 1px solid transparent;
+      color: rgba(255,255,255,0.5);
     }
     .config-pill:hover .config-pill-label {
       background: rgba(255,255,255,0.1);
-    }
-    .config-item.active .config-pill {
-      padding-bottom: 0;
+      color: rgba(255,255,255,0.7);
     }
     .config-item.active .config-pill-label {
-      background: rgba(255,255,255,0.08);
-      border-radius: 20px 20px 0 0;
-      width: 100%;
-      padding-bottom: 14px;
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.25);
+      color: #fff;
     }
     .config-pill-icon {
-      width: 28px;
-      height: 28px;
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
-      border: 1.5px solid rgba(255,255,255,0.3);
+      border: 1.5px solid rgba(255,255,255,0.2);
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      font-size: 13px;
+      font-size: 12px;
       line-height: 1;
       transition: all 0.3s ease;
     }
     .config-item.active .config-pill-icon {
-      border-color: rgba(255,255,255,0.5);
+      border-color: rgba(255,255,255,0.6);
+      background: rgba(255,255,255,0.1);
     }
     .config-detail {
       max-height: 0;
@@ -389,42 +383,43 @@
       opacity: 0;
     }
     .config-detail-inner {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       font-weight: 400;
-      line-height: 1.6;
+      line-height: 1.65;
       color: var(--gray-400);
-      background: rgba(255,255,255,0.08);
-      border-radius: 0 0 20px 20px;
-      padding: 0 24px 20px;
+      padding: 0;
     }
     .config-detail-inner strong {
       color: var(--white);
     }
-    .config-item.active .config-detail {
-      max-height: 300px;
-      opacity: 1;
-      margin-bottom: 8px;
+    .config-desc {
+      text-align: center;
+      max-width: 780px;
+      margin: 0 auto 32px;
+      min-height: 80px;
+    }
+    .config-desc-item {
+      display: none;
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: var(--gray-400);
+    }
+    .config-desc-item strong {
+      color: var(--white);
+    }
+    .config-desc-item.active {
+      display: block;
     }
     .config-media {
-      border-radius: 20px;
-      overflow: hidden;
-      background: rgba(255,255,255,0.03);
-      aspect-ratio: 16/10;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       position: relative;
-      align-self: center;
+      width: 100%;
     }
     .config-media-item {
       display: none;
       width: 100%;
-      height: 100%;
-      align-items: center;
-      justify-content: center;
     }
     .config-media-item.active {
-      display: flex;
+      display: block;
     }
     .config-media-placeholder {
       font-size: 0.8rem;
@@ -434,9 +429,86 @@
       text-transform: uppercase;
     }
 
+    /* ── Video Carousel ── */
+    .video-carousel {
+      position: relative;
+      width: 100%;
+    }
+    .carousel-track {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/9;
+      border-radius: 16px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.03);
+    }
+    .carousel-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+    }
+    .carousel-slide.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .carousel-slide iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .carousel-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 14px;
+    }
+    .carousel-btn {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.6);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      padding: 0;
+    }
+    .carousel-btn:hover {
+      background: rgba(255,255,255,0.14);
+      border-color: rgba(255,255,255,0.25);
+      color: #fff;
+    }
+    .carousel-caption {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.5);
+      font-weight: 400;
+      font-style: italic;
+    }
+    .carousel-dots {
+      display: flex;
+      gap: 8px;
+    }
+    .carousel-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .carousel-dot.active {
+      background: rgba(255,255,255,0.7);
+      transform: scale(1.3);
+    }
+
     @media (max-width: 768px) {
-      .configurator { grid-template-columns: 1fr; gap: 24px; margin-top: 40px; }
-      .config-media { aspect-ratio: 16/9; width: 100%; }
+      .config-tabs { gap: 6px; }
+      .config-pill-label { font-size: 0.85rem; padding: 10px 16px 10px 12px; }
     }
 
     /* ── Stats row ── */
@@ -628,9 +700,9 @@
       z-index: 1;
     }
     .closing-headline {
-      font-size: clamp(48px, 8vw, 96px);
+      font-size: clamp(32px, 5vw, 56px);
       font-weight: 700;
-      letter-spacing: -0.03em;
+      letter-spacing: -0.02em;
       line-height: 1;
       margin-bottom: 24px;
     }
@@ -669,7 +741,7 @@
       .hero .headline { font-size: clamp(32px, 8vw, 48px); }
       .closing-section { padding: 100px 16px; }
       .closing-headline { font-size: clamp(36px, 10vw, 64px); }
-      .configurator { flex-direction: column; }
+      .config-tabs { flex-wrap: wrap; }
       .stats-row { grid-template-columns: 1fr; }
       .stat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); padding: 32px 24px; }
       .stat-item:last-child { border-bottom: none; }
@@ -702,7 +774,6 @@
         <li><a href="#letter">Letter</a></li>
         <li><a href="#canvas">Canvas</a></li>
         <li><a href="#brain">Brain</a></li>
-        <li><a href="#compute">Compute</a></li>
         <li><a href="#pricing">Pricing</a></li>
         <li><a href="#timeline">Timeline</a></li>
       </ul>
@@ -712,7 +783,6 @@
   <!-- Hero -->
   <section class="hero">
     <div class="inner fade-in">
-      <div class="eyebrow eyebrow-gradient">ETHEREA</div>
       <h1 class="headline">Giving your home<br>an imagination.</h1>
       <p class="body-large" style="margin-top:20px">A permanent installation for 6 E 1st St.</p>
     </div>
@@ -740,15 +810,15 @@
     <div class="inner fade-in">
       <div class="glass-container">
         <div class="eyebrow eyebrow-gradient" style="margin-bottom:14px">A letter</div>
-        <h2 class="headline-medium" style="margin-bottom:40px">Built for your world.</h2>
+        <h2 class="headline-medium" style="margin-bottom:40px">Thank you for this opportunity.</h2>
         <div class="letter">
           <p class="greeting">Nouriel,</p>
           <p>Thanks again for the opportunity to perform on Sunday night. We had a blast co-creating with you, and are thrilled by the opportunity to work together to bring ETHEREA permanently into your beautiful home.</p>
           <p>As you have seen, ETHEREA's Imagination Engine is a dynamic, always-evolving creative intelligence that gives anyone the ability to instantly use their words to project their imagination in the space around them. We continue to discover new use cases and audiences for this technology, from musical performances, to animated poetry, to immersive audiovisual theatre, and believe that your prolific hosting will provide a living laboratory to demonstrate its immense potential while entertaining and inspiring your guests.</p>
           <p>After some thought, Gonzo and I have concluded that installing a B300 inside an apartment is infeasible. They are only sold in nodes of eight which are soldered together, with cooling and power requirements that exceed residential capacity.</p>
-          <p>On latency, we found that the network roundtrip for our remote provider in Finland currently averages between 200–300ms, while the overall time from when someone speaks to when they see their ideas on the screen is around 2–3 seconds. Most of the rest of that time is spent on AI inference. While we are constantly working to optimize inference time, it remains a bottleneck to latency that will not be solved by colocation. Further, GPU requirements for frontier models are constantly changing — as an example Google Genie 3 currently requires 7 TPUs running in parallel in order to run, vs. the one B300 we're currently using to run ETHEREA.</p>
+          <p>On latency, we found that the network roundtrip for our remote provider in Finland currently averages between 200–300ms, while the overall time from when someone speaks to when they see their ideas on the screen is around 2–3 seconds. Most of the rest of that time is spent on AI inference. While we are constantly working to optimize inference time, it remains a bottleneck to latency that will not be solved by colocation. Further, GPU requirements for frontier models are constantly changing. As an example, Google Genie 3 currently requires 7 TPUs running in parallel in order to run, vs. the one B300 we're currently using to run ETHEREA.</p>
           <p>Even in a world where it was possible to purchase one B300, the economics would only start to make sense as you approach 24/7 utilization. For the use cases we've discussed, which are primarily when you are home and entertaining other people, we expect utilization to be much lower. For these reasons, we recommend a hosted model where ETHEREA manages the cloud infrastructure on your behalf. Your installation would have priority access to a dedicated GPU that spins up on demand, with the acquisition price including two years of unlimited usage.</p>
-          <p>On the hardware side, we would install a local machine with an NVIDIA RTX PRO 6000 — NVIDIA's current top of the line professional GPU, with 96 GB of memory — that runs a smaller version of ETHEREA for ambient generation, as well as latency-critical workflows like audio reactivity and live video processing. Every session is recorded, building a living archive of everything ETHEREA creates in the space.</p>
+          <p>On the hardware side, we would install a local machine with an NVIDIA RTX PRO 6000 (NVIDIA's current top of the line professional GPU, with 96 GB of memory) that runs a smaller version of ETHEREA for ambient generation, as well as latency-critical workflows like audio reactivity and live video processing. Every session is recorded, building a living archive of everything ETHEREA creates in the space.</p>
           <p>What follows is our approach, pricing, and next steps.</p>
           <p class="signature">James &amp; Gonzo</p>
         </div>
@@ -761,83 +831,94 @@
     <div class="inner fade-in">
       <div class="glass-container">
         <div class="eyebrow eyebrow-gradient" style="margin-bottom:14px">Spatial Canvas</div>
-        <h2 class="headline-medium" style="margin-bottom:20px">New York's most<br>imaginative stage.</h2>
+        <h2 class="headline-medium" style="margin-bottom:20px">Come home to NYC's most<br>imaginative stage.</h2>
         <p class="body-large">Ultra short throw projectors, microphones, and cameras installed throughout your home. Multi-screen visibility and interactivity, day and night. All controlled via an iOS app.</p>
         <p class="body-large" style="margin-top:16px">Every surface responds to what's happening in the room. Three modes of operation, each reacting to audiovisual inputs from the space around it.</p>
 
         <div class="configurator">
-        <div class="config-left">
-          <div class="config-item active" data-mode="active">
-            <button class="config-pill">
-              <span class="config-pill-label"><span class="config-pill-icon">+</span> Active</span>
-            </button>
-            <div class="config-detail">
-              <div class="config-detail-inner"><strong>Active.</strong> Speak, and watch your words instantly form worlds around you, always powered by the most state of the art intelligence. Supports free-form play, poetry reading, storytelling, musical performances, and standup comedy. Live captions available.</div>
+          <div class="config-media">
+            <div class="config-media-item active" data-mode="active">
+              <div class="video-carousel" id="activeCarousel">
+                <div class="carousel-track">
+                  <div class="carousel-slide active" data-caption="Our installation at the 30 Years of New York Technology gala sponsored by Betaworks, Alleycorp, and Union Square Ventures">
+                    <iframe src="https://www.youtube.com/embed/BjrzHGTwAY4" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+                  </div>
+                  <div class="carousel-slide" data-caption="James reads a poem animated by ETHEREA">
+                    <iframe src="https://www.youtube.com/embed/RFRVfpXyXW4" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+                  </div>
+                  <div class="carousel-slide" data-caption="Lauren Ducrey reads a poem animated by ETHEREA at Florent Variety Show">
+                    <iframe src="https://www.youtube.com/embed/SzAtz72l3YY" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+                  </div>
+                  <div class="carousel-slide" data-caption="Moth StorySlam champion Kona Morris tells a story animated by ETHEREA at Florent Variety Show">
+                    <iframe src="https://www.youtube.com/embed/XzTSqCImtnU" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+                  </div>
+                </div>
+                <div class="carousel-nav">
+                  <button class="carousel-btn" onclick="carouselNav(-1)" aria-label="Previous">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+                  </button>
+                  <div class="carousel-dots">
+                    <div class="carousel-dot active" onclick="carouselGo(0)"></div>
+                    <div class="carousel-dot" onclick="carouselGo(1)"></div>
+                    <div class="carousel-dot" onclick="carouselGo(2)"></div>
+                    <div class="carousel-dot" onclick="carouselGo(3)"></div>
+                  </div>
+                  <button class="carousel-btn" onclick="carouselNav(1)" aria-label="Next">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="config-media-item" data-mode="ambient">
+              <div style="aspect-ratio:16/9;border-radius:16px;background:rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center">
+                <span class="config-media-placeholder">Video coming soon</span>
+              </div>
+            </div>
+            <div class="config-media-item" data-mode="guide">
+              <div style="position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden">
+                <iframe src="https://www.youtube.com/embed/1XMIYZJc4XA" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+              </div>
             </div>
           </div>
-          <div class="config-item" data-mode="ambient">
-            <button class="config-pill">
-              <span class="config-pill-label"><span class="config-pill-icon">+</span> Ambient</span>
-            </button>
-            <div class="config-detail">
-              <div class="config-detail-inner"><strong>Ambient.</strong> Runs entirely on local compute with no cloud dependency. ETHEREA autonomously evolves, producing hypnotic visuals that meander through concepts in a variety of aesthetics. Fine-tunable to specific moods, themes, or the style of a specific artist. Past sessions are recorded and available for replay.</div>
-            </div>
-          </div>
-          <div class="config-item" data-mode="guide">
-            <button class="config-pill">
-              <span class="config-pill-label"><span class="config-pill-icon">+</span> Imagination Guide</span>
-            </button>
-            <div class="config-detail">
-              <div class="config-detail-inner"><strong>Imagination Guide.</strong> ETHEREA comes to life with a voice that talks back. An interactive guide that takes you on tours, tells stories, and responds to conversation. Massive potential across education, entertainment, and live performance.</div>
-            </div>
-          </div>
-        </div>
 
-        <div class="config-media">
-          <div class="config-media-item active" data-mode="active">
-            <span class="config-media-placeholder">Video coming soon</span>
+          <div class="config-tabs">
+            <div class="config-item active" data-mode="active">
+              <button class="config-pill">
+                <span class="config-pill-label"><span class="config-pill-icon">+</span> Active</span>
+              </button>
+            </div>
+            <div class="config-item" data-mode="ambient">
+              <button class="config-pill">
+                <span class="config-pill-label"><span class="config-pill-icon">+</span> Ambient</span>
+              </button>
+            </div>
+            <div class="config-item" data-mode="guide">
+              <button class="config-pill">
+                <span class="config-pill-label"><span class="config-pill-icon">+</span> Imagination Guide</span>
+              </button>
+            </div>
           </div>
-          <div class="config-media-item" data-mode="ambient">
-            <span class="config-media-placeholder">Video coming soon</span>
-          </div>
-          <div class="config-media-item" data-mode="guide">
-            <iframe src="https://www.youtube.com/embed/1XMIYZJc4XA" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+
+          <div class="config-desc">
+            <div class="config-desc-item active" data-mode="active">Speak, and watch your words instantly form worlds around you, always powered by the most state of the art intelligence. This mode supports both unstructured, free-form play like what we delivered on Sunday night, as well as more intentional settings like poetry reading, storytelling, musical performances, and even standup comedy.</div>
+            <div class="config-desc-item" data-mode="ambient">ETHEREA autonomously evolves, producing hypnotic visuals that meander through concepts in a variety of aesthetics. Can run locally for always-on ambience or tap into frontier models for higher fidelity. Fine-tunable to specific moods, themes, or the style of a specific artist. Past sessions are recorded and available for replay.</div>
+            <div class="config-desc-item" data-mode="guide">We are currently developing the Imagination Guide, which brings ETHEREA to life with a voice that talks back, and is our most exciting feature to date. Here is an early demo of the Imagination Guide taking me on a tour of Tokyo. We see massive potential for this feature across many use cases from education, to entertainment, to live performances, where we're producing an interactive storytelling act with a human actor that we hope to debut in the spring.</div>
           </div>
         </div>
-      </div>
       </div>
     </div>
   </section>
 
-  <!-- Local Brain -->
+  <!-- The Brain -->
   <section id="brain" class="section section-white">
     <div class="inner fade-in">
       <div class="glass-container">
-        <div class="eyebrow eyebrow-gradient" style="margin-bottom:14px">Local Brain</div>
-        <h2 class="headline-medium" style="margin-bottom:20px">The workstation<br>as sculpture.</h2>
-        <p class="body-large">A local workstation powered by an NVIDIA RTX PRO 6000 — with 96 GB of GDDR7 memory — will handle latency-critical workflows including audio reactivity, live video processing, local transcription, and a smaller version of ETHEREA for ambient generation that runs independently of the cloud. Every active session is recorded locally, and when the system is idle, past creations can be replayed as a dynamic visual history of everything imagined in the space. The workstation is modular, and can be upgraded with newer GPUs as they become available.</p>
+        <div class="eyebrow eyebrow-gradient" style="margin-bottom:14px">The Brain</div>
+        <h2 class="headline-medium" style="margin-bottom:20px">At the frontier in the cloud<br>and your living room.</h2>
+        <p class="body-large">ETHEREA runs on two machines working in concert. <strong style="color:var(--white);font-weight:600">A cloud B300</strong> handles the heavy generative workloads: frontier model inference, image and video synthesis, and the large-scale computation that makes ETHEREA's visuals possible. ETHEREA manages this infrastructure on your behalf, with priority access to a dedicated GPU that spins up on demand, active when you need it, idle when you don't. Two years of unlimited usage are included.</p>
+        <p class="body-large" style="margin-top:20px"><strong style="color:var(--white);font-weight:600">A local workstation</strong> powered by an NVIDIA RTX PRO 6000, NVIDIA's top-of-the-line professional GPU with 96 GB of memory, handles everything that needs to feel instant: audio reactivity, live video processing, voice transcription, and a local version of ETHEREA for ambient generation. Every session is recorded, building a living archive of everything imagined in the space.</p>
+        <p class="body-large" style="margin-top:20px">The trajectory of AI is clear: models are getting smaller and more efficient at an extraordinary pace. The capabilities that require a cloud B300 today will run on local hardware tomorrow. By installing the most powerful workstation available now, your system is positioned to absorb those gains as they arrive, becoming increasingly autonomous from the cloud over time. The workstation is modular and can be upgraded with newer GPUs as they become available.</p>
         <p class="body-large" style="margin-top:20px">As discussed, the workstation can be housed in a commissioned glass-blown aquarium that water-cools the GPU while refracting and magnifying the system's generative visuals through water and glass, resulting in a living sculpture that is simultaneously art object, light source, and the brain of the entire installation. We work with a very talented glass sculptor, <a href="https://www.instagram.com/edoardo_cozzani/?hl=en" target="_blank" style="color:var(--white);text-decoration:none">Edoardo Cozzani</a>, who would be a fantastic choice to bring this to life.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Cloud Compute -->
-  <section id="compute" class="section section-dark">
-    <div class="inner fade-in">
-      <div class="glass-container">
-        <div class="eyebrow eyebrow-gradient" style="margin-bottom:14px">Cloud Compute</div>
-        <h2 class="headline-medium" style="margin-bottom:28px">On demand.<br>Always evolving.</h2>
-        <p class="body-large"><strong style="color:var(--white);font-weight:600">ETHEREA manages the cloud infrastructure on your behalf.</strong> Rather than maintaining a dedicated GPU around the clock, your installation has priority access to a B300 that spins up on demand — active when you need it, idle when you don't. This on-demand model is far more efficient than 24/7 reservation.</p>
-        <p class="body-large" style="margin-top:20px"><strong style="color:var(--white);font-weight:600">The cloud handles the heavy generative workloads</strong> — frontier model inference, image and video synthesis, and the large-scale computation that makes ETHEREA's visuals possible. The local RTX PRO 6000 and cloud GPU work in concert, each handling what it does best.</p>
-
-        <ul class="spec-list">
-          <li>Hosted &amp; managed by ETHEREA</li>
-          <li>Priority access to dedicated on-demand GPU</li>
-          <li>2 years unlimited usage included</li>
-          <li>B300 cloud GPU + local RTX PRO 6000</li>
-          <li>Frontier model inference &amp; video synthesis</li>
-          <li>Scales on demand — idle when not in use</li>
-        </ul>
       </div>
     </div>
   </section>
@@ -877,7 +958,7 @@
     <div class="inner fade-in">
       <div class="glass-container">
         <div class="eyebrow eyebrow-gradient" style="margin-bottom:14px">Timeline</div>
-        <h2 class="headline-medium" style="margin-bottom:44px">Operational by<br>end of June.</h2>
+        <h2 class="headline-medium" style="margin-bottom:44px">Timeline.</h2>
         <div class="timeline" id="timeline-rows"></div>
       </div>
     </div>
@@ -890,7 +971,7 @@
         <div class="eyebrow eyebrow-gradient" style="margin-bottom:14px">Terms</div>
         <h2 class="headline-medium" style="margin-bottom:20px">How we work together.</h2>
         <p class="body-large">In addition to the cost of materials, we will charge a service fee of $60,000 for design, engineering, installation, integration, and ongoing software support including two years of unlimited cloud compute. $30,000 is due on signing and $30,000 is due on successful completion.</p>
-        <p class="body-large" style="margin-top:20px">Hardware costs are billed at cost. As members of your community, we are excited and available to support as many of your social gatherings as possible — helping run performances, onboarding guests, and continuing to push what ETHEREA can do in a live setting.</p>
+        <p class="body-large" style="margin-top:20px">Hardware costs are billed at cost. As members of your community, we are excited and available to support as many of your social gatherings as possible, helping run performances, onboarding guests, and continuing to push what ETHEREA can do in a live setting.</p>
       </div>
     </div>
   </section>
@@ -898,8 +979,8 @@
   <!-- Closing -->
   <section class="closing-section">
     <div class="fade-in">
-      <h2 class="closing-headline">Ready when<br>you are.</h2>
-      <p class="closing-sub">James &amp; Gonzo</p>
+      <h2 class="closing-headline">"If you can dream it,<br>you can do it."</h2>
+      <p class="closing-sub">Walt Disney</p>
     </div>
   </section>
 
@@ -920,8 +1001,8 @@
       { cat:'Cooling', item:'NZXT Kraken 360 AIO', spec:'360 mm', qty:1, unit:179.99 },
       { cat:'OS', item:'Windows 11 Pro', spec:'OEM', qty:1, unit:199.99 },
       { cat:'Misc', item:'Cables, adapters, paste', spec:'PCIe adapters, MX-6', qty:1, unit:60 },
-      { cat:'Projectors', item:'UST Projector', spec:'Ultra short throw, ceiling mount', qty:3, unit:3500 },
-      { cat:'Projectors', item:'Projector Mount', spec:'Ceiling bracket', qty:3, unit:199.99 },
+      { cat:'Projectors', item:'UST Projector', spec:'Ultra short throw, ceiling mount', qty:4, unit:3500 },
+      { cat:'Projectors', item:'Projector Mount', spec:'Ceiling bracket', qty:4, unit:199.99 },
       { cat:'Cameras', item:'Intel RealSense D455', spec:'Depth, 87\u00b0 FoV', qty:3, unit:419 },
       { cat:'Cameras', item:'Camera Mount', spec:'Discreet wall/ceiling', qty:3, unit:39.99 },
       { cat:'Audio', item:'Shure MV7', spec:'USB/XLR Dynamic', qty:3, unit:249 },
@@ -948,11 +1029,12 @@
     document.getElementById('hw-total-val').textContent = fmt(hwTotal);
 
     document.getElementById('timeline-rows').innerHTML = [
-      ['Signing', 'Agreement signed. $25k service fee due. Hardware procurement begins.'],
-      ['Weeks 1\u20134', 'Hardware sourcing, aquarium commission, iOS app development.'],
-      ['Weeks 5\u20138', 'Workstation build, cloud compute setup, system integration and testing.'],
-      ['Weeks 9\u201312', 'On-site installation. Projectors, cameras, mics, network, aquarium placement.'],
-      ['Completion', 'Full system test, calibration, handoff. $25k balance due.'],
+      ['Week 0', 'Agreement signed. $30k service fee due. Hardware procurement begins.'],
+      ['Weeks 1\u20134', 'Hardware sourcing, aquarium commission, workstation build, iOS app development.'],
+      ['Weeks 5\u20136', 'On-site installation. Projectors, cameras, mics, network, aquarium placement.'],
+      ['Weeks 7\u20138', 'System live and operational. We run it with you at your events, refining the software in your space with real use. We are available to support your social gatherings pending availability.'],
+      ['Months 2\u20134', 'Continued software refinement, tuning to your preferences, building toward full autonomy. We continue to be available to help run events as needed.'],
+      ['Month 5+', 'System runs independently. $30k balance due.'],
     ].map(([d,desc]) => `<div class="tl-row"><div class="tl-phase">${d}</div><div class="tl-desc">${desc}</div></div>`).join('');
 
     function toggleDetails() {
@@ -969,11 +1051,38 @@
         document.querySelectorAll('.config-item').forEach(function(i) { i.classList.remove('active'); });
         item.classList.add('active');
         var mode = item.getAttribute('data-mode');
+        document.querySelectorAll('.config-desc-item').forEach(function(d) { d.classList.remove('active'); });
+        var descTarget = document.querySelector('.config-desc-item[data-mode="' + mode + '"]');
+        if (descTarget) descTarget.classList.add('active');
         document.querySelectorAll('.config-media-item').forEach(function(m) { m.classList.remove('active'); });
         var target = document.querySelector('.config-media-item[data-mode="' + mode + '"]');
         if (target) target.classList.add('active');
       });
     });
+
+    // Video carousel
+    (function() {
+      var carousel = document.getElementById('activeCarousel');
+      var slides = carousel.querySelectorAll('.carousel-slide');
+      var dots = carousel.querySelectorAll('.carousel-dot');
+      var captionEl = document.getElementById('carouselCaption');
+      var counterEl = document.getElementById('carouselCounter');
+      var current = 0;
+
+      window.carouselGo = function(index) {
+        slides[current].classList.remove('active');
+        dots[current].classList.remove('active');
+        current = (index + slides.length) % slides.length;
+        slides[current].classList.add('active');
+        dots[current].classList.add('active');
+        captionEl.textContent = slides[current].getAttribute('data-caption');
+        counterEl.textContent = (current + 1) + ' / ' + slides.length;
+      };
+
+      window.carouselNav = function(dir) {
+        carouselGo(current + dir);
+      };
+    })();
 
     // Scroll fade-in
     const observer = new IntersectionObserver((entries) => {
