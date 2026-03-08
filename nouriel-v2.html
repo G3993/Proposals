@@ -1211,17 +1211,9 @@
 
       canvas.addEventListener('wheel', e => { e.stopImmediatePropagation(); }, true);
     } else {
-      // On mobile, load Spline but skip lazy-load observer
-      const canvas = document.getElementById('spline-canvas');
-      import('https://unpkg.com/@splinetool/runtime@1.9.98/build/runtime.js').then(({ Application }) => {
-        const app = new Application(canvas);
-        app.load('https://prod.spline.design/nHtoIJsfMjuKN2R0/scene.splinecode').then(() => {
-          const loader = document.getElementById('spline-loader');
-          if (loader) loader.classList.add('loaded');
-          const cam = app.findObjectByType('camera');
-          if (cam) cam.position.z = cam.position.z * 1.4;
-        });
-      });
+      // On mobile, just show the loader video, skip Spline 3D entirely
+      const loader = document.getElementById('spline-loader');
+      if (loader) loader.style.position = 'relative';
     }
   </script>
 
