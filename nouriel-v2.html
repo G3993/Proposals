@@ -796,7 +796,9 @@
       .tl-row { flex-direction: column; gap: 8px; }
       .tl-phase { min-width: unset; }
       .nav-links { display: none; }
-      .spline-section { display: none; }
+      .spline-section .spline-wrapper { display: none; }
+      .spline-section .spline-hint { display: none; }
+      .spline-section .spline-mobile-video { display: block !important; }
       .hw-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
       .hw-table { min-width: 600px; }
       .price-row { font-size: 0.9rem; flex-wrap: wrap; gap: 4px; }
@@ -856,6 +858,9 @@
     <div class="spline-hint">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 9 2 12 5 15"/><polyline points="9 5 12 2 15 5"/><polyline points="15 19 12 22 9 19"/><polyline points="19 9 22 12 19 15"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="12" y1="2" x2="12" y2="22"/></svg>
       Click &amp; drag to explore
+    </div>
+    <div class="spline-mobile-video" style="display:none;border-radius:24px;overflow:hidden;max-width:980px;margin:0 auto">
+      <video autoplay muted loop playsinline style="width:100%;display:block"><source src="https://pub-26ded2d3239743d8aaffae8fd29fa32a.r2.dev/shader_loop.mp4" type="video/mp4"></video>
     </div>
   </section>
 
