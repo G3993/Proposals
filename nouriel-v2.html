@@ -459,17 +459,27 @@
       border: none;
     }
     .carousel-nav {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      margin-top: 14px;
+      justify-content: center;
+      gap: 8px;
+      z-index: 3;
     }
     .carousel-btn {
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.12);
-      color: rgba(255,255,255,0.6);
-      width: 36px;
-      height: 36px;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.8);
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -477,12 +487,15 @@
       cursor: pointer;
       transition: all 0.2s;
       padding: 0;
+      z-index: 3;
     }
     .carousel-btn:hover {
-      background: rgba(255,255,255,0.14);
-      border-color: rgba(255,255,255,0.25);
+      background: rgba(0,0,0,0.7);
+      border-color: rgba(255,255,255,0.3);
       color: #fff;
     }
+    .carousel-btn.prev { left: 12px; }
+    .carousel-btn.next { right: 12px; }
     .carousel-caption {
       font-size: 0.9rem;
       color: rgba(255,255,255,0.5);
@@ -815,7 +828,7 @@
           <p class="greeting">Nouriel,</p>
           <p>Thanks again for the opportunity to perform on Sunday night. We had a blast co-creating with you, and are thrilled by the opportunity to work together to bring ETHEREA permanently into your beautiful home.</p>
           <p>As you have seen, ETHEREA's Imagination Engine is a dynamic, always-evolving creative intelligence that gives anyone the ability to instantly use their words to project their imagination in the space around them. We continue to discover new use cases and audiences for this technology, from musical performances, to animated poetry, to immersive audiovisual theatre, and believe that your prolific hosting will provide a living laboratory to demonstrate its immense potential while entertaining and inspiring your guests.</p>
-          <p>After some thought, Gonzo and I have concluded that installing a B300 inside an apartment is infeasible. They are only sold in nodes of eight which are soldered together, with cooling and power requirements that exceed residential capacity.</p>
+          <p>After some thought, we have concluded that installing a B300 inside an apartment is infeasible. They are only sold in nodes of eight which are soldered together, with cooling and power requirements that exceed residential capacity.</p>
           <p>On latency, we found that the network roundtrip for our remote provider in Finland currently averages between 200–300ms, while the overall time from when someone speaks to when they see their ideas on the screen is around 2–3 seconds. Most of the rest of that time is spent on AI inference. While we are constantly working to optimize inference time, it remains a bottleneck to latency that will not be solved by colocation. Further, GPU requirements for frontier models are constantly changing. As an example, Google Genie 3 currently requires 7 TPUs running in parallel in order to run, vs. the one B300 we're currently using to run ETHEREA.</p>
           <p>Even in a world where it was possible to purchase one B300, the economics would only start to make sense as you approach 24/7 utilization. For the use cases we've discussed, which are primarily when you are home and entertaining other people, we expect utilization to be much lower. For these reasons, we recommend a hosted model where ETHEREA manages the cloud infrastructure on your behalf. Your installation would have priority access to a dedicated GPU that spins up on demand, with the acquisition price including two years of unlimited usage.</p>
           <p>On the hardware side, we would install a local machine with an NVIDIA RTX PRO 6000 (NVIDIA's current top of the line professional GPU, with 96 GB of memory) that runs a smaller version of ETHEREA for ambient generation, as well as latency-critical workflows like audio reactivity and live video processing. Every session is recorded, building a living archive of everything ETHEREA creates in the space.</p>
@@ -840,6 +853,12 @@
             <div class="config-media-item active" data-mode="active">
               <div class="video-carousel" id="activeCarousel">
                 <div class="carousel-track">
+                  <button class="carousel-btn prev" onclick="carouselNav(-1)" aria-label="Previous">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+                  </button>
+                  <button class="carousel-btn next" onclick="carouselNav(1)" aria-label="Next">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+                  </button>
                   <div class="carousel-slide active" data-caption="Our installation at the 30 Years of New York Technology gala sponsored by Betaworks, Alleycorp, and Union Square Ventures">
                     <iframe src="https://www.youtube.com/embed/BjrzHGTwAY4" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
                   </div>
@@ -852,20 +871,14 @@
                   <div class="carousel-slide" data-caption="Moth StorySlam champion Kona Morris tells a story animated by ETHEREA at Florent Variety Show">
                     <iframe src="https://www.youtube.com/embed/XzTSqCImtnU" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
                   </div>
-                </div>
-                <div class="carousel-nav">
-                  <button class="carousel-btn" onclick="carouselNav(-1)" aria-label="Previous">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
-                  </button>
-                  <div class="carousel-dots">
-                    <div class="carousel-dot active" onclick="carouselGo(0)"></div>
-                    <div class="carousel-dot" onclick="carouselGo(1)"></div>
-                    <div class="carousel-dot" onclick="carouselGo(2)"></div>
-                    <div class="carousel-dot" onclick="carouselGo(3)"></div>
+                  <div class="carousel-nav">
+                    <div class="carousel-dots">
+                      <div class="carousel-dot active" onclick="carouselGo(0)"></div>
+                      <div class="carousel-dot" onclick="carouselGo(1)"></div>
+                      <div class="carousel-dot" onclick="carouselGo(2)"></div>
+                      <div class="carousel-dot" onclick="carouselGo(3)"></div>
+                    </div>
                   </div>
-                  <button class="carousel-btn" onclick="carouselNav(1)" aria-label="Next">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
-                  </button>
                 </div>
               </div>
             </div>
@@ -979,8 +992,7 @@
   <!-- Closing -->
   <section class="closing-section">
     <div class="fade-in">
-      <h2 class="closing-headline">"If you can dream it,<br>you can do it."</h2>
-      <p class="closing-sub">Walt Disney</p>
+      <h2 class="closing-headline">Let's dream together.</h2>
     </div>
   </section>
 
