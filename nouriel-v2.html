@@ -896,16 +896,13 @@
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
                   </button>
                   <div class="carousel-slide active" data-caption="Our installation at the 30 Years of New York Technology gala sponsored by Betaworks, Alleycorp, and Union Square Ventures">
-                    <iframe src="https://www.youtube.com/embed/BjrzHGTwAY4?controls=0&modestbranding=1&rel=0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+                    <iframe src="https://www.youtube-nocookie.com/embed/BjrzHGTwAY4?controls=0&modestbranding=1&rel=0&autoplay=1&mute=1" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
                   </div>
-                  <div class="carousel-slide" data-caption="James reads a poem animated by ETHEREA">
-                    <iframe src="https://www.youtube.com/embed/RFRVfpXyXW4?controls=0&modestbranding=1&rel=0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+                  <div class="carousel-slide" data-caption="James reads a poem animated by ETHEREA" data-video="https://www.youtube-nocookie.com/embed/RFRVfpXyXW4?controls=0&modestbranding=1&rel=0">
                   </div>
-                  <div class="carousel-slide" data-caption="Lauren Ducrey reads a poem animated by ETHEREA at Florent Variety Show">
-                    <iframe src="https://www.youtube.com/embed/SzAtz72l3YY?controls=0&modestbranding=1&rel=0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+                  <div class="carousel-slide" data-caption="Lauren Ducrey reads a poem animated by ETHEREA at Florent Variety Show" data-video="https://www.youtube-nocookie.com/embed/SzAtz72l3YY?controls=0&modestbranding=1&rel=0">
                   </div>
-                  <div class="carousel-slide" data-caption="Moth StorySlam champion Kona Morris tells a story animated by ETHEREA at Florent Variety Show">
-                    <iframe src="https://www.youtube.com/embed/XzTSqCImtnU?controls=0&modestbranding=1&rel=0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+                  <div class="carousel-slide" data-caption="Moth StorySlam champion Kona Morris tells a story animated by ETHEREA at Florent Variety Show" data-video="https://www.youtube-nocookie.com/embed/XzTSqCImtnU?controls=0&modestbranding=1&rel=0">
                   </div>
                   <div class="carousel-nav">
                     <div class="carousel-dots">
@@ -1107,7 +1104,7 @@
       });
     });
 
-    // Video carousel
+    // Video carousel — lazy-load iframes one at a time
     (function() {
       var carousel = document.getElementById('activeCarousel');
       var slides = carousel.querySelectorAll('.carousel-slide');
@@ -1116,14 +1113,36 @@
       var counterEl = document.getElementById('carouselCounter');
       var current = 0;
 
+      function loadSlide(slide) {
+        if (slide.querySelector('iframe')) return; // already loaded
+        var url = slide.getAttribute('data-video');
+        if (!url) return;
+        var iframe = document.createElement('iframe');
+        iframe.src = url;
+        iframe.allow = 'accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture';
+        iframe.allowFullscreen = true;
+        slide.appendChild(iframe);
+      }
+
+      function unloadSlide(slide) {
+        var iframe = slide.querySelector('iframe');
+        if (iframe && slide.getAttribute('data-video')) {
+          slide.removeChild(iframe);
+        }
+      }
+
       window.carouselGo = function(index) {
-        slides[current].classList.remove('active');
-        dots[current].classList.remove('active');
+        var prev = current;
+        slides[prev].classList.remove('active');
+        dots[prev].classList.remove('active');
         current = (index + slides.length) % slides.length;
+        loadSlide(slides[current]);
         slides[current].classList.add('active');
         dots[current].classList.add('active');
         captionEl.textContent = slides[current].getAttribute('data-caption');
         counterEl.textContent = (current + 1) + ' / ' + slides.length;
+        // unload previous after transition
+        setTimeout(function() { unloadSlide(slides[prev]); }, 600);
       };
 
       window.carouselNav = function(dir) {
