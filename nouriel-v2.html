@@ -1182,51 +1182,48 @@
   </script>
 
   <script type="module">
-    const canvas = document.getElementById('spline-canvas');
-    const splineSection = document.querySelector('.spline-section');
-    let splineLoaded = false;
+    if (window.innerWidth > 768) {
+      const canvas = document.getElementById('spline-canvas');
+      const splineSection = document.querySelector('.spline-section');
+      let splineLoaded = false;
 
-    function loadSpline() {
-      if (splineLoaded) return;
-      splineLoaded = true;
-      import('https://unpkg.com/@splinetool/runtime@1.9.98/build/runtime.js').then(({ Application }) => {
-        const app = new Application(canvas);
-        app.load('https://prod.spline.design/nHtoIJsfMjuKN2R0/scene.splinecode').then(() => {
-          // Hide loading state
-          const loader = document.getElementById('spline-loader');
-          if (loader) loader.classList.add('loaded');
+      function loadSpline() {
+        if (splineLoaded) return;
+        splineLoaded = true;
+        import('https://unpkg.com/@splinetool/runtime@1.9.98/build/runtime.js').then(({ Application }) => {
+          const app = new Application(canvas);
+          app.load('https://prod.spline.design/nHtoIJsfMjuKN2R0/scene.splinecode').then(() => {
+            const loader = document.getElementById('spline-loader');
+            if (loader) loader.classList.add('loaded');
+          });
+        });
+      }
 
-          // Zoom out on mobile
-          if (window.innerWidth <= 768) {
-            const cam = app.findObjectByType('camera');
-            if (cam) {
-              cam.position.z = cam.position.z * 1.4;
-            }
+      const splineObserver = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            loadSpline();
+            splineObserver.disconnect();
           }
         });
-      });
+      }, { rootMargin: '200px' });
+      splineObserver.observe(splineSection);
+
+      canvas.addEventListener('wheel', e => { e.stopImmediatePropagation(); }, true);
+    } else {
+      // On mobile, just show the loader video, skip Spline 3D entirely
+      const loader = document.getElementById('spline-loader');
+      if (loader) loader.style.position = 'relative';
     }
-
-    const splineObserver = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          loadSpline();
-          splineObserver.disconnect();
-        }
-      });
-    }, { rootMargin: '200px' });
-    splineObserver.observe(splineSection);
-
-    canvas.addEventListener('wheel', e => { e.stopImmediatePropagation(); }, true);
   </script>
 
   <script>
   (function(){
     var c = document.getElementById('mesh-bg');
+    var isMobile = window.innerWidth <= 768;
+    if (isMobile) { c.style.display = 'none'; return; }
     var gl = c.getContext('webgl') || c.getContext('experimental-webgl');
     if (!gl) return;
-
-    var isMobile = window.innerWidth <= 768;
     function resize() {
       var dpr = isMobile ? 1 : (window.devicePixelRatio || 1);
       c.width = window.innerWidth * dpr;
