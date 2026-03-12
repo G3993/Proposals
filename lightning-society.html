@@ -94,7 +94,7 @@
     /* -- Hero -- */
     .hero {
       text-align: center;
-      padding: 160px 24px 60px;
+      padding: 160px 24px 160px;
       position: relative;
       z-index: 1;
     }
@@ -141,7 +141,7 @@
       z-index: 1;
     }
     .section-text .inner {
-      max-width: 720px;
+      max-width: 1200px;
       margin: 0 auto;
     }
 
@@ -183,7 +183,7 @@
       font-size: clamp(17px, 2vw, 21px);
       line-height: 1.58;
       color: var(--gray-400);
-      max-width: 600px;
+      max-width: 720px;
       margin: 0 auto;
     }
     .section-body p + p { margin-top: 20px; }
@@ -239,6 +239,21 @@
       color: var(--white);
       margin-bottom: 12px;
       line-height: 1.2;
+    }
+    .shiny-title {
+      display: inline-block;
+      background: linear-gradient(90deg, #fff 0%, #fff 30%, #a1a1aa 50%, #fff 70%, #fff 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shiny-sweep 3s linear infinite;
+      font-size: 1.5rem;
+      letter-spacing: 0.04em;
+    }
+    @keyframes shiny-sweep {
+      0% { background-position: 200% center; }
+      100% { background-position: -200% center; }
     }
     .feature-desc {
       font-size: 0.95rem;
@@ -531,7 +546,6 @@
         <li><a href="#hardware">Hardware</a></li>
         <li><a href="#software">Software</a></li>
         <li><a href="#timeline">Timeline</a></li>
-        <li><a href="#economics">Economics</a></li>
       </ul>
     </div>
   </nav>
@@ -578,11 +592,11 @@
       </p>
       <p class="thesis-text" style="margin-top:40px">
         <span class="white">Your imagination, projected at the speed of thought.</span>
-        Speak, sing, move, and the room responds. Every surface becomes a canvas. Every voice becomes light. The entire room participates in a moment that will only happen once.
+        Speak, sing, move, and the room responds. Every surface becomes a canvas. Every voice becomes light.
       </p>
       <p class="thesis-text" style="margin-top:40px">
         <span class="white">Generative art is one of a kind by definition.</span>
-        Each performance is born live and will never repeat. You share something with the people in that room that can only exist in that room, on that night. It is yours and theirs alone.
+        Each performance is born live and will never repeat. It belongs to the people in that room, on that night.
       </p>
     </div>
   </section>
@@ -651,7 +665,7 @@
   <section id="programming" class="section-text">
     <div class="inner fade-in">
       <div class="eyebrow">Programming Integration</div>
-      <h2 class="section-headline">A live operating system<br>for generative creativity.</h2>
+      <h2 class="section-headline">An infinite canvas<br>for generative creativity.</h2>
       <div class="section-body">
         <p>Not an add-on for special nights. It powers the whole calendar — Tuesday corporate dinners to Saturday headliners. The system is already in place, so every new capability is something you can offer next weekend. Easier to book new acts, easier to sell to brands, easier to say yes to things nobody's tried before.</p>
       </div>
@@ -723,24 +737,23 @@
   <section id="software" class="section-text">
     <div class="inner fade-in">
       <div class="eyebrow">Software</div>
-      <h2 class="section-headline">The Imagination Engine.</h2>
+      <h2 class="section-headline">The OS of the<br>spatial canvas.</h2>
       <div class="section-body">
-        <p>General Semantics becomes your AV partner. The RTX PRO 6000 is the visual brain of the entire space — projection mapping every surface, Etherea and non-Etherea. Live streaming, recording, a living memory of everything that's come through the room. Gigabit hard line, zero latency, managed from a single interface.</p>
-        <p>We keep upgrading what it can do locally, augmented by the cloud. It gets better every month.</p>
+        <p>Three tools work together to turn every surface in the building into a programmable canvas. Etherea handles real-time AI generation. ShaderClaw handles offline, prerendered content. Easel maps it all onto the physical space — and lets you seamlessly swap between the two.</p>
       </div>
 
       <div class="feature-grid">
         <div class="feature-card">
-          <div class="feature-title">Visual Brain</div>
-          <div class="feature-desc">One workstation drives projection mapping, compositing, and generation across every surface in the building.</div>
+          <div class="feature-title"><span class="shiny-title">ETHEREA</span></div>
+          <div class="feature-desc">Real-time AI visuals from voice, music, and motion. Every performance is generated live and will never repeat. This is the engine behind every interactive moment.</div>
         </div>
         <div class="feature-card">
-          <div class="feature-title">Living Memory</div>
-          <div class="feature-desc">Every session gets recorded. The system remixes past performances into new ambient visuals on its own.</div>
+          <div class="feature-title"><span class="shiny-title" style="animation-delay:-1s">SHADERCLAW</span></div>
+          <div class="feature-desc">Generative graphics engine for prerendered and audio-reactive content. Shaders, 3D scenes, text effects — designed and dialed in ahead of time, ready to run on any surface.</div>
         </div>
         <div class="feature-card">
-          <div class="feature-title">Always Evolving</div>
-          <div class="feature-desc">We push updates that expand what the machine can do. What needs the cloud today runs locally tomorrow.</div>
+          <div class="feature-title"><span class="shiny-title" style="animation-delay:-2s">EASEL</span></div>
+          <div class="feature-desc">Projection mapping app that ties it all together. Map any surface, route any source, swap between Etherea and ShaderClaw mid-show. One interface for the entire building.</div>
         </div>
       </div>
     </div>
@@ -769,33 +782,6 @@
           <div class="feature-desc">AI musicians jamming live. AI singers harmonizing in real time. Every show unrepeatable. Nearly all compute local.</div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- Economics of GAI -->
-  <section id="economics" class="section-text">
-    <div class="inner fade-in">
-      <div class="eyebrow">Economics of GAI</div>
-      <h2 class="section-headline">Generative art installations<br>are an emerging asset class.</h2>
-      <div class="section-body">
-        <p>Venues that build this infrastructure now own the category. Etherea opens new event types, each with its own revenue line.</p>
-      </div>
-
-      <div class="feature-grid">
-        <div class="feature-card">
-          <div class="feature-title">Immersive Event Nights</div>
-          <div class="feature-desc">Poetry slams, storytelling, live music visualization, guided journeys. New ticketed formats. $150K–$400K/yr.</div>
-        </div>
-        <div class="feature-card">
-          <div class="feature-title">Private Event Premiums</div>
-          <div class="feature-desc">Premium add-on for private bookings — corporate, celebrations, launches. Custom visuals for each client. $100K–$300K/yr.</div>
-        </div>
-        <div class="feature-card">
-          <div class="feature-title">Brand Activations</div>
-          <div class="feature-desc">Bespoke generative worlds themed to a campaign, captured on video for social. $60K–$250K/yr.</div>
-        </div>
-      </div>
-
     </div>
   </section>
 
