@@ -326,6 +326,43 @@
       line-height: 1.6;
     }
 
+    /* -- Prompt cards -- */
+    .prompt-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 48px auto 0;
+      max-width: 820px;
+    }
+    .prompt-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    .prompt-card video {
+      aspect-ratio: 1 / 1;
+      border-radius: 16px;
+      object-fit: cover;
+      width: 100%;
+      display: block;
+    }
+    .prompt-label {
+      font-size: 0.9rem;
+      line-height: 1.4;
+      color: var(--gray-400);
+      font-style: italic;
+      text-align: center;
+      background: rgba(255,255,255,0.06);
+      padding: 10px 16px;
+      border-radius: 10px;
+      width: 100%;
+      min-height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
     /* -- Configurator -- */
     .configurator { margin-top: 56px; }
     .config-tabs {
@@ -770,7 +807,7 @@
   <section class="hero">
     <div class="fade-in">
       <h1 class="hero-title">ETHEREA</h1>
-      <p class="hero-chip">The Imagination Engine by General Semantics</p>
+      <p class="hero-chip">Giving Lightning Society SoHo an imagination.</p>
     </div>
   </section>
 
@@ -800,6 +837,55 @@
     </div>
   </section>
 
+  <!-- The Staircase -->
+  <section id="staircase" class="section-text">
+    <div class="inner fade-in">
+      <div class="eyebrow">The Spirit of the Staircase</div>
+      <h2 class="section-headline">A monument to<br>curiosity.</h2>
+      <div class="section-body">
+        <p>Lightning Society already lives by a powerful idea: <em>gatherings become generators through shared rituals, art, sound, and space.</em> We follow questions more than answers and see exploration as a form of devotion. The staircase makes that philosophy something you can see, hear, and feel.</p>
+        <p>Every day, a new creative prompt lights up the staircase. A single question, open-ended and playful, designed to unlock a moment of spontaneous creativity from anyone who walks by.</p>
+      </div>
+
+      <div class="prompt-cards">
+        <div class="prompt-card">
+          <video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;border-radius:16px"><source src="https://pub-26ded2d3239743d8aaffae8fd29fa32a.r2.dev/submarine.mp4" type="video/mp4"></video>
+          <div class="prompt-label">"Share a lyric from your favorite song."</div>
+        </div>
+        <div class="prompt-card">
+          <video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;border-radius:16px"><source src="https://pub-26ded2d3239743d8aaffae8fd29fa32a.r2.dev/royalfrog.mp4" type="video/mp4"></video>
+          <div class="prompt-label">"Put a frog in a ridiculous place."</div>
+        </div>
+        <div class="prompt-card">
+          <video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;border-radius:16px"><source src="https://pub-26ded2d3239743d8aaffae8fd29fa32a.r2.dev/dalmation.mp4" type="video/mp4"></video>
+          <div class="prompt-label">"Describe your childhood dog."</div>
+        </div>
+      </div>
+
+      <div class="section-body" style="margin-top:48px">
+        <p>Microphones embedded in each level capture every response. No app, no QR code, no account. Just your voice and a few seconds of your time. Speak, and the staircase comes alive. Light, color, and motion respond to what you say in real time.</p>
+        <p>Every response is archived, building a living collection of creative expression that grows richer over time. When the staircase is quiet, it replays fragments from its memory, cycling through voices and visuals from days and weeks past. The archive also feeds back into ETHEREA, so the community's collective imagination becomes a generative source for future performances.</p>
+        <p>The lobby offers the same interaction in a more open setting. People who want to engage without stopping on the stairs can do it from below, and when no one is on the staircase, the lobby projection keeps the experience alive. Two touchpoints, one living system.</p>
+        <p>This would be the first permanent generative art installation of its kind in New York, and the most beautiful staircase in the city.</p>
+      </div>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-title">Daily Prompt</div>
+          <div class="feature-desc">A new creative question every day that invites spontaneous expression from anyone who walks by. Ten seconds is all it takes.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-title">Voice Archive</div>
+          <div class="feature-desc">Every response is captured and stored. The staircase remembers, and replays its history as a generative visual stream when idle.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-title">Lobby Extension</div>
+          <div class="feature-desc">The same experience lives in the lobby. More coverage, less congestion, and a second way for people to contribute their voice.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Thesis -->
   <section id="thesis" class="thesis">
     <div class="fade-in">
@@ -817,100 +903,22 @@
     </div>
   </section>
 
-  <!-- Full-bleed: Video Demo -->
-  <div class="section-image fade-in">
-    <div class="section-image-inner">
-      <video autoplay muted loop playsinline style="width:100%;display:block">
-        <source src="etherea-demo.mp4" type="video/mp4">
-      </video>
-    </div>
-  </div>
-
-  <!-- Lightning Society x Etherea -->
-  <section id="partnership" class="section-text">
-    <div class="inner fade-in">
-      <div class="eyebrow">Lightning Society x ETHEREA</div>
-      <h2 class="section-headline">Where curiosity<br>meets culture.</h2>
-      <div class="section-body">
-        <p>Lightning Society is a cultural playground for the intellectually adventurous — a community where culture is made, not consumed. Stained glass, projection surfaces across multiple rooms, and a space built for participation and self-expression. We want to be your imagination partner.</p>
-        <p>This would be the first permanent generative art installation of its kind in New York. The earlier you start, the further ahead you stay.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Video pair -->
-  <div class="photo-pair fade-in">
-    <video autoplay muted loop playsinline style="width:100%;height:480px;object-fit:cover;border-radius:20px"><source src="etherea-reels.mp4" type="video/mp4"></video>
-    <video autoplay muted loop playsinline style="width:100%;height:480px;object-fit:cover;border-radius:20px"><source src="etherea-shaderloop.mp4" type="video/mp4"></video>
-  </div>
-
-  <!-- Audience -->
-  <section id="audience" class="section-text">
-    <div class="inner fade-in">
-      <div class="eyebrow">Audience</div>
-      <h2 class="section-headline">Everyone has a voice.<br>Etherea makes it visible.</h2>
-      <div class="section-body">
-        <p>The staircase gives every guest a glimpse of what's inside. Brands use that same signal as a preview of their activation. Performers — the heartbeat of this generative community — get supercharged. A musician walks up alone and suddenly has a full band behind them.</p>
-        <p>Etherea turns participation into self-expression. The moment you interact with it, you stop consuming and start creating. Everyone becomes a contributor.</p>
-      </div>
-
-      <div class="performer-row">
-        <div class="performer-avatar">
-          <div class="performer-tooltip"><div class="pt-name">The Vocalist</div><div class="pt-role">Live Singer</div></div>
-          <img src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=200&h=200&fit=crop&crop=face" alt="Vocalist">
-        </div>
-        <div class="performer-avatar">
-          <div class="performer-tooltip"><div class="pt-name">The Poet</div><div class="pt-role">Spoken Word</div></div>
-          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face" alt="Poet">
-        </div>
-        <div class="performer-avatar">
-          <div class="performer-tooltip"><div class="pt-name">The DJ</div><div class="pt-role">Electronic Music</div></div>
-          <img src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=200&h=200&fit=crop&crop=face" alt="DJ">
-        </div>
-        <div class="performer-avatar">
-          <div class="performer-tooltip"><div class="pt-name">The Dancer</div><div class="pt-role">Movement Artist</div></div>
-          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=200&fit=crop&crop=face" alt="Dancer">
-        </div>
-        <div class="performer-avatar">
-          <div class="performer-tooltip"><div class="pt-name">The Comic</div><div class="pt-role">Stand-up Comedy</div></div>
-          <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&h=200&fit=crop&crop=face" alt="Comic">
-        </div>
-        <div class="performer-avatar">
-          <div class="performer-tooltip"><div class="pt-name">The Brand</div><div class="pt-role">Activation Partner</div></div>
-          <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=200&h=200&fit=crop&crop=face" alt="Brand Partner">
-        </div>
-      </div>
-
-      <div class="feature-grid">
-        <div class="feature-card">
-          <div class="feature-title">Guests</div>
-          <div class="feature-desc">The room responds to the people in it. Movement becomes geometry, energy becomes light. You're part of it just by being there.</div>
-        </div>
-        <div class="feature-card">
-          <div class="feature-title">Brands</div>
-          <div class="feature-desc">Build worlds guests walk through, from the staircase preview to full-room immersion. Way beyond signage.</div>
-        </div>
-        <div class="feature-card">
-          <div class="feature-title">Performers</div>
-          <div class="feature-desc">A poet gets a visual world. A singer gets a generative band. A DJ gets a room that breathes with the beat. Nobody goes on stage alone.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- Performance photos -->
   <div class="photo-pair fade-in">
-    <img src="img-singer.jpg" alt="Singer performing with Etherea generative visuals">
     <img src="img-projection.jpg" alt="Generative projection responding to live performance">
+    <img src="img-singer.jpg" alt="Singer performing with Etherea generative visuals">
   </div>
 
-  <!-- Programming Integration -->
-  <section id="programming" class="section-text">
+  <!-- Beyond the Staircase -->
+  <section id="beyond" class="section-text">
     <div class="inner fade-in">
-      <div class="eyebrow">Programming Integration</div>
-      <h2 class="section-headline">A space for ideas<br>and shared experience.</h2>
+      <div class="eyebrow">Beyond the Staircase</div>
+      <h2 class="section-headline">A creativity amplifier<br>for your entire space.</h2>
       <div class="section-body">
-        <p>Not an add-on for special nights. It powers the whole calendar — Tuesday salons to Saturday headliners, thought leadership panels to immersive celebrations. The system is already in place, so every new capability is something you can offer next weekend. Easier to book new acts, easier to sell to brands, easier to say yes to things nobody's tried before.</p>
+        <p>The staircase shows the world your values. ETHEREA can do the same for every room in the building. It makes people who don't think of themselves as creative, creative. And it makes the most creative people in the world even more creative.</p>
+        <p>A poet speaks and the room becomes what they describe. A singer steps on stage alone and suddenly has a full visual band. A DJ's set paints trails of light across every surface. A dancer's gestures become form and color in real time.</p>
+        <p>For brands, ETHEREA builds entire worlds. A product launch becomes an environment guests walk through. A campaign becomes something people experience with their whole body. From the staircase preview to full-room immersion.</p>
+        <p>As the system grows in capability, it serves more and more of what brings people into your space. Tuesday salons, Saturday headliners, thought leadership panels, immersive celebrations. And because it runs continuously, Lightning Society becomes the first partner on a 24-hour generative live stream, powered by everything your community creates.</p>
       </div>
 
       <div class="configurator">
@@ -975,9 +983,9 @@
         </div>
 
         <div class="config-desc">
-          <div class="config-desc-item active" data-mode="active">Speak, sing, move — and the room responds in real time. Poetry, music, comedy, keynotes, dance. Every performance generates its own visuals live.</div>
+          <div class="config-desc-item active" data-mode="active">Speak, sing, move, and the room responds in real time. Poetry, music, comedy, keynotes, dance. Every performance generates its own visuals live.</div>
           <div class="config-desc-item" data-mode="ambient">Every session is recorded locally, building a living memory. When idle, ETHEREA remixes past creations into new ambient visuals across every surface.</div>
-          <div class="config-desc-item" data-mode="guide">A creative partner you can talk to. It can improvise a story, guide an audience through a world, or run a scripted performance — painting the room in real time.</div>
+          <div class="config-desc-item" data-mode="guide">A creative partner you can talk to. It can improvise a story, guide an audience through a world, or run a scripted performance, painting the room in real time.</div>
         </div>
       </div>
 
@@ -1010,10 +1018,12 @@
     </div>
   </section>
 
-  <!-- Full-bleed: Projection -->
+  <!-- Full-bleed: Video Demo -->
   <div class="section-image fade-in">
     <div class="section-image-inner">
-      <img src="img-projection.jpg" alt="Etherea generative flower projection with crowd">
+      <video autoplay muted loop playsinline style="width:100%;display:block">
+        <source src="etherea-demo.mp4" type="video/mp4">
+      </video>
     </div>
   </div>
 
@@ -1048,9 +1058,9 @@
   <section id="software" class="section-text">
     <div class="inner fade-in">
       <div class="eyebrow">Software</div>
-      <h2 class="section-headline">The OS of the<br>spatial canvas.</h2>
+      <h2 class="section-headline">The spatial<br>imagination OS.</h2>
       <div class="section-body">
-        <p>Three tools work together to turn every surface in the building into a programmable canvas. Etherea handles real-time AI generation. ShaderClaw handles offline, prerendered content. Easel maps it all onto the physical space — and lets you seamlessly swap between the two.</p>
+        <p>Three tools work together to turn every surface in the building into a programmable canvas. Etherea handles real-time AI generation. ShaderClaw handles offline, prerendered content. Easel maps it all onto the physical space and lets you seamlessly swap between the two.</p>
       </div>
 
       <div class="feature-grid">
@@ -1060,7 +1070,7 @@
         </div>
         <div class="feature-card">
           <div class="feature-title"><span class="shiny-title" style="animation-delay:-1s">SHADERCLAW</span></div>
-          <div class="feature-desc">Generative graphics engine for prerendered and audio-reactive content. Shaders, 3D scenes, text effects — designed and dialed in ahead of time, ready to run on any surface.</div>
+          <div class="feature-desc">Generative graphics engine for prerendered and audio-reactive content. Shaders, 3D scenes, text effects, designed and dialed in ahead of time, ready to run on any surface.</div>
         </div>
         <div class="feature-card">
           <div class="feature-title"><span class="shiny-title" style="animation-delay:-2s">EASEL</span></div>
