@@ -326,6 +326,157 @@
       line-height: 1.6;
     }
 
+    /* -- Configurator -- */
+    .configurator { margin-top: 56px; }
+    .config-tabs {
+      display: flex;
+      gap: 8px;
+      margin-top: 28px;
+      margin-bottom: 20px;
+      justify-content: center;
+    }
+    .config-item { flex-shrink: 0; }
+    .config-pill {
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      color: var(--white);
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+    .config-pill-label {
+      background: rgba(255,255,255,0.06);
+      border-radius: 40px;
+      padding: 14px 24px 14px 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      border: 1px solid transparent;
+      color: rgba(255,255,255,0.5);
+    }
+    .config-pill:hover .config-pill-label {
+      background: rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.7);
+    }
+    .config-item.active .config-pill-label {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.25);
+      color: #fff;
+    }
+    .config-pill-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 12px;
+      line-height: 1;
+      transition: all 0.3s ease;
+    }
+    .config-item.active .config-pill-icon {
+      border-color: rgba(255,255,255,0.6);
+      background: rgba(255,255,255,0.1);
+    }
+    .config-desc {
+      text-align: center;
+      max-width: 780px;
+      margin: 0 auto 32px;
+      min-height: 80px;
+    }
+    .config-desc-item {
+      display: none;
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: var(--gray-400);
+    }
+    .config-desc-item.active { display: block; }
+    .config-media { position: relative; width: 100%; }
+    .config-media-item { display: none; width: 100%; }
+    .config-media-item.active { display: block; }
+
+    /* -- Video carousel -- */
+    .video-carousel { position: relative; width: 100%; }
+    .carousel-track {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/9;
+      border-radius: 16px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.03);
+    }
+    .carousel-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+      pointer-events: none;
+    }
+    .carousel-slide.active {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+    .carousel-slide iframe { width: 100%; height: 100%; border: none; }
+    .carousel-nav {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      z-index: 3;
+    }
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.8);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      padding: 0;
+      z-index: 3;
+    }
+    .carousel-btn:hover {
+      background: rgba(0,0,0,0.7);
+      border-color: rgba(255,255,255,0.3);
+      color: #fff;
+    }
+    .carousel-btn.prev { left: 12px; }
+    .carousel-btn.next { right: 12px; }
+    .carousel-dots { display: flex; gap: 8px; }
+    .carousel-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .carousel-dot.active {
+      background: rgba(255,255,255,0.7);
+      transform: scale(1.3);
+    }
+
     /* -- Stats row -- */
     .stats-row {
       display: grid;
@@ -762,6 +913,74 @@
         <p>Not an add-on for special nights. It powers the whole calendar — Tuesday salons to Saturday headliners, thought leadership panels to immersive celebrations. The system is already in place, so every new capability is something you can offer next weekend. Easier to book new acts, easier to sell to brands, easier to say yes to things nobody's tried before.</p>
       </div>
 
+      <div class="configurator">
+        <div class="config-media">
+          <div class="config-media-item active" data-mode="active">
+            <div class="video-carousel" id="activeCarousel">
+              <div class="carousel-track">
+                <button class="carousel-btn prev" onclick="carouselNav(-1)" aria-label="Previous">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+                </button>
+                <button class="carousel-btn next" onclick="carouselNav(1)" aria-label="Next">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+                </button>
+                <div class="carousel-slide active" data-caption="Our installation at the 30 Years of New York Technology gala sponsored by Betaworks, Alleycorp, and Union Square Ventures">
+                  <video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"><source src="https://pub-26ded2d3239743d8aaffae8fd29fa32a.r2.dev/hero.mp4" type="video/mp4"></video>
+                </div>
+                <div class="carousel-slide" data-caption="James reads a poem animated by ETHEREA" data-video="https://www.youtube-nocookie.com/embed/RFRVfpXyXW4?controls=0&modestbranding=1&rel=0">
+                </div>
+                <div class="carousel-slide" data-caption="Lauren Ducrey reads a poem animated by ETHEREA at Florent Variety Show" data-video="https://www.youtube-nocookie.com/embed/SzAtz72l3YY?controls=0&modestbranding=1&rel=0">
+                </div>
+                <div class="carousel-slide" data-caption="Moth StorySlam champion Kona Morris tells a story animated by ETHEREA at Florent Variety Show" data-video="https://www.youtube-nocookie.com/embed/XzTSqCImtnU?controls=0&modestbranding=1&rel=0">
+                </div>
+                <div class="carousel-nav">
+                  <div class="carousel-dots">
+                    <div class="carousel-dot active" onclick="carouselGo(0)"></div>
+                    <div class="carousel-dot" onclick="carouselGo(1)"></div>
+                    <div class="carousel-dot" onclick="carouselGo(2)"></div>
+                    <div class="carousel-dot" onclick="carouselGo(3)"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="config-media-item" data-mode="ambient">
+            <div style="aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#000">
+              <video muted loop playsinline preload="none" style="width:100%;height:100%;object-fit:cover"><source src="https://pub-26ded2d3239743d8aaffae8fd29fa32a.r2.dev/shader_loop.mp4" type="video/mp4"></video>
+            </div>
+          </div>
+          <div class="config-media-item" data-mode="guide">
+            <div style="position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden">
+              <iframe data-src="https://www.youtube.com/embed/1XMIYZJc4XA?controls=0&modestbranding=1&rel=0" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+
+        <div class="config-tabs">
+          <div class="config-item active" data-mode="active">
+            <button class="config-pill">
+              <span class="config-pill-label"><span class="config-pill-icon">+</span> Active</span>
+            </button>
+          </div>
+          <div class="config-item" data-mode="ambient">
+            <button class="config-pill">
+              <span class="config-pill-label"><span class="config-pill-icon">+</span> Ambient</span>
+            </button>
+          </div>
+          <div class="config-item" data-mode="guide">
+            <button class="config-pill">
+              <span class="config-pill-label"><span class="config-pill-icon">+</span> Guided</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="config-desc">
+          <div class="config-desc-item active" data-mode="active">Speak, sing, move — and the room responds in real time. Poetry, music, comedy, keynotes, dance. Every performance generates its own visuals live.</div>
+          <div class="config-desc-item" data-mode="ambient">Every session is recorded locally, building a living memory. When idle, ETHEREA remixes past creations into new ambient visuals across every surface.</div>
+          <div class="config-desc-item" data-mode="guide">A creative partner you can talk to. It can improvise a story, guide an audience through a world, or run a scripted performance — painting the room in real time.</div>
+        </div>
+      </div>
+
       <div class="feature-grid">
         <div class="feature-card">
           <div class="feature-title">Musical Performances</div>
@@ -896,6 +1115,78 @@
   </section>
 
   <div style="height:48px"></div>
+
+  <!-- Configurator toggle + Carousel -->
+  <script>
+    // Lazy-load iframes
+    function loadIframe(container) {
+      container.querySelectorAll('iframe[data-src]').forEach(function(iframe) {
+        if (!iframe.src) iframe.src = iframe.getAttribute('data-src');
+      });
+    }
+
+    // Configurator pill toggle
+    document.querySelectorAll('.config-item').forEach(function(item) {
+      item.querySelector('.config-pill').addEventListener('click', function() {
+        document.querySelectorAll('.config-item').forEach(function(i) { i.classList.remove('active'); });
+        item.classList.add('active');
+        var mode = item.getAttribute('data-mode');
+        document.querySelectorAll('.config-desc-item').forEach(function(d) { d.classList.remove('active'); });
+        var descTarget = document.querySelector('.config-desc-item[data-mode="' + mode + '"]');
+        if (descTarget) descTarget.classList.add('active');
+        document.querySelectorAll('.config-media-item').forEach(function(m) { m.classList.remove('active'); });
+        var target = document.querySelector('.config-media-item[data-mode="' + mode + '"]');
+        if (target) {
+          target.classList.add('active');
+          loadIframe(target);
+          var video = target.querySelector('video');
+          if (video) video.play();
+        }
+      });
+    });
+
+    // Video carousel
+    (function() {
+      var carousel = document.getElementById('activeCarousel');
+      if (!carousel) return;
+      var slides = carousel.querySelectorAll('.carousel-slide');
+      var dots = carousel.querySelectorAll('.carousel-dot');
+      var current = 0;
+
+      function loadSlide(slide) {
+        if (slide.querySelector('iframe')) return;
+        var url = slide.getAttribute('data-video');
+        if (!url) return;
+        var iframe = document.createElement('iframe');
+        iframe.src = url;
+        iframe.allow = 'accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture';
+        iframe.allowFullscreen = true;
+        slide.appendChild(iframe);
+      }
+
+      function unloadSlide(slide) {
+        var iframe = slide.querySelector('iframe');
+        if (iframe && slide.getAttribute('data-video')) {
+          slide.removeChild(iframe);
+        }
+      }
+
+      window.carouselGo = function(index) {
+        var prev = current;
+        slides[prev].classList.remove('active');
+        dots[prev].classList.remove('active');
+        current = (index + slides.length) % slides.length;
+        loadSlide(slides[current]);
+        slides[current].classList.add('active');
+        dots[current].classList.add('active');
+        setTimeout(function() { unloadSlide(slides[prev]); }, 600);
+      };
+
+      window.carouselNav = function(dir) {
+        carouselGo(current + dir);
+      };
+    })();
+  </script>
 
   <!-- Scroll fade-in -->
   <script>
