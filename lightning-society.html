@@ -332,7 +332,7 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 16px;
       margin: 48px auto 0;
-      max-width: 820px;
+      max-width: 1200px;
     }
     .prompt-card {
       display: flex;
@@ -348,19 +348,108 @@
       display: block;
     }
     .prompt-label {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       line-height: 1.4;
-      color: var(--gray-400);
-      font-style: italic;
+      color: var(--white);
+      font-weight: 600;
       text-align: center;
-      background: rgba(255,255,255,0.06);
-      padding: 10px 16px;
-      border-radius: 10px;
+      padding: 12px 0;
       width: 100%;
-      min-height: 52px;
+      white-space: nowrap;
+    }
+
+    /* -- Hardware accordion -- */
+    .hw-accordion-toggle {
       display: flex;
       align-items: center;
       justify-content: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 14px 28px;
+      color: var(--white);
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin: 0 auto;
+      transition: background 0.2s;
+    }
+    .hw-accordion-toggle:hover {
+      background: rgba(255,255,255,0.1);
+    }
+    .hw-accordion-arrow {
+      transition: transform 0.3s;
+    }
+    .hw-accordion.open .hw-accordion-arrow {
+      transform: rotate(180deg);
+    }
+    .hw-accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+    .hw-accordion.open .hw-accordion-content {
+      max-height: 3000px;
+    }
+    .hw-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 28px;
+      text-align: left;
+      font-size: 0.85rem;
+    }
+    .hw-table th {
+      color: var(--gray-500);
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .hw-table td {
+      color: var(--gray-400);
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .hw-table td:first-child {
+      color: var(--white);
+      font-weight: 500;
+    }
+    .hw-table .r { text-align: right; }
+    .hw-section-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gray-500);
+      margin-top: 28px;
+      margin-bottom: 4px;
+      padding-left: 12px;
+      text-align: left;
+    }
+    .hw-section-label:first-child { margin-top: 20px; }
+
+    /* -- Expo chart -- */
+    .expo-chart {
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      padding: 24px;
+      overflow: hidden;
+    }
+    .expo-chart canvas {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    @keyframes blink-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
     }
 
     /* -- Configurator -- */
@@ -850,15 +939,15 @@
       <div class="prompt-cards">
         <div class="prompt-card">
           <video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;border-radius:16px"><source src="https://pub-26ded2d3239743d8aaffae8fd29fa32a.r2.dev/submarine.mp4" type="video/mp4"></video>
-          <div class="prompt-label">"Share a lyric from your favorite song."</div>
+          <div class="prompt-label">Share a lyric from your favorite song.</div>
         </div>
         <div class="prompt-card">
           <video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;border-radius:16px"><source src="https://pub-26ded2d3239743d8aaffae8fd29fa32a.r2.dev/royalfrog.mp4" type="video/mp4"></video>
-          <div class="prompt-label">"Put a frog in a ridiculous place."</div>
+          <div class="prompt-label">Put a frog in a ridiculous place.</div>
         </div>
         <div class="prompt-card">
           <video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;border-radius:16px"><source src="https://pub-26ded2d3239743d8aaffae8fd29fa32a.r2.dev/dalmation.mp4" type="video/mp4"></video>
-          <div class="prompt-label">"Describe your childhood dog."</div>
+          <div class="prompt-label">Describe your childhood dog.</div>
         </div>
       </div>
 
@@ -918,7 +1007,7 @@
         <p>The staircase shows the world your values. ETHEREA can do the same for every room in the building. It makes people who don't think of themselves as creative, creative. And it makes the most creative people in the world even more creative.</p>
         <p>A poet speaks and the room becomes what they describe. A singer steps on stage alone and suddenly has a full visual band. A DJ's set paints trails of light across every surface. A dancer's gestures become form and color in real time.</p>
         <p>For brands, ETHEREA builds entire worlds. A product launch becomes an environment guests walk through. A campaign becomes something people experience with their whole body. From the staircase preview to full-room immersion.</p>
-        <p>As the system grows in capability, it serves more and more of what brings people into your space. Tuesday salons, Saturday headliners, thought leadership panels, immersive celebrations. And because it runs continuously, Lightning Society becomes the first partner on a 24-hour generative live stream, powered by everything your community creates.</p>
+        <p>As the system grows in capability, it serves more and more of what brings people into your space. Thursday salons, Saturday headliners, thought leadership panels, immersive celebrations. And because it runs continuously, Lightning Society becomes the first partner on a 24-hour generative live stream, powered by everything your community creates.</p>
       </div>
 
       <div class="configurator">
@@ -1031,19 +1120,95 @@
   <section id="hardware" class="section-text">
     <div class="inner fade-in">
       <div class="eyebrow">Hardware</div>
-      <h2 class="section-headline">Hybrid compute.</h2>
+      <h2 class="section-headline">Powered by<br>frontier technology.</h2>
       <div class="section-body">
         <p>A local workstation runs everything that needs to feel instant. Cloud handles the heavy generative work. As models shrink, more moves local. The machine is modular and upgradeable.</p>
       </div>
 
-      <ul class="spec-list">
-        <li>NVIDIA RTX PRO 6000 Blackwell, 96 GB GDDR7</li>
-        <li>Three stained glass window projections</li>
-        <li>Ballroom and public space projection surfaces</li>
-        <li>Microphones and depth cameras for spatial awareness</li>
-        <li>iOS app for full venue control</li>
-        <li>All ambient surfaces run locally at zero marginal cost</li>
-      </ul>
+      <div class="hw-accordion" style="margin-top:48px">
+        <button class="hw-accordion-toggle" onclick="this.parentElement.classList.toggle('open')">
+          <span>View full hardware spec</span>
+          <svg class="hw-accordion-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="hw-accordion-content">
+          <div class="hw-section-label">Workstation</div>
+          <table class="hw-table">
+            <thead>
+              <tr><th>Component</th><th>Item</th><th>Spec</th><th class="r">Qty</th><th class="r">Unit</th><th class="r">Total</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>GPU</td><td>NVIDIA RTX PRO 6000 Blackwell</td><td>96 GB GDDR7 ECC</td><td class="r">1</td><td class="r">$8,900</td><td class="r">$8,900</td></tr>
+              <tr><td>CPU</td><td>Intel Core Ultra 9 285K</td><td>24-core, 5.7 GHz</td><td class="r">1</td><td class="r">$589</td><td class="r">$589</td></tr>
+              <tr><td>Motherboard</td><td>MSI MEG Z890 ACE</td><td>Z890, PCIe 5.0, WiFi 7</td><td class="r">1</td><td class="r">$599</td><td class="r">$599</td></tr>
+              <tr><td>RAM</td><td>128 GB DDR5-6400 (4×32)</td><td>Corsair Dominator</td><td class="r">1</td><td class="r">$520</td><td class="r">$520</td></tr>
+              <tr><td>Storage</td><td>4 TB NVMe Gen 5 SSD</td><td>Crucial T705</td><td class="r">1</td><td class="r">$380</td><td class="r">$380</td></tr>
+              <tr><td>PSU</td><td>Corsair HX1600i 1600 W</td><td>80+ Titanium</td><td class="r">1</td><td class="r">$350</td><td class="r">$350</td></tr>
+              <tr><td>Case</td><td>Phanteks Enthoo Pro 2</td><td>Full Tower</td><td class="r">1</td><td class="r">$200</td><td class="r">$200</td></tr>
+              <tr><td>Cooling</td><td>NZXT Kraken 360 AIO</td><td>360 mm</td><td class="r">1</td><td class="r">$180</td><td class="r">$180</td></tr>
+              <tr><td>OS</td><td>Windows 11 Pro</td><td>OEM</td><td class="r">1</td><td class="r">$200</td><td class="r">$200</td></tr>
+            </tbody>
+          </table>
+
+          <div class="hw-section-label">Displays</div>
+          <table class="hw-table">
+            <thead>
+              <tr><th>Component</th><th>Item</th><th>Spec</th><th class="r">Qty</th><th class="r">Unit</th><th class="r">Total</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Display</td><td>93" Large format TV</td><td>One per floor (staircase levels + lobby)</td><td class="r">3</td><td class="r">$4,500</td><td class="r">$13,500</td></tr>
+              <tr><td>Mount</td><td>Display wall mount</td><td>Low-profile fixed bracket</td><td class="r">3</td><td class="r">$200</td><td class="r">$600</td></tr>
+              <tr><td>Cables</td><td>SDI cable (long-run)</td><td>12G-SDI, per display</td><td class="r">3</td><td class="r">$120</td><td class="r">$360</td></tr>
+              <tr><td>Adapter</td><td>SDI to HDMI converter</td><td>12G-SDI input, HDMI output</td><td class="r">3</td><td class="r">$150</td><td class="r">$450</td></tr>
+            </tbody>
+          </table>
+
+          <div class="hw-section-label">Audio</div>
+          <table class="hw-table">
+            <thead>
+              <tr><th>Component</th><th>Item</th><th>Spec</th><th class="r">Qty</th><th class="r">Unit</th><th class="r">Total</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Microphone</td><td>Shure MV7</td><td>USB/XLR Dynamic</td><td class="r">4</td><td class="r">$249</td><td class="r">$996</td></tr>
+              <tr><td>Mount</td><td>Boom Arm / Mount</td><td>Low-profile, per mic</td><td class="r">4</td><td class="r">$35</td><td class="r">$140</td></tr>
+              <tr><td>Cables</td><td>XLR / USB cables</td><td>Shielded, per mic</td><td class="r">4</td><td class="r">$20</td><td class="r">$80</td></tr>
+            </tbody>
+          </table>
+
+          <div class="hw-section-label">Cameras</div>
+          <table class="hw-table">
+            <thead>
+              <tr><th>Component</th><th>Item</th><th>Spec</th><th class="r">Qty</th><th class="r">Unit</th><th class="r">Total</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Depth Camera</td><td>Intel RealSense D455</td><td>Depth, 87° FoV</td><td class="r">2</td><td class="r">$419</td><td class="r">$838</td></tr>
+              <tr><td>Mount</td><td>Camera mount</td><td>Discreet wall/ceiling</td><td class="r">2</td><td class="r">$40</td><td class="r">$80</td></tr>
+              <tr><td>Cables</td><td>USB 3.2 active extension</td><td>Per camera</td><td class="r">2</td><td class="r">$30</td><td class="r">$60</td></tr>
+            </tbody>
+          </table>
+
+          <div class="hw-section-label">Infrastructure</div>
+          <table class="hw-table">
+            <thead>
+              <tr><th>Component</th><th>Item</th><th>Spec</th><th class="r">Qty</th><th class="r">Unit</th><th class="r">Total</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Cables</td><td>Cable management kit</td><td>Raceways, ties, conduit</td><td class="r">1</td><td class="r">$150</td><td class="r">$150</td></tr>
+              <tr><td>Adapters</td><td>PCIe / USB adapters</td><td>As needed for peripherals</td><td class="r">1</td><td class="r">$60</td><td class="r">$60</td></tr>
+              <tr><td>Network</td><td>Ethernet switch</td><td>Gigabit, low-latency</td><td class="r">1</td><td class="r">$80</td><td class="r">$80</td></tr>
+            </tbody>
+          </table>
+
+          <div class="hw-section-label">Cloud Compute</div>
+          <table class="hw-table">
+            <thead>
+              <tr><th>Component</th><th>Item</th><th>Spec</th><th class="r">Qty</th><th class="r">Unit</th><th class="r">Total</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>GPU</td><td>NVIDIA B300 or later</td><td>On-demand, managed by ETHEREA</td><td class="r">1</td><td colspan="2" style="text-align:right;color:var(--gray-500);font-style:italic">To be discussed</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1084,23 +1249,27 @@
   <section id="timeline" class="section-text">
     <div class="inner fade-in">
       <div class="eyebrow">Timeline</div>
-      <h2 class="section-headline">Costs go down.<br>Capabilities go up.</h2>
+      <h2 class="section-headline">Creativity is<br>approaching takeoff.</h2>
       <div class="section-body">
-        <p>Each year, models get smaller and more capable. What requires frontier cloud GPUs today will run locally tomorrow.</p>
+        <p>We are at the inflection point. Creation is becoming live, spontaneous, and collaborative in real time. What comes next will redefine what a single person can conjure in the moment.</p>
       </div>
 
-      <div class="feature-grid">
+      <div class="expo-chart" style="margin-top:56px">
+        <canvas id="expoCanvas"></canvas>
+      </div>
+
+      <div class="feature-grid" style="margin-top:56px">
         <div class="feature-card">
-          <div class="feature-title">Year 1: Visual Spectacle</div>
-          <div class="feature-desc">Real-time visuals from speech, music, and motion. Ambient art on stained glass 24/7. Brand activations with custom worlds.</div>
+          <div class="feature-title">Now</div>
+          <div class="feature-desc">A voice becomes light. A song becomes a room. Real-time visuals from speech, music, and motion, generated live and never repeated.</div>
         </div>
         <div class="feature-card">
-          <div class="feature-title">Year 2: Interactive Intelligence</div>
-          <div class="feature-desc">AI that narrates, improvises, and responds. Ticketed immersive shows. Corporate experiences. Most compute moves local.</div>
+          <div class="feature-title">Soon</div>
+          <div class="feature-desc">AI that improvises alongside performers. A creative partner that listens, responds, and builds worlds in real time. Most compute moves local.</div>
         </div>
         <div class="feature-card">
-          <div class="feature-title">Year 3: AI Performers</div>
-          <div class="feature-desc">AI musicians jamming live. AI singers harmonizing in real time. Every show unrepeatable. Nearly all compute local.</div>
+          <div class="feature-title">Eventually</div>
+          <div class="feature-desc">A single violin creates an audiovisual symphony modulated by the audience's presence. AI performers jam live. Every moment unrepeatable.</div>
         </div>
       </div>
     </div>
@@ -1118,7 +1287,7 @@
   <!-- Closing CTA -->
   <section class="closing">
     <div class="fade-in">
-      <h2 class="closing-headline">Culture is made,<br>not consumed.</h2>
+      <h2 class="closing-headline">Culture is created,<br>not consumed.</h2>
       <p class="closing-sub">A partnership proposal from General Semantics.</p>
       <a href="mailto:james@generalsemantics.nyc" class="closing-cta">Get in touch</a>
     </div>
@@ -1254,6 +1423,221 @@
       const loader = document.getElementById('spline-loader');
       if (loader) loader.style.position = 'relative';
     }
+  </script>
+
+  <!-- Exponential creativity chart -->
+  <script>
+    (function() {
+      const canvas = document.getElementById('expoCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const dpr = window.devicePixelRatio || 1;
+      const W = 1100, H = 480;
+      canvas.width = W * dpr;
+      canvas.height = H * dpr;
+      canvas.style.width = '100%';
+      canvas.style.height = 'auto';
+      ctx.scale(dpr, dpr);
+
+      const pad = { top: 30, right: 40, bottom: 80, left: 40 };
+      const cw = W - pad.left - pad.right;
+      const ch = H - pad.top - pad.bottom;
+
+      // Hockey stick: long slow rise then sharp vertical knee
+      function expY(t) {
+        if (t < 0.72) {
+          // Gentle slope — visible but low
+          return 0.04 + 0.08 * (t / 0.72);
+        } else {
+          // Sharp vertical takeoff
+          var p = (t - 0.72) / 0.28;
+          return 0.12 + 0.88 * Math.pow(p, 2.2);
+        }
+      }
+
+      // "We are here" just past the knee
+      const hereT = 0.78;
+      const hereX = pad.left + hereT * cw;
+      const hereY = pad.top + ch - expY(hereT) * ch;
+
+      const milestones = [];
+
+      // Gradient: muted gray → blue → purple → magenta → orange → gold
+      function curveColor(t) {
+        var r, g, b;
+        if (t < 0.4) {
+          var p = t / 0.4;
+          r = Math.round(160 + p * 40);
+          g = Math.round(160 + p * 40);
+          b = Math.round(160 + p * 60);
+        } else if (t < 0.55) {
+          var p = (t - 0.4) / 0.15;
+          r = Math.round(200 - p * 160);
+          g = Math.round(200 - p * 80);
+          b = Math.round(220 + p * 35);
+        } else if (t < 0.7) {
+          var p = (t - 0.55) / 0.15;
+          r = Math.round(40 + p * 160);
+          g = Math.round(120 - p * 80);
+          b = 255;
+        } else if (t < 0.85) {
+          var p = (t - 0.7) / 0.15;
+          r = Math.round(200 + p * 55);
+          g = Math.round(40 + p * 20);
+          b = Math.round(255 - p * 135);
+        } else {
+          var p = (t - 0.85) / 0.15;
+          r = 255;
+          g = Math.round(60 + p * 160);
+          b = Math.round(120 - p * 60);
+        }
+        return 'rgb(' + Math.min(r,255) + ',' + Math.max(g,30) + ',' + Math.min(b,255) + ')';
+      }
+
+      let blinkAlpha = 1;
+      let blinkDir = -1;
+
+      function draw() {
+        ctx.clearRect(0, 0, W, H);
+
+        // Axes
+        ctx.strokeStyle = 'rgba(255,255,255,0.12)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(pad.left, pad.top);
+        ctx.lineTo(pad.left, pad.top + ch);
+        ctx.lineTo(pad.left + cw, pad.top + ch);
+        ctx.stroke();
+
+        // Y-axis label
+        ctx.save();
+        ctx.translate(18, pad.top + ch / 2);
+        ctx.rotate(-Math.PI / 2);
+        ctx.fillStyle = 'rgba(255,255,255,0.25)';
+        ctx.font = '600 11px -apple-system, sans-serif';
+        ctx.letterSpacing = '2px';
+        ctx.textAlign = 'center';
+        ctx.fillText('CREATIVE OUTPUT', 0, 0);
+        ctx.restore();
+
+        // Horizontal guide lines
+        ctx.strokeStyle = 'rgba(255,255,255,0.04)';
+        ctx.setLineDash([4, 8]);
+        for (let i = 1; i <= 3; i++) {
+          const gy = pad.top + ch - (i / 3) * ch;
+          ctx.beginPath();
+          ctx.moveTo(pad.left, gy);
+          ctx.lineTo(pad.left + cw, gy);
+          ctx.stroke();
+        }
+        ctx.setLineDash([]);
+
+        // Milestones on x-axis
+        ctx.font = '600 13px -apple-system, sans-serif';
+        ctx.textAlign = 'center';
+        milestones.forEach(function(m) {
+          const mx = pad.left + m.t * cw;
+          ctx.fillStyle = 'rgba(255,255,255,0.3)';
+          ctx.save();
+          ctx.letterSpacing = '1.5px';
+          ctx.fillText(m.label, mx, pad.top + ch + 28);
+          ctx.restore();
+          ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+          ctx.beginPath();
+          ctx.moveTo(mx, pad.top + ch);
+          ctx.lineTo(mx, pad.top + ch + 8);
+          ctx.stroke();
+        });
+
+        // Gradient curve (segment by segment)
+        var steps = 300;
+        ctx.lineWidth = 3;
+        ctx.lineJoin = 'round';
+        ctx.lineCap = 'round';
+        for (let i = 0; i < steps; i++) {
+          var t0 = i / steps;
+          var t1 = (i + 1) / steps;
+          var x0 = pad.left + t0 * cw;
+          var y0 = pad.top + ch - expY(t0) * ch;
+          var x1 = pad.left + t1 * cw;
+          var y1 = pad.top + ch - expY(t1) * ch;
+          ctx.beginPath();
+          ctx.moveTo(x0, y0);
+          ctx.lineTo(x1, y1);
+          ctx.strokeStyle = curveColor(t1);
+          ctx.stroke();
+        }
+
+        // Glow under the curve (gradient fill)
+        ctx.beginPath();
+        ctx.moveTo(pad.left, pad.top + ch);
+        for (let i = 0; i <= steps; i++) {
+          var t = i / steps;
+          var x = pad.left + t * cw;
+          var y = pad.top + ch - expY(t) * ch;
+          ctx.lineTo(x, y);
+        }
+        ctx.lineTo(pad.left + cw, pad.top + ch);
+        ctx.closePath();
+        var grd = ctx.createLinearGradient(pad.left, 0, pad.left + cw, 0);
+        grd.addColorStop(0, 'rgba(160,160,170,0.01)');
+        grd.addColorStop(0.3, 'rgba(160,170,200,0.02)');
+        grd.addColorStop(0.5, 'rgba(40,100,255,0.06)');
+        grd.addColorStop(0.62, 'rgba(100,40,255,0.10)');
+        grd.addColorStop(0.72, 'rgba(200,40,220,0.14)');
+        grd.addColorStop(0.82, 'rgba(255,60,120,0.18)');
+        grd.addColorStop(0.9, 'rgba(255,140,40,0.20)');
+        grd.addColorStop(1, 'rgba(255,220,60,0.22)');
+        ctx.fillStyle = grd;
+        ctx.fill();
+
+        // Vertical dashed line from dot down through x-axis
+        ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+        ctx.setLineDash([4, 6]);
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(hereX, hereY);
+        ctx.lineTo(hereX, pad.top + ch + 30);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Blinking
+        blinkAlpha += blinkDir * 0.018;
+        if (blinkAlpha <= 0.2) { blinkAlpha = 0.2; blinkDir = 1; }
+        if (blinkAlpha >= 1) { blinkAlpha = 1; blinkDir = -1; }
+
+        // Outer pulse — large
+        ctx.beginPath();
+        ctx.arc(hereX, hereY, 30, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255,255,255,' + (blinkAlpha * 0.06) + ')';
+        ctx.fill();
+
+        // Mid ring
+        ctx.beginPath();
+        ctx.arc(hereX, hereY, 18, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255,255,255,' + (blinkAlpha * 0.12) + ')';
+        ctx.fill();
+
+        // Dot
+        ctx.beginPath();
+        ctx.arc(hereX, hereY, 8, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255,255,255,' + blinkAlpha + ')';
+        ctx.fill();
+
+        // Label — centered below x-axis on the dashed line
+        ctx.fillStyle = 'rgba(255,255,255,' + blinkAlpha + ')';
+        ctx.font = '700 14px -apple-system, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.save();
+        ctx.letterSpacing = '2px';
+        ctx.fillText('WE ARE HERE', hereX, pad.top + ch + 50);
+        ctx.restore();
+
+        requestAnimationFrame(draw);
+      }
+
+      draw();
+    })();
   </script>
 
 
