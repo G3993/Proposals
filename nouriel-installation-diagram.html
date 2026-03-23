@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ETHEREA Installation — 6 E 1st St — System Diagram</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a0a0f;
+    color: #e0e0e8;
+    font-family: 'Inter', system-ui, sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .page {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 60px 40px 80px;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  header h1 {
+    font-size: 2.4rem;
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+
+  header h1 span {
+    font-weight: 600;
+    background: linear-gradient(135deg, #7b6cf6, #e87de8, #6cf6e3);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  header p {
+    font-size: 1rem;
+    color: #888;
+    letter-spacing: 0.15em;
+  }
+
+  /* ── DIAGRAM CANVAS ── */
+  .diagram {
+    position: relative;
+    width: 100%;
+    min-height: 1600px;
+  }
+
+  /* ── SECTION LABELS ── */
+  .section-label {
+    position: absolute;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #555;
+  }
+
+  /* ── NODES ── */
+  .node {
+    position: absolute;
+    border-radius: 16px;
+    padding: 22px 26px;
+    backdrop-filter: blur(20px);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .node:hover {
+    transform: translateY(-2px);
+  }
+
+  .node h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .node p, .node li {
+    font-size: 0.78rem;
+    color: #aaa;
+    line-height: 1.5;
+  }
+
+  .node ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .node ul li::before {
+    content: "›";
+    margin-right: 6px;
+    color: #666;
+  }
+
+  .node .tag {
+    display: inline-block;
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+
+  /* ── COLOR THEMES ── */
+  .node.compute {
+    background: rgba(123, 108, 246, 0.08);
+    border: 1px solid rgba(123, 108, 246, 0.25);
+  }
+  .node.compute h3 { color: #a99ff8; }
+  .node.compute .tag { background: rgba(123, 108, 246, 0.15); color: #a99ff8; }
+
+  .node.cloud {
+    background: rgba(108, 200, 246, 0.08);
+    border: 1px solid rgba(108, 200, 246, 0.25);
+  }
+  .node.cloud h3 { color: #8fd4f8; }
+  .node.cloud .tag { background: rgba(108, 200, 246, 0.15); color: #8fd4f8; }
+
+  .node.visual {
+    background: rgba(232, 125, 232, 0.08);
+    border: 1px solid rgba(232, 125, 232, 0.25);
+  }
+  .node.visual h3 { color: #e8a0e8; }
+  .node.visual .tag { background: rgba(232, 125, 232, 0.15); color: #e8a0e8; }
+
+  .node.audio {
+    background: rgba(246, 180, 108, 0.08);
+    border: 1px solid rgba(246, 180, 108, 0.25);
+  }
+  .node.audio h3 { color: #f6c87a; }
+  .node.audio .tag { background: rgba(246, 180, 108, 0.15); color: #f6c87a; }
+
+  .node.sensor {
+    background: rgba(108, 246, 200, 0.08);
+    border: 1px solid rgba(108, 246, 200, 0.25);
+  }
+  .node.sensor h3 { color: #8af6d0; }
+  .node.sensor .tag { background: rgba(108, 246, 200, 0.15); color: #8af6d0; }
+
+  .node.software {
+    background: rgba(246, 108, 130, 0.08);
+    border: 1px solid rgba(246, 108, 130, 0.25);
+  }
+  .node.software h3 { color: #f89aa8; }
+  .node.software .tag { background: rgba(246, 108, 130, 0.15); color: #f89aa8; }
+
+  .node.control {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+  .node.control h3 { color: #fff; }
+  .node.control .tag { background: rgba(255, 255, 255, 0.1); color: #ccc; }
+
+  .node.enclosure {
+    background: rgba(200, 180, 120, 0.08);
+    border: 1px solid rgba(200, 180, 120, 0.25);
+  }
+  .node.enclosure h3 { color: #d4c88a; }
+  .node.enclosure .tag { background: rgba(200, 180, 120, 0.15); color: #d4c88a; }
+
+  /* ── SVG CONNECTIONS ── */
+  svg.connections {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .node { z-index: 1; }
+
+  /* ── LEGEND ── */
+  .legend {
+    margin-top: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 30px;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.72rem;
+    color: #888;
+  }
+
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  /* ── MODES SECTION ── */
+  .modes {
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .mode-card {
+    padding: 24px;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .mode-card h4 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #ccc;
+  }
+
+  .mode-card p {
+    font-size: 0.75rem;
+    color: #777;
+    line-height: 1.6;
+  }
+
+  /* ── FLOW ARROW ── */
+  .flow-label {
+    position: absolute;
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: #555;
+    text-transform: uppercase;
+    background: #0a0a0f;
+    padding: 2px 8px;
+    border-radius: 4px;
+    z-index: 2;
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <header>
+    <h1><span>ETHEREA</span> Installation</h1>
+    <p>6 E 1st St &mdash; Full System Architecture</p>
+  </header>
+
+  <div class="diagram" id="diagram">
+
+    <!-- SVG Connections (drawn by JS) -->
+    <svg class="connections" id="svg"></svg>
+
+    <!-- ════════════════════════════════════════ -->
+    <!--  LAYER 1: CLOUD (top)                   -->
+    <!-- ════════════════════════════════════════ -->
+
+    <div class="section-label" style="top: 10px; left: 50%; transform: translateX(-50%);">Cloud Compute</div>
+
+    <div class="node cloud" id="cloud-gpu" style="top: 35px; left: 50%; transform: translateX(-50%); width: 320px;">
+      <span class="tag">Remote — Finland</span>
+      <h3>NVIDIA B300 GPU</h3>
+      <p>On-demand cloud compute</p>
+      <ul>
+        <li>Frontier model inference</li>
+        <li>Image &amp; video synthesis</li>
+        <li>Heavy generative workloads</li>
+        <li>2 years unlimited access</li>
+      </ul>
+      <p style="margin-top:8px; font-size:0.68rem; color:#666;">Latency: 200–300ms roundtrip</p>
+    </div>
+
+    <!-- ════════════════════════════════════════ -->
+    <!--  LAYER 2: SOFTWARE STACK                -->
+    <!-- ════════════════════════════════════════ -->
+
+    <div class="section-label" style="top: 250px; left: 50%; transform: translateX(-50%);">Software Layer</div>
+
+    <div class="node software" id="sw-etherea" style="top: 280px; left: 50%; transform: translateX(-50%); width: 300px;">
+      <span class="tag">Core Engine</span>
+      <h3>ETHEREA — Imagination Engine</h3>
+      <ul>
+        <li>Speech-to-visual pipeline</li>
+        <li>Motion-reactive generation</li>
+        <li>Music-reactive generation</li>
+        <li>Session recording &amp; playback</li>
+        <li>Ambient autonomous visuals</li>
+        <li>AI voice partner (future)</li>
+      </ul>
+    </div>
+
+    <div class="node software" id="sw-transcription" style="top: 280px; left: 30px; width: 240px;">
+      <span class="tag">Audio Processing</span>
+      <h3>Local Voice Transcription</h3>
+      <ul>
+        <li>Real-time speech-to-text</li>
+        <li>Latency-critical (local GPU)</li>
+        <li>Feeds ETHEREA pipeline</li>
+      </ul>
+    </div>
+
+    <div class="node software" id="sw-video" style="top: 280px; right: 30px; width: 240px;">
+      <span class="tag">Visual Processing</span>
+      <h3>Live Video &amp; Depth</h3>
+      <ul>
+        <li>Depth-map processing</li>
+        <li>Motion detection &amp; tracking</li>
+        <li>Real-time video compositing</li>
+      </ul>
+    </div>
+
+    <!-- ════════════════════════════════════════ -->
+    <!--  LAYER 3: OS / PLATFORM                 -->
+    <!-- ════════════════════════════════════════ -->
+
+    <div class="section-label" style="top: 465px; left: 50%; transform: translateX(-50%);">Platform</div>
+
+    <div class="node control" id="sw-os" style="top: 490px; left: 50%; transform: translateX(-50%); width: 260px;">
+      <span class="tag">Operating System</span>
+      <h3>Windows 11 Pro</h3>
+      <p>Local workstation OS — manages all hardware interfaces, GPU drivers, and network</p>
+    </div>
+
+    <div class="node control" id="sw-ios" style="top: 490px; right: 30px; width: 240px;">
+      <span class="tag">User Interface</span>
+      <h3>iOS Control App</h3>
+      <ul>
+        <li>Centralized system control</li>
+        <li>Mode switching</li>
+        <li>Mood / theme / style tuning</li>
+        <li>Session management</li>
+      </ul>
+    </div>
+
+    <!-- ════════════════════════════════════════ -->
+    <!--  LAYER 4: LOCAL COMPUTE (center)        -->
+    <!-- ════════════════════════════════════════ -->
+
+    <div class="section-label" style="top: 630px; left: 50%; transform: translateX(-50%);">Local Compute — Workstation</div>
+
+    <div class="node compute" id="hw-gpu" style="top: 660px; left: 50%; transform: translateX(-50%); width: 340px;">
+      <span class="tag">Graphics</span>
+      <h3>NVIDIA RTX PRO 6000 Blackwell</h3>
+      <p>96 GB GDDR7 ECC &mdash; $8,900</p>
+      <ul>
+        <li>Audio reactivity &amp; real-time response</li>
+        <li>Live video processing</li>
+        <li>Local voice transcription</li>
+        <li>Ambient generation (small models)</li>
+        <li>PCIe 5.0 interface</li>
+      </ul>
+    </div>
+
+    <div class="node compute" id="hw-cpu" style="top: 660px; left: 30px; width: 260px;">
+      <span class="tag">Processor</span>
+      <h3>Intel Core Ultra 9 285K</h3>
+      <p>24-core, 5.7 GHz &mdash; $589</p>
+      <ul>
+        <li>System orchestration</li>
+        <li>Multi-threaded workloads</li>
+        <li>Audio/video routing</li>
+      </ul>
+    </div>
+
+    <div class="node compute" id="hw-mobo" style="top: 660px; right: 30px; width: 260px;">
+      <span class="tag">Motherboard</span>
+      <h3>MSI MEG Z890 ACE</h3>
+      <p>Z890 chipset &mdash; $599</p>
+      <ul>
+        <li>PCIe 5.0 slots</li>
+        <li>WiFi 7 networking</li>
+        <li>DDR5 support</li>
+      </ul>
+    </div>
+
+    <div class="node compute" id="hw-ram" style="top: 865px; left: 120px; width: 230px;">
+      <span class="tag">Memory</span>
+      <h3>128 GB DDR5-6400</h3>
+      <p>4×32 GB Corsair Dominator &mdash; $520</p>
+    </div>
+
+    <div class="node compute" id="hw-storage" style="top: 865px; left: 50%; transform: translateX(-50%); width: 230px;">
+      <span class="tag">Storage</span>
+      <h3>4 TB NVMe Gen 5 SSD</h3>
+      <p>Crucial T705 &mdash; $380</p>
+      <ul>
+        <li>Session archive</li>
+        <li>Model weights</li>
+      </ul>
+    </div>
+
+    <div class="node compute" id="hw-psu" style="top: 865px; right: 120px; width: 230px;">
+      <span class="tag">Power</span>
+      <h3>Corsair HX1600i &mdash; 1600W</h3>
+      <p>80+ Titanium &mdash; $349.99</p>
+    </div>
+
+    <div class="node compute" id="hw-cooling" style="top: 975px; left: 200px; width: 230px;">
+      <span class="tag">Cooling</span>
+      <h3>NZXT Kraken 360 AIO</h3>
+      <p>360mm radiator &mdash; $179.99</p>
+    </div>
+
+    <div class="node compute" id="hw-case" style="top: 975px; right: 200px; width: 230px;">
+      <span class="tag">Chassis</span>
+      <h3>Phanteks Enthoo Pro 2</h3>
+      <p>Full tower &mdash; $199.99</p>
+    </div>
+
+    <!-- ════════════════════════════════════════ -->
+    <!--  LAYER 5: CUSTOM ENCLOSURE              -->
+    <!-- ════════════════════════════════════════ -->
+
+    <div class="node enclosure" id="hw-aquarium" style="top: 1080px; left: 50%; transform: translateX(-50%); width: 380px;">
+      <span class="tag">Custom Art Object</span>
+      <h3>Glass Aquarium Enclosure</h3>
+      <p>By Edoardo Cozzani &mdash; est. $12,000</p>
+      <ul>
+        <li>Custom glass-blown, water-cooled housing</li>
+        <li>Houses GPU as sculptural centerpiece</li>
+        <li>Refracts &amp; magnifies visuals through water + glass</li>
+        <li>Functions as art object, light source &amp; system brain</li>
+      </ul>
+    </div>
+
+    <!-- ════════════════════════════════════════ -->
+    <!--  LAYER 6: PERIPHERALS                   -->
+    <!-- ════════════════════════════════════════ -->
+
+    <div class="section-label" style="top: 1255px; left: 50%; transform: translateX(-50%);">Peripherals — Input &amp; Output</div>
+
+    <!-- PROJECTORS -->
+    <div class="node visual" id="hw-proj" style="top: 1290px; left: 50%; transform: translateX(-50%); width: 320px;">
+      <span class="tag">Visual Output</span>
+      <h3>UST Projectors &times; 4</h3>
+      <p>Ultra short throw, ceiling mount &mdash; $3,500 ea.</p>
+      <ul>
+        <li>Multi-surface projection</li>
+        <li>Day &amp; night capable</li>
+        <li>Ceiling-mounted brackets ($199.99 ea.)</li>
+        <li>Every surface becomes responsive canvas</li>
+      </ul>
+    </div>
+
+    <!-- CAMERAS -->
+    <div class="node sensor" id="hw-cam" style="top: 1290px; left: 30px; width: 270px;">
+      <span class="tag">Depth Sensing</span>
+      <h3>Intel RealSense D455 &times; 2</h3>
+      <p>Depth cameras, 87° FoV &mdash; $419 ea.</p>
+      <ul>
+        <li>Motion detection &amp; body tracking</li>
+        <li>Spatial awareness</li>
+        <li>Discreet wall/ceiling mounts ($39.99 ea.)</li>
+      </ul>
+    </div>
+
+    <!-- MICROPHONES -->
+    <div class="node audio" id="hw-mic" style="top: 1290px; right: 30px; width: 270px;">
+      <span class="tag">Audio Input</span>
+      <h3>Shure MV7 Mics &times; 3</h3>
+      <p>USB/XLR Dynamic &mdash; $249 ea.</p>
+      <ul>
+        <li>Voice capture for transcription</li>
+        <li>Music &amp; ambient audio input</li>
+        <li>Low-profile boom arms ($34.99 ea.)</li>
+      </ul>
+    </div>
+
+    <!-- ════════════════════════════════════════ -->
+    <!--  LAYER 7: THE ROOM                      -->
+    <!-- ════════════════════════════════════════ -->
+
+    <div class="node" id="the-room" style="top: 1490px; left: 50%; transform: translateX(-50%); width: 600px; border: 1px dashed rgba(255,255,255,0.12); background: rgba(255,255,255,0.015); border-radius: 20px; text-align: center;">
+      <p style="font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: #555;">The Living Space — 6 E 1st St</p>
+      <p style="margin-top: 6px; font-size: 0.78rem; color: #777;">Walls, ceiling &amp; surfaces become an immersive, responsive canvas<br>driven by voice, motion &amp; music</p>
+    </div>
+
+    <!-- FLOW LABELS -->
+    <div class="flow-label" style="top: 222px; left: 50%; transform: translateX(-50%);">internet ↕ 200-300ms</div>
+    <div class="flow-label" style="top: 440px; left: 50%; transform: translateX(-50%);">runs on</div>
+    <div class="flow-label" style="top: 620px; left: 50%; transform: translateX(-50%);">hardware ↓</div>
+    <div class="flow-label" style="top: 1056px; left: 50%; transform: translateX(-50%);">housed in ↓</div>
+    <div class="flow-label" style="top: 1235px; left: 50%; transform: translateX(-50%);">connected to ↓</div>
+
+  </div><!-- /diagram -->
+
+  <!-- ── LEGEND ── -->
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#7b6cf6;"></div> Local Compute</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#6cc8f6;"></div> Cloud Compute</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#e87de8;"></div> Visual Output</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#f6b46c;"></div> Audio Input</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#6cf6c8;"></div> Depth Sensing</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#f66c82;"></div> Software</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#fff;"></div> Platform / Control</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#c8b478;"></div> Custom Enclosure</div>
+  </div>
+
+  <!-- ── OPERATIONAL MODES ── -->
+  <div class="modes">
+    <div class="mode-card">
+      <h4>Active Mode</h4>
+      <p>Real-time speech-to-visual transformation. Supports free-form play, poetry reading, storytelling, musical performances, and standup comedy. End-to-end latency ~2–3 seconds from speech to visual.</p>
+    </div>
+    <div class="mode-card">
+      <h4>Ambient Mode</h4>
+      <p>Autonomous visual evolution running locally or via frontier models. Fine-tunable by mood, theme, or artist style. Sessions recorded locally and replayable as a living visual archive.</p>
+    </div>
+    <div class="mode-card">
+      <h4>Imagination Guide Mode</h4>
+      <p>Interactive AI voice partner that talks back. Enables improvised storytelling, interactive tours, educational content, and live scripted performances up to 2 hours. <em>(In development)</em></p>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<!-- ═══════════════════════════════════════════ -->
+<!--  Draw SVG connection lines                 -->
+<!-- ═══════════════════════════════════════════ -->
+<script>
+function drawConnections() {
+  const svg = document.getElementById('svg');
+  const diagram = document.getElementById('diagram');
+  svg.setAttribute('width', diagram.offsetWidth);
+  svg.setAttribute('height', diagram.offsetHeight);
+  svg.innerHTML = '';
+
+  const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+
+  // Gradient for cloud connection
+  const g1 = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
+  g1.setAttribute('id', 'grad-cloud');
+  g1.setAttribute('x1', '0'); g1.setAttribute('y1', '0');
+  g1.setAttribute('x2', '0'); g1.setAttribute('y2', '1');
+  g1.innerHTML = '<stop offset="0%" stop-color="#6cc8f6" stop-opacity="0.4"/><stop offset="100%" stop-color="#f66c82" stop-opacity="0.4"/>';
+  defs.appendChild(g1);
+
+  // Gradient for compute
+  const g2 = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
+  g2.setAttribute('id', 'grad-compute');
+  g2.setAttribute('x1', '0'); g2.setAttribute('y1', '0');
+  g2.setAttribute('x2', '0'); g2.setAttribute('y2', '1');
+  g2.innerHTML = '<stop offset="0%" stop-color="#f66c82" stop-opacity="0.3"/><stop offset="100%" stop-color="#7b6cf6" stop-opacity="0.3"/>';
+  defs.appendChild(g2);
+
+  svg.appendChild(defs);
+
+  function getCenter(id) {
+    const el = document.getElementById(id);
+    if (!el) return null;
+    const r = el.getBoundingClientRect();
+    const dr = diagram.getBoundingClientRect();
+    return {
+      x: r.left - dr.left + r.width / 2,
+      y: r.top - dr.top + r.height / 2,
+      top: r.top - dr.top,
+      bottom: r.top - dr.top + r.height,
+      left: r.left - dr.left,
+      right: r.left - dr.left + r.width
+    };
+  }
+
+  function drawLine(fromId, toId, color, dash) {
+    const a = getCenter(fromId);
+    const b = getCenter(toId);
+    if (!a || !b) return;
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('x1', a.x); line.setAttribute('y1', a.bottom);
+    line.setAttribute('x2', b.x); line.setAttribute('y2', b.top);
+    line.setAttribute('stroke', color);
+    line.setAttribute('stroke-width', '1.5');
+    line.setAttribute('stroke-opacity', '0.35');
+    if (dash) line.setAttribute('stroke-dasharray', dash);
+    svg.appendChild(line);
+  }
+
+  // Cloud → ETHEREA
+  drawLine('cloud-gpu', 'sw-etherea', '#6cc8f6', '6 4');
+
+  // Software internal
+  drawLine('sw-transcription', 'sw-etherea', '#f66c82');
+  drawLine('sw-video', 'sw-etherea', '#f66c82');
+
+  // ETHEREA → OS
+  drawLine('sw-etherea', 'sw-os', '#888');
+
+  // OS → GPU
+  drawLine('sw-os', 'hw-gpu', '#7b6cf6');
+
+  // GPU → Aquarium
+  drawLine('hw-gpu', 'hw-aquarium', '#c8b478', '4 4');
+
+  // Aquarium → Projectors (center)
+  drawLine('hw-aquarium', 'hw-proj', '#e87de8');
+
+  // GPU side connections
+  drawLine('hw-cpu', 'hw-gpu', '#7b6cf6');
+  drawLine('hw-mobo', 'hw-gpu', '#7b6cf6');
+
+  // Peripherals → Room
+  drawLine('hw-proj', 'the-room', '#e87de8', '4 4');
+  drawLine('hw-cam', 'the-room', '#6cf6c8', '4 4');
+  drawLine('hw-mic', 'the-room', '#f6b46c', '4 4');
+
+  // iOS app → ETHEREA
+  const ios = getCenter('sw-ios');
+  const eth = getCenter('sw-etherea');
+  if (ios && eth) {
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('x1', ios.left); line.setAttribute('y1', ios.y);
+    line.setAttribute('x2', eth.right); line.setAttribute('y2', eth.y);
+    line.setAttribute('stroke', '#888');
+    line.setAttribute('stroke-width', '1.5');
+    line.setAttribute('stroke-opacity', '0.25');
+    line.setAttribute('stroke-dasharray', '6 4');
+    svg.appendChild(line);
+  }
+}
+
+window.addEventListener('load', drawConnections);
+window.addEventListener('resize', drawConnections);
+</script>
+
+</body>
+</html>
